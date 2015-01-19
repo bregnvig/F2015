@@ -8,7 +8,7 @@ angular.module('f2015.header', [])
       controller: function($scope, $mdSidenav) {
         $scope.toggleMenu = function() {
           console.log('Is open' + $mdSidenav('drawer').isOpen());
-          //$mdSidenav('drawer').toggle();
+          $mdSidenav('drawer').toggle();
         };
       }
     };

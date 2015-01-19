@@ -7,7 +7,6 @@ angular
     'ngResource',
     'ngMaterial',
     'config',
-    'ngTouch',
     'ui.router',
     'f2015.home',
     'f2015.header',
