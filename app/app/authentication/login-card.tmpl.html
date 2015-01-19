@@ -1,0 +1,24 @@
+<md-card class="md-whiteframe-z1">
+  <md-toolbar class="md-hue-2">
+    <h2 class="md-toolbar-tools">
+      <span flex>Log ind for at være med</span>
+    </h2>
+  </md-toolbar>
+  <md-card-content>
+    <md-content class="md-padding" layout="row" layout-sm="column">
+      <md-input-container flex>
+        <label for="input_user">Brugernavn</label>
+        <input ng-model="user.userName" ng-focus="" class="ng-pristine ng-untouched ng-valid md-input" tabindex="0" id="input_user" aria-invalid="false">
+      </md-input-container>
+      <md-input-container flex>
+        <label for="input_password">Adgangskode</label>
+        <input ng-model="user.password" type="password" class="ng-pristine ng-untouched ng-invalid md-input" tabindex="0" id="input_password" aria-invalid="false">
+      </md-input-container>
+    </md-content>
+    <div layout="row" layout-align="end center">
+      <md-button class="md-accent md-raised" ng-click="login()" aria-label="Log ind">
+        Log ind
+      </md-button>
+    </div>
+  </md-card-content>
+</md-card>
