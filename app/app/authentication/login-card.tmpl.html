@@ -1,22 +1,26 @@
 <md-card class="md-whiteframe-z1">
-  <md-toolbar class="md-hue-2">
+  <md-toolbar>
     <h2 class="md-toolbar-tools">
       <span flex>Log ind for at være med</span>
     </h2>
   </md-toolbar>
   <md-card-content>
-    <md-content class="md-padding" layout="row" layout-sm="column">
-      <md-input-container flex>
+    <md-content class="md-padding">
+      <md-input-container>
         <label for="input_user">Brugernavn</label>
-        <input ng-model="user.userName" ng-focus="" class="ng-pristine ng-untouched ng-valid md-input" tabindex="0" id="input_user" aria-invalid="false">
+        <input ng-model="loginCard.userName" ng-focus="" class="ng-pristine ng-untouched ng-valid md-input" tabindex="0"
+               id="input_user" aria-invalid="false">
       </md-input-container>
-      <md-input-container flex>
+      <md-input-container>
         <label for="input_password">Adgangskode</label>
-        <input ng-model="user.password" type="password" class="ng-pristine ng-untouched ng-invalid md-input" tabindex="0" id="input_password" aria-invalid="false">
+        <input ng-model="loginCard.password" type="password" class="ng-pristine ng-untouched ng-invalid md-input"
+               tabindex="0" id="input_password" aria-invalid="false">
       </md-input-container>
+      <md-checkbox class="md-primary" ng-model="loginCard.rememberMe" aria-label="Husk mig">Husk mig</md-checkbox>
     </md-content>
     <div layout="row" layout-align="end center">
-      <md-button class="md-accent md-raised" ng-click="login()" aria-label="Log ind">
+      <md-button class="md-accent md-raised" ng-click="loginCard.login()" aria-label="Log ind"
+                 ng-disabled="!loginCard.userName || !loginCard.password">
         Log ind
       </md-button>
     </div>

@@ -1,0 +1,16 @@
+<md-content style="position: absolute;" layout-fill>
+  <md-list>
+    <md-item ng-repeat="movement in account.account.get.entries">
+      <md-item-content>
+        <div class="md-tile-content">
+          <h3>{{movement.message}}</h3>
+          <p>{{movement.date |  amCalendar}}</p>
+        </div>
+        <div class="md-tile-right" style="padding-right: 16px">
+          <h3>{{movement.amount}} kr</h3>
+        </div>
+      </md-item-content>
+      <md-divider ng-if="!$last"></md-divider>
+    </md-item>
+  </md-list>
+</md-content>
