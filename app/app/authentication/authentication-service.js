@@ -1,14 +1,13 @@
 'use strict';
 
 angular.module('f2015.authentication', ['ngResource', 'config'])
-  .factory('authenticationService', ['$window', '$rootScope', '$http', '$resource', 'ENV', function($window, $rootScope, $http, $resource, ENV) {
+  .factory('authenticationService', ['$window', '$rootScope', '$resource', 'ENV', function($window, $rootScope, $resource, ENV) {
 
     var resource = $resource(ENV.apiEndpoint + '/ws/login/:userName/:password');
     var credentials;
 
     function loggedIn(value) {
       credentials = value;
-      $http.defaults.headers.common.Authorization = 'Basic ' + $window.btoa(credentials.playername+':'+credentials.token);
       $rootScope.$broadcast('login-successful', credentials);
     }
 
