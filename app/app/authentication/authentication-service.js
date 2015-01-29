@@ -36,6 +36,9 @@ angular.module('f2015.authentication', ['ngResource', 'config'])
       },
       get loggedIn() {
         return !!credentials;
+      },
+      get credentials() {
+        return credentials;
       }
 
     };

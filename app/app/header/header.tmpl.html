@@ -1,6 +1,6 @@
-<md-toolbar class="md-tall header">
-  <h1 class="md-toolbar-tools">
-    <span flex><strong ng-bind="header.seasonName"></strong></span>
+<md-toolbar class="header">
+  <h1 class="md-toolbar-tools" >
+    <span flex><i class="fa fa-flag-checkered fa-lg"></i> <strong ng-bind="header.seasonName"></strong></span>
     <md-button aria-label="Menu" ng-click="header.toggleMenu()" class="menu-button" ng-disabled="!header.credentials"><i class="fa fa-fw fa-lg fa-bars"></i></md-button>
   </h1>
 </md-toolbar>
@@ -15,7 +15,7 @@
     <md-button class="md-primary" ui-sref="races" ng-click="header.toggleMenu()">
       <i class="fa fa-fw fa-flag-checkered fa-lg"></i> Løb
     </md-button>
-    <md-button class="md-primary" ui-sref="f2015" ng-click="header.toggleMenu()">
+    <md-button class="md-primary" ui-sref="wbc" ng-click="header.toggleMenu()">
       <i class="fa fa-fw fa-trophy fa-lg"></i> WBC
     </md-button>
     <md-button class="md-primary" ui-sref="f2015" ng-click="header.toggleMenu()">

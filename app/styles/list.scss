@@ -1,0 +1,9 @@
+button.md-button {
+  &.list-item {
+    width: 100%;
+    text-align: left;
+  }
+  p {
+    text-transform: none;
+  }
+}

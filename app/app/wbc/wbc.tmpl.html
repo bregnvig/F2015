@@ -1,11 +1,10 @@
 <md-content style="position: absolute;" layout-fill>
   <md-list>
-    <md-item ng-repeat="race in races.races.all">
+    <md-item ng-repeat="entry in wbc.standing">
       <md-item-content>
-          <md-button class="list-item">
+          <md-button class="list-item" ui-sref="wbc-player({player: entry.player.playername})">
             <div class="md-tile-content" >
-              <h3><strong>{{race.name}}</strong></h3>
-              <p ng-if="race.completed">Afsluttet</p>
+              <h3><strong>{{entry.player | playerName}}</strong><span class="pull-right">{{entry.points}}</span></h3>
             </div>
           </md-button>
       </md-item-content>

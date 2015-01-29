@@ -8,7 +8,6 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css" />
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
     <!-- endbower -->
     <!-- endbuild -->
@@ -36,21 +35,24 @@
     <script src="bower_components/hammerjs/hammer.js"></script>
     <script src="bower_components/angular-material/angular-material.js"></script>
     <script src="bower_components/moment/moment.js"></script>
-    <script src="bower_components/moment/locale/da.js"></script>
     <script src="bower_components/angular-moment/angular-moment.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="app/app.js"></script>
-        <script src="app/common/model/race-model.js"></script>
-        <script src="app/account/account-service.js"></script>
         <script src="app/authentication/authentication-service.js"></script>
+        <script src="app/common/resource.js"></script>
+        <script src="app/common/common-filters.js"></script>
+        <script src="app/common/model/race-model.js"></script>
+        <script src="app/common/model/wbc-model.js"></script>
+        <script src="app/account/account-service.js"></script>
         <script src="app/home/home.js"></script>
         <script src="app/authentication/login-directive.js"></script>
         <script src="app/account/account.js"></script>
         <script src="app/header/header.js"></script>
         <script src="app/race/races.js"></script>
+        <script src="app/wbc/wbc.js"></script>
         <script src="app/config.js" />
         <!-- endbuild -->
 </body>

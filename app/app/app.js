@@ -10,16 +10,21 @@ angular
     'config',
     'ui.router',
     'f2015.home',
+    'f2015.common-filter',
     'f2015.model.race',
+    'f2015.model.wbc',
     'f2015.header',
     'f2015.account',
     'f2015.race',
+    'f2015.wbc',
     'f2015.authentication'
   ])
-  .config(['$stateProvider', '$urlRouterProvider', '$mdThemingProvider', '$httpProvider', function($stateProvider, $urlRouterProvider, $mdThemingProvider, $httpProvider) {
+  .config(['$locationProvider', '$stateProvider', '$urlRouterProvider', '$mdThemingProvider', '$httpProvider', function($locationProvider, $stateProvider, $urlRouterProvider, $mdThemingProvider, $httpProvider) {
+
+    //$locationProvider.html5Mode(true);
 
     $mdThemingProvider.theme('default')
-      .primaryColor('blue')
+      .primaryColor('indigo')
       .accentColor('orange');
 
     $stateProvider
@@ -36,9 +41,19 @@ angular
         url: '/race',
         templateUrl: 'app/race/races.tmpl.html',
         controller: 'RacesCtrl as races'
+      })
+      .state('wbc', {
+        url: '/wbc',
+        templateUrl: 'app/wbc/wbc.tmpl.html',
+        controller: 'WbcCtrl as wbc'
+      })
+      .state('wbc-player', {
+        url: '/wbc/:player',
+        templateUrl: 'app/wbc/player.tmpl.html',
+        controller: 'WbcPlayerCtrl as wbcPlayer'
       });
 
-    $urlRouterProvider.otherwise('/');
+    //$urlRouterProvider.otherwise('/');
 
     var regexMilliseconds = /^\d{10}000$/;
     function convertDateMillisecondsToDates(input) {

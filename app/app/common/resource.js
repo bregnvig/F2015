@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('f2015.resource', ['ngResource', 'f2105.authentication'])
+angular.module('f2015.resource', ['ngResource', 'f2015.authentication'])
   .factory('secureResource', ['$window', '$rootScope', '$resource', 'authenticationService', function($window, $rootScope, $resource, authenticationService) {
 
     var defaultActions = {
@@ -34,9 +34,10 @@ angular.module('f2015.resource', ['ngResource', 'f2105.authentication'])
 
       var proxy = {};
 
-      Object.getOwnPropertyNames(actions).forEach(function(property) {
-        var action = actions[property];
-        proxy[property] = addProxyAction(action.isArray);
+      Object.getOwnPropertyNames(actions).forEach(function(actionName) {
+        var action = actions[actionName];
+        proxy[actionName+'-metadata'] = addProxyAction(action.isArray);
+        proxy[actionName] = proxy[actionName+'-metadata'].action;
       });
       return proxy;
     }
@@ -44,41 +45,56 @@ angular.module('f2015.resource', ['ngResource', 'f2105.authentication'])
     function addProxyAction(isArray) {
       var invocations = [];
       var action;
-      return function() {
-        function getInvocations() {
+      return {
+        get invocations() {
           return invocations;
-        }
-        function setAction(value) {
+        },
+        set real(value) {
           action = value;
-        }
-        if (!action) {
-          var invocation = {
-            arguments: arguments,
-            result: isArray ? [] : {}
-          };
-          invocations.push(invocation);
-          return invocation.result;
-        } else {
-          return action.apply(undefined, arguments);
+        },
+        get real() {
+          return action;
+        },
+        action: function() {
+          if (!action) {
+            var invocation = {
+              arguments: arguments,
+              result: isArray ? [] : {}
+            };
+            invocations.push(invocation);
+            return invocation.result;
+          } else {
+            return action.apply(undefined, arguments);
+          }
         }
       };
     }
 
     function getResourceReal(url, paramDefaults, actions, options) {
-      actions = angular.extend({}, defaultActions, actions);
+      actions = actions || defaultActions;
       return $resource(url, paramDefaults, addCredentials(actions), options);
     }
 
-    $rootScope.$watch('login-successful', function (credentials) {
-      Object.getOwnPropertyNames(resources).forEach(function(resource) {
+    function lazyExecutedAction(metadata, invocation) {
+      metadata.real.apply(undefined, invocation.arguments).$promise.then(function(result) {
+        angular.copy(result, invocation.result);
+        console.log('Invocation result', invocation.result);
+      });
+    }
+
+    $rootScope.$on('login-successful', function (event, credentials) {
+      console.log('Credentials', credentials);
+      Object.getOwnPropertyNames(resources).forEach(function(resourceName) {
+        var resource = resources[resourceName];
         var real = getResourceReal.apply(undefined, resource.arguments);
         Object.getOwnPropertyNames(resource.proxy).forEach(function(actionName) {
-          resource.proxy.setAction(real[actionName]);
-          resource.proxy.getInvocations().forEach(function(invocation) {
-            real[actionName](invocation.arguments).then(function(result) {
-              angular.copy(invocation.result, result);
-            });
-          });
+          if (!actionName.match(/-metadata$/)) {
+            var metadata = resource.proxy[actionName+'-metadata'];
+            metadata.real = real[actionName];
+            while (metadata.invocations.length) {
+              lazyExecutedAction(metadata, metadata.invocations.shift());
+            }
+          }
         });
       });
     });
@@ -86,12 +102,13 @@ angular.module('f2015.resource', ['ngResource', 'f2105.authentication'])
     function resourceFactory(url, paramDefaults, actions, options) {
 
       if (authenticationService.loggedIn) {
-        return getResourceReal(url, paramDefaults, actions, options);
+        console.log('Getting the real resource since we are logged in');
+        return getResourceReal(url, paramDefaults, angular.extend({}, defaultActions, actions), options);
       } else {
-        actions = angular.extend({}, defaultActions, actions);
+        console.log('Getting the proxy resource since we are not logged in');
         resources[url] = {
           arguments: arguments,
-          proxy: getResourceProxy(actions)
+          proxy: getResourceProxy(angular.extend({}, defaultActions, actions))
         };
         return resources[url].proxy;
       }
