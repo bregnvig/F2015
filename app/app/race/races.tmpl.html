@@ -5,7 +5,7 @@
           <md-button class="list-item">
             <div class="md-tile-content" >
               <h3><strong>{{race.name}}</strong></h3>
-              <p ng-if="race.completed">Afsluttet</p>
+              <p ng-if="race.completed">{{race | raceStatus}}</p>
             </div>
           </md-button>
       </md-item-content>

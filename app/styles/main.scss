@@ -35,6 +35,11 @@
     margin-right: 16px;
   }
 }
+
+.md-button.md-fab.md-fab-bottom-right {
+  position: fixed;
+}
+
 .marketing {
   margin-bottom: 16px;
 }
@@ -49,6 +54,13 @@
     min-width: 8em;
     min-height: 2em;
   }
+}
+
+loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 /* Responsive: Portrait tablets and up */

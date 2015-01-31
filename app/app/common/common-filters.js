@@ -3,7 +3,7 @@
 angular.module('f2015.common-filter', [])
   .filter('playerName', [function() {
     return function(player) {
-      if (player.hasOwnProperty('firstName') && player.hasOwnProperty('lastName')) {
+      if (player && player.hasOwnProperty('firstName') && player.hasOwnProperty('lastName')) {
         var result = player.firstName || '';
         if (result.length > 0) {
           result += ' ';
@@ -15,4 +15,22 @@ angular.module('f2015.common-filter', [])
       }
       return player ? player.toSource() : '';
     };
+  }])
+  .filter('raceStatus', [function() {
+    return function(race) {
+      if (race && race.hasOwnProperty('completed')) {
+        if (race.completed) {
+          return 'Afsluttet';
+        } else if (race.opened) {
+          return 'Åbent';
+        } else if(race.closed) {
+          return 'Afventer resultat';
+        } else {
+          return 'Lukket';
+        }
+
+      }
+      return '';
+    };
+
   }]);

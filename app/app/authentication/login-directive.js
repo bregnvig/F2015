@@ -7,10 +7,10 @@ angular.module('f2015.authentication')
       templateUrl: 'app/authentication/login-card.tmpl.html',
       controller: 'LoginCardCtrl as loginCard',
       link: function($scope, element) {
-        element.hide();
+        element.addClass('ng-hide');
         $scope.$on('login-successful', function () {
           console.log('Login succeeded');
-          element.hide();
+          element.addClass('ng-hide');
         });
         $scope.$on('login-failed', function () {
           if (element.is(':visible') === true) {
@@ -22,7 +22,7 @@ angular.module('f2015.authentication')
                 .ok('OK!')
             );
           }
-          element.show();
+          element.removeClass('ng-hide');
         });
       }
     };

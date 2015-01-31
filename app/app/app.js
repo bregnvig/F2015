@@ -3,7 +3,6 @@
 angular
   .module('f2015', [
     'ngAnimate',
-    'ngCookies',
     'ngResource',
     'ngMaterial',
     'angularMoment',
@@ -17,6 +16,7 @@ angular
     'f2015.account',
     'f2015.race',
     'f2015.wbc',
+    'f2015.loading',
     'f2015.authentication'
   ])
   .config(['$locationProvider', '$stateProvider', '$urlRouterProvider', '$mdThemingProvider', '$httpProvider', function($locationProvider, $stateProvider, $urlRouterProvider, $mdThemingProvider, $httpProvider) {
@@ -24,8 +24,8 @@ angular
     //$locationProvider.html5Mode(true);
 
     $mdThemingProvider.theme('default')
-      .primaryColor('indigo')
-      .accentColor('orange');
+      .primaryColor('blue')
+      .accentColor('deep-orange');
 
     $stateProvider
       .state('f2015', {
@@ -53,7 +53,7 @@ angular
         controller: 'WbcPlayerCtrl as wbcPlayer'
       });
 
-    //$urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/');
 
     var regexMilliseconds = /^\d{10}000$/;
     function convertDateMillisecondsToDates(input) {
@@ -79,6 +79,7 @@ angular
       convertDateMillisecondsToDates(responseData);
       return responseData;
     });
+    $httpProvider.interceptors.push('loadingMonitor');
   }])
   .run(['amMoment', function(amMoment) {
     amMoment.changeLocale('da');
