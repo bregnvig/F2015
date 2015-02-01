@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('f2015.resource', ['ngResource', 'f2015.authentication'])
-  .factory('secureResource', ['$window', '$rootScope', '$resource', 'authenticationService', function($window, $rootScope, $resource, authenticationService) {
+  .factory('secureResource', ['$window', '$q', '$rootScope', '$resource', 'authenticationService', function($window, $q, $rootScope, $resource, authenticationService) {
 
     var defaultActions = {
       'get': {method: 'GET'},
@@ -58,10 +58,12 @@ angular.module('f2015.resource', ['ngResource', 'f2015.authentication'])
         action: function() {
           if (!action) {
             var invocation = {
+              deferred: $q.defer(),
               arguments: arguments,
               result: isArray ? [] : {}
             };
             invocations.push(invocation);
+            invocation.result.$promise = invocation.deferred.promise;
             return invocation.result;
           } else {
             return action.apply(undefined, arguments);
@@ -78,7 +80,10 @@ angular.module('f2015.resource', ['ngResource', 'f2015.authentication'])
     function lazyExecutedAction(metadata, invocation) {
       metadata.real.apply(undefined, invocation.arguments).$promise.then(function(result) {
         angular.copy(result, invocation.result);
+        invocation.deferred.resolve(invocation.result);
         console.log('Invocation result', invocation.result);
+      }, function() {
+        invocation.deferred.reject();
       });
     }
 

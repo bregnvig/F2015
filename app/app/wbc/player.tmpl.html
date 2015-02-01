@@ -1,13 +1,13 @@
-<md-toolbar class="md-hue-1" style="position:fixed;">
+<md-toolbar class="md-hue-1">
   <h2 class="md-toolbar-tools">
     <span ng-bind="wbcPlayer.entries[0].player | playerName"></span>
   </h2>
 </md-toolbar>
-<md-content style="position: absolute; margin-top: 64px;" layout-fill>
-  <md-list style="top: 64px">
+<md-content class="below-sub-header">
+  <md-list>
     <md-item ng-repeat="entry in wbcPlayer.entries">
       <md-item-content>
-        <md-button class="list-item" ui-sref="wbc-player({player: entry.player.playername})">
+        <md-button class="list-item" ui-sref="race({id: entry.race.id})">
           <div class="md-tile-content" >
             <h3><strong>{{entry.race.name}}</strong><span class="pull-right">{{entry.points}}</span></h3>
           </div>
@@ -16,7 +16,5 @@
       <md-divider ng-if="!$last"></md-divider>
     </md-item>
   </md-list>
-  <md-button class="md-fab md-fab-bottom-right f2015-fab-bottom-right" ui-sref="wbc" aria-label="Tilbage">
-    <i class="fa fa-check"></i>
-  </md-button>
+  <back></back>
 </md-content>

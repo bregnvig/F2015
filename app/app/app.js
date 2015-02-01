@@ -10,6 +10,7 @@ angular
     'ui.router',
     'f2015.home',
     'f2015.common-filter',
+    'f2015.common-directive',
     'f2015.model.race',
     'f2015.model.wbc',
     'f2015.header',
@@ -41,6 +42,21 @@ angular
         url: '/race',
         templateUrl: 'app/race/races.tmpl.html',
         controller: 'RacesCtrl as races'
+      })
+      .state('race', {
+        url: '/race/:id',
+        templateUrl: 'app/race/race.tmpl.html',
+        controller: 'RaceCtrl as race'
+      })
+      .state('bid', {
+        url: '/race/:id/:player',
+        templateUrl: 'app/race/bid.tmpl.html',
+        controller: 'BidCtrl as bid'
+      })
+      .state('result', {
+        url: '/result/:id',
+        templateUrl: 'app/race/bid.tmpl.html',
+        controller: 'ResultCtrl as bid'
       })
       .state('wbc', {
         url: '/wbc',

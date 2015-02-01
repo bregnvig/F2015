@@ -1,0 +1,86 @@
+<md-toolbar class="md-hue-1">
+  <h2 class="md-toolbar-tools">
+    <strong ng-if="bid.get.firstCrash" ng-bind="bid.get.player | playerName" flex>
+    </strong>
+    <span ng-if="bid.get.firstCrash" class="pull-right" ng-bind="bid.get.points">
+    </span>
+    <span ng-if="bid.get.firstCrashes">Resultat</span>
+  </h2>
+</md-toolbar>
+<md-content class="below-sub-header">
+  <section>
+    <md-subheader class="md-primary">Grid</md-subheader>
+    <md-list layout="column">
+      <md-item ng-repeat="grid in bid.get.grid">
+        <md-item-content>
+          <div class="md-tile-content">
+            <h3><strong>{{grid.name}}</strong><span ng-if="grid.points" class="pull-right">{{grid.points}}</span></h3>
+          </div>
+        </md-item-content>
+      </md-item>
+    </md-list>
+  </section>
+  <section>
+    <md-subheader class="md-primary">Hurtigste kører</md-subheader>
+    <md-list layout="column">
+      <md-item>
+        <md-item-content>
+          <div class="md-tile-content">
+            <h3><strong>{{bid.get.fastestLap.name}}</strong><span ng-if="bid.get.fastestLap.points" class="pull-right">{{bid.get.fastestLap.points}}</span></h3>
+          </div>
+        </md-item-content>
+      </md-item>
+    </md-list>
+  </section>
+  <section>
+    <md-subheader class="md-primary">Podium</md-subheader>
+    <md-list layout="column">
+      <md-item ng-repeat="podium in bid.get.podium">
+        <md-item-content>
+          <div class="md-tile-content">
+            <h3><strong>{{podium.name}}</strong><span ng-if="podium.points" class="pull-right">{{podium.points}}</span></h3>
+          </div>
+        </md-item-content>
+      </md-item>
+    </md-list>
+  </section>
+  <section>
+    <md-subheader class="md-primary">{{bid.get.driver.name}}</md-subheader>
+    <md-list layout="column">
+      <md-item>
+        <md-item-content>
+          <div class="md-tile-content">
+            <h3><strong>Starter som nr.: {{bid.get.selectedDriver[0]}}</strong><span ng-if="bid.get.selectedDriverPoints[0]" class="pull-right">{{bid.get.selectedDriverPoints[0]}}</span></h3>
+          </div>
+        </md-item-content>
+      </md-item>
+      <md-item>
+        <md-item-content>
+          <div class="md-tile-content">
+            <h3><strong>Slutter som nr.: {{bid.get.selectedDriver[1]}}</strong><span ng-if="bid.get.selectedDriverPoints[1]" class="pull-right">{{bid.get.selectedDriverPoints[1]}}</span></h3>
+          </div>
+        </md-item-content>
+      </md-item>
+    </md-list>
+  </section>
+  <section>
+    <md-subheader class="md-primary">Først udgået</md-subheader>
+    <md-list layout="column">
+      <md-item ng-if="bid.get.firstCrash">
+        <md-item-content>
+          <div class="md-tile-content">
+            <h3><strong>{{bid.get.firstCrash.name}}</strong><span ng-if="bid.get.firstCrash.points" class="pull-right">{{bid.get.firstCrash.points}}</span></h3>
+          </div>
+        </md-item-content>
+      </md-item>
+      <md-item ng-repeat="crash in bid.get.firstCrashes">
+        <md-item-content>
+          <div class="md-tile-content">
+            <h3><strong>{{crash.name}}</strong></h3>
+          </div>
+        </md-item-content>
+      </md-item>
+    </md-list>
+  </section>
+  <back></back>
+</md-content>

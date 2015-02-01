@@ -40,6 +40,15 @@
   position: fixed;
 }
 
+md-content {
+  &.below-sub-header {
+    position:absolute;
+    height: calc(100% - 64px);
+    width: 100%;
+  }
+}
+
+
 .marketing {
   margin-bottom: 16px;
 }
