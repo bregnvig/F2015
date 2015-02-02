@@ -20,6 +20,11 @@ angular.module('f2015.header', [])
       }
     }
 
+    $scope.$mdSidenav = $mdSidenav;
+    $scope.$watch('$mdSidenav(\'drawer\').isLockedOpen()', function (newValue) {
+      header.menuButtonHidden = newValue;
+    });
+
     initializeHeader(authentication.credentials);
 
     header.toggleMenu = function() {

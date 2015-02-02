@@ -1,31 +1,6 @@
-<md-toolbar class="header">
-  <h1 class="md-toolbar-tools" >
-    <span flex><i class="fa fa-flag-checkered fa-lg"></i> <strong ng-bind="header.seasonName"></strong></span>
-    <md-button aria-label="Menu" ng-click="header.toggleMenu()" class="menu-button" ng-disabled="!header.credentials"><i class="fa fa-fw fa-lg fa-bars"></i></md-button>
-  </h1>
-</md-toolbar>
-<md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="drawer">
-  <md-toolbar>
-    <h1 class="md-toolbar-tools">Velkommen {{header.credentials.firstName}}</h1>
+  <md-toolbar class="header" >
+    <h1 class="md-toolbar-tools" >
+      <span flex><i class="fa fa-flag-checkered fa-lg"></i> <strong ng-bind="header.seasonName"></strong></span>
+      <md-button aria-label="Menu" ng-click="header.toggleMenu()" class="menu-button" ng-disabled="!header.credentials"><i ng-hide="header.menuButtonHidden" class="fa fa-fw fa-lg fa-bars"></i></md-button>
+    </h1>
   </md-toolbar>
-  <md-content class="md-padding">
-    <md-button class="md-primary" ui-sref="f2015" ng-click="header.toggleMenu()">
-      <i class="fa fa-fw fa-home fa-lg"></i> Forside
-    </md-button>
-    <md-button class="md-primary" ui-sref="races" ng-click="header.toggleMenu()">
-      <i class="fa fa-fw fa-flag-checkered fa-lg"></i> Løb
-    </md-button>
-    <md-button class="md-primary" ui-sref="wbc" ng-click="header.toggleMenu()">
-      <i class="fa fa-fw fa-trophy fa-lg"></i> WBC
-    </md-button>
-    <md-button class="md-primary" ui-sref="f2015" ng-click="header.toggleMenu()">
-      <i class="fa fa-fw fa-user fa-lg"></i> Profil
-    </md-button>
-    <md-button class="md-primary" ui-sref="account" ng-click="header.toggleMenu()">
-      <i class="fa fa-fw fa-lg fa-dollar"></i> Konto <span ng-if="header.account.get"> - {{header.account.get.balance}} kr</span>
-    </md-button>
-    <md-button ng-click="header.toggleMenu()" class="md-primary">
-      <i class="fa fa-fw fa-lg fa-close"></i> Luk menu
-    </md-button>
-  </md-content>
-</md-sidenav>

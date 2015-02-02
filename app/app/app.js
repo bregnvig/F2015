@@ -67,6 +67,10 @@ angular
         url: '/wbc/:player',
         templateUrl: 'app/wbc/player.tmpl.html',
         controller: 'WbcPlayerCtrl as wbcPlayer'
+      })
+      .state('rules', {
+        url: '/rules',
+        templateUrl: 'app/rules/rules.tmpl.html'
       });
 
     $urlRouterProvider.otherwise('/');

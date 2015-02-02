@@ -20,7 +20,39 @@
   <body ng-app="f2015" ng-controller="HomeCtrl">
     <div layout="column" layout-fill>
       <f2015-header></f2015-header>
-      <ui-view flex style="position: relative; overflow: auto" ></ui-view>
+      <div layout="row" layout-align-gt-sm="center" flex >
+        <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="drawer" md-is-locked-open="$media('gt-md')">
+          <md-toolbar ng-class="header.menuButtonHidden ? 'md-hue-2' : ''">
+            <h1 class="md-toolbar-tools">Velkommen {{header.credentials.firstName}}</h1>
+          </md-toolbar>
+          <md-content class="md-padding">
+            <md-button class="md-primary" ui-sref="f2015" ng-click="header.toggleMenu()">
+              <i class="fa fa-fw fa-home fa-lg"></i> Forside
+            </md-button>
+            <md-button class="md-primary" ui-sref="races" ng-click="header.toggleMenu()">
+              <i class="fa fa-fw fa-flag-checkered fa-lg"></i> Løb
+            </md-button>
+            <md-button class="md-primary" ui-sref="wbc" ng-click="header.toggleMenu()">
+              <i class="fa fa-fw fa-trophy fa-lg"></i> WBC
+            </md-button>
+            <md-button class="md-primary" ui-sref="f2015" ng-click="header.toggleMenu()">
+              <i class="fa fa-fw fa-user fa-lg"></i> Profil
+            </md-button>
+            <md-button class="md-primary" ui-sref="account" ng-click="header.toggleMenu()">
+              <i class="fa fa-fw fa-lg fa-dollar"></i> Konto <span ng-if="header.account.get"> - {{header.account.get.balance}} kr</span>
+            </md-button>
+            <md-button class="md-primary" ui-sref="rules" ng-click="header.toggleMenu()">
+              <i class="fa fa-fw fa-lg fa-info"></i> Regler
+            </md-button>
+            <md-button ng-click="header.toggleMenu()" class="md-primary" ng-hide="header.menuButtonHidden">
+              <i class="fa fa-fw fa-lg fa-close"></i> Luk menu
+            </md-button>
+          </md-content>
+        </md-sidenav>
+
+        <ui-view flex flex-gt-sm="66" style="position: relative; overflow: auto" class="md-whiteframe-z1"></ui-view>
+
+      </div>
     </div>
     <loading></loading>
     <!-- build:js(.) scripts/vendor.js -->
