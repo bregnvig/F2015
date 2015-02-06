@@ -6,6 +6,7 @@ angular.module('f2015.model.wbc', ['f2015.resource', 'config'])
 
     var wbc;
     var players = {};
+    var graph;
 
     return {
       get: function(playername) {
@@ -20,6 +21,12 @@ angular.module('f2015.model.wbc', ['f2015.resource', 'config'])
           return (wbc = wbcResource.query());
         }
         return wbc;
+      },
+      get graph() {
+        if (!graph) {
+          return (graph = wbcResource.query({graph:true}));
+        }
+        return graph;
       }
     };
 

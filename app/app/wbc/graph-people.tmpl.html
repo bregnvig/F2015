@@ -1,0 +1,11 @@
+<md-bottom-sheet class="md-list md-has-header" style="height: 50%;" layout="column">
+  <md-subheader>Spillere</md-subheader>
+  <div style="overflow: auto; position: relative" flex>
+    <div layout-gt-sm="row center" layout-sm="column" layout-wrap style="position: absolute;">
+      <md-checkbox class="md-primary" ng-repeat="player in players" ng-model="partOfGraph[player.playername]" aria-label="{{player | playerName}}" flex="30" flex-md="40" flex-sm>
+        <strong style="color:{{colors[$index]}}">{{player | playerName}}</strong>
+      </md-checkbox>
+    </div>
+  </div>
+</md-bottom-sheet>
+

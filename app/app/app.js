@@ -9,6 +9,7 @@ angular
     'config',
     'ui.router',
     'f2015.home',
+    'f2015.constants',
     'f2015.common-filter',
     'f2015.common-directive',
     'f2015.model.race',
@@ -25,8 +26,8 @@ angular
     //$locationProvider.html5Mode(true);
 
     $mdThemingProvider.theme('default')
-      .primaryColor('blue')
-      .accentColor('deep-orange');
+      .primaryColor('green')
+      .accentColor('lime');
 
     $stateProvider
       .state('f2015', {
@@ -64,9 +65,14 @@ angular
         controller: 'WbcCtrl as wbc'
       })
       .state('wbc-player', {
-        url: '/wbc/:player',
+        url: '/wbc/player/:player',
         templateUrl: 'app/wbc/player.tmpl.html',
         controller: 'WbcPlayerCtrl as wbcPlayer'
+      })
+      .state('wbc-graph', {
+        url: '/wbc/graph',
+        templateUrl: 'app/wbc/wbc-graph.tmpl.html',
+        controller: 'WbcGraphCtrl as wbcGraph'
       })
       .state('rules', {
         url: '/rules',
