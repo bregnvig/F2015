@@ -3,7 +3,7 @@
 angular.module('f2015.authentication', ['ngResource', 'config'])
   .factory('authenticationService', ['$window', '$rootScope', '$resource', 'ENV', function($window, $rootScope, $resource, ENV) {
 
-    var resource = $resource(ENV.apiEndpoint + '/ws/login/:userName/:password');
+    var authenticationResource = $resource(ENV.apiEndpoint + '/ws/login/:userName/:password');
     var credentials;
 
     function loggedIn(value) {
@@ -15,16 +15,20 @@ angular.module('f2015.authentication', ['ngResource', 'config'])
       login: function(userName, password) {
         credentials = null;
         delete localStorage.credentials;
-        return resource.get({userName: userName, password: password}, function(result) {
+        return authenticationResource.get({userName: userName, password: password}, function(result) {
           loggedIn(result);
         }, function() {
           $rootScope.$broadcast('login-failed');
         });
       },
       save:function() {
-        credentials.$promise.then(function() {
+        if (credentials.$promise) {
+          credentials.$promise.then(function() {
+            localStorage.credentials = angular.toJson(credentials);
+          });
+        } else {
           localStorage.credentials = angular.toJson(credentials);
-        });
+        }
       },
       load:function() {
         if (!credentials && localStorage.credentials) {
@@ -40,7 +44,6 @@ angular.module('f2015.authentication', ['ngResource', 'config'])
       get credentials() {
         return credentials;
       }
-
     };
   }])
   .run(['$timeout', 'authenticationService', function($timeout, authenticationService) {

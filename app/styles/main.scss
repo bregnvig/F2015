@@ -69,6 +69,17 @@ md-content {
     min-height: 2em;
   }
 }
+i {
+  &.lastYearWBC-1 {
+    color: #FFD700;
+  }
+  &.lastYearWBC-2 {
+    color: #C0C0C0;
+  }
+  &.lastYearWBC-3 {
+    color: #CD7F32;
+  }
+}
 
 loading {
   position: absolute;

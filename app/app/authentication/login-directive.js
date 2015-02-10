@@ -1,19 +1,21 @@
 'use strict';
 
 angular.module('f2015.authentication')
-  .directive('loginCard', ['$mdDialog' , function ($mdDialog) {
+  .directive('loginCard', ['$mdDialog', 'authenticationService', function ($mdDialog, authenticationService) {
    return {
       restrict: 'E',
       templateUrl: 'app/authentication/login-card.tmpl.html',
       controller: 'LoginCardCtrl as loginCard',
       link: function($scope, element) {
-        element.addClass('ng-hide');
+        if (authenticationService.loggedIn) {
+          element.addClass('ng-hide');
+        }
         $scope.$on('login-successful', function () {
           console.log('Login succeeded');
           element.addClass('ng-hide');
         });
         $scope.$on('login-failed', function () {
-          if (element.is(':visible') === true) {
+          if ($scope.loginCard.userName) {
             $mdDialog.show(
               $mdDialog.alert()
                 .title('Kunne ikke logge ind')

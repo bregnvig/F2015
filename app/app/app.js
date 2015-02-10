@@ -5,6 +5,7 @@ angular
     'ngAnimate',
     'ngResource',
     'ngMaterial',
+    'ngSanitize',
     'angularMoment',
     'config',
     'ui.router',
@@ -18,6 +19,7 @@ angular
     'f2015.account',
     'f2015.race',
     'f2015.wbc',
+    'f2015.profile',
     'f2015.loading',
     'f2015.authentication'
   ])
@@ -26,8 +28,8 @@ angular
     //$locationProvider.html5Mode(true);
 
     $mdThemingProvider.theme('default')
-      .primaryColor('green')
-      .accentColor('lime');
+      .primaryPalette('light-green')
+      .accentPalette('green');
 
     $stateProvider
       .state('f2015', {
@@ -77,6 +79,16 @@ angular
       .state('rules', {
         url: '/rules',
         templateUrl: 'app/rules/rules.tmpl.html'
+      })
+      .state('password', {
+        url: '/password',
+        templateUrl: 'app/profile/password.tmpl.html',
+        controller: 'PasswordCtrl as password'
+      })
+      .state('profile', {
+        url: '/profile',
+        templateUrl: 'app/profile/profile.tmpl.html',
+        controller: 'ProfileCtrl as profile'
       });
 
     $urlRouterProvider.otherwise('/');
@@ -105,7 +117,6 @@ angular
       convertDateMillisecondsToDates(responseData);
       return responseData;
     });
-    $httpProvider.interceptors.push('loadingMonitor');
   }])
   .run(['amMoment', function(amMoment) {
     amMoment.changeLocale('da');

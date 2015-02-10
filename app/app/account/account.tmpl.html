@@ -1,4 +1,10 @@
-<md-content style="position: absolute;" layout-fill>
+<md-toolbar class="md-hue-1">
+  <h2 class="md-toolbar-tools">
+    <span flex>Bevægelser</span>
+    <md-button aria-label="Information" class="menu-button" ng-click="account.showTransferInfo()"><i class="fa fa-fw fa-lg fa-info"></i></md-button>
+  </h2>
+</md-toolbar>
+<md-content class="below-sub-header">
   <md-list>
     <md-item ng-repeat="movement in account.account.get.entries">
       <md-item-content>

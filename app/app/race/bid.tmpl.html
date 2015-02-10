@@ -1,6 +1,6 @@
 <md-toolbar class="md-hue-1">
   <h2 class="md-toolbar-tools">
-    <strong ng-if="bid.get.firstCrash" ng-bind="bid.get.player | playerName" flex>
+    <strong ng-if="bid.get.firstCrash" ng-bind-html="bid.get.player | playerName" flex>
     </strong>
     <span ng-if="bid.get.firstCrash" class="pull-right" ng-bind="bid.get.points">
     </span>

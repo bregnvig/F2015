@@ -2,7 +2,10 @@
 
 angular.module('f2015.model.wbc', ['f2015.resource', 'config'])
   .factory('wbcModel', ['ENV', 'secureResource', function(ENV, secureResource) {
-    var wbcResource = secureResource(ENV.apiEndpoint+'/ws/v2/wbc/players/:player');
+    var wbcEntryResource = secureResource(ENV.apiEndpoint+'/ws/v2/wbc/players/:playerName', {
+      playerName: '@playerName'
+    });
+    var wbcResource = secureResource(ENV.apiEndpoint+'/ws/v2/wbc');
 
     var wbc;
     var players = {};
@@ -13,20 +16,26 @@ angular.module('f2015.model.wbc', ['f2015.resource', 'config'])
         if (players[playername]) {
           return players[playername];
         } else {
-          return (players[playername] = wbcResource.query({player: playername}));
+          return (players[playername] = wbcEntryResource.query({playerName: playername}));
         }
       },
       get standing() {
         if (!wbc) {
-          return (wbc = wbcResource.query());
+          return (wbc = wbcEntryResource.query());
         }
         return wbc;
       },
       get graph() {
         if (!graph) {
-          return (graph = wbcResource.query({graph:true}));
+          return (graph = wbcEntryResource.query({graph:true}));
         }
         return graph;
+      },
+      get wbc() {
+        return wbcResource.get();
+      },
+      join: function(player) {
+        return wbcEntryResource.save({'playerName': player.playername});
       }
     };
 

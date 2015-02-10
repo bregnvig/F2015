@@ -5,7 +5,7 @@
           <md-button class="list-item" ui-sref="race({id: race.id})">
             <div class="md-tile-content" >
               <h3><strong>{{race.name}}</strong></h3>
-              <p ng-if="race.completed">{{race | raceStatus}}</p>
+              <p>{{race | raceStatus}} <span ng-if="race.opened" am-time-ago="race.closeDate"></span></p>
             </div>
           </md-button>
       </md-item-content>

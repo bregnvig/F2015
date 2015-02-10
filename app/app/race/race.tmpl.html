@@ -15,9 +15,9 @@
     <md-divider></md-divider>
     <md-item ng-repeat="bid in race.get.bids">
       <md-item-content>
-        <md-button class="list-item" ui-sref="bid({id: race.get.id, player: bid.player.playername})">
+        <md-button class="list-item" ui-sref="bid({id: race.get.id, player: bid.player.playername})" aria-label="{{bid.player | playerName | noTrophy}}">
           <div class="md-tile-content" >
-            <h3><strong>{{bid.player | playerName}}</strong><span ng-if="bid.points" class="pull-right">{{bid.points}}</span></h3>
+            <h3><strong ng-bind-html="bid.player | playerName"></strong><span ng-if="bid.points" class="pull-right">{{bid.points}}</span></h3>
           </div>
         </md-button>
       </md-item-content>

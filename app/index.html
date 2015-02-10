@@ -35,11 +35,14 @@
             <md-button class="md-primary" ui-sref="wbc" ng-click="header.toggleMenu()">
               <i class="fa fa-fw fa-trophy fa-lg"></i> WBC
             </md-button>
-            <md-button class="md-primary" ui-sref="f2015" ng-click="header.toggleMenu()">
+            <md-button class="md-primary" ui-sref="profile" ng-click="header.toggleMenu()">
               <i class="fa fa-fw fa-user fa-lg"></i> Profil
             </md-button>
+            <md-button class="md-primary" ui-sref="password" ng-click="header.toggleMenu()">
+              <i class="fa fa-fw fa-lock fa-lg"></i> Adgangskode
+            </md-button>
             <md-button class="md-primary" ui-sref="account" ng-click="header.toggleMenu()">
-              <i class="fa fa-fw fa-lg fa-dollar"></i> Konto <span ng-if="header.account.get"> - {{header.account.get.balance}} kr</span>
+              <i class="fa fa-fw fa-lg fa-dollar"></i> Konto <span ng-if="header.account.get.balance"> - {{header.account.get.balance}} kr</span>
             </md-button>
             <md-button class="md-primary" ui-sref="rules" ng-click="header.toggleMenu()">
               <i class="fa fa-fw fa-lg fa-info"></i> Regler
@@ -49,12 +52,11 @@
             </md-button>
           </md-content>
         </md-sidenav>
-
         <ui-view flex flex-gt-sm="66" style="position: relative; overflow: auto" class="md-whiteframe-z1"></ui-view>
+        <loading></loading>
 
       </div>
     </div>
-    <loading></loading>
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/angular/angular.js"></script>
@@ -66,6 +68,8 @@
     <script src="bower_components/moment/moment.js"></script>
     <script src="bower_components/angular-moment/angular-moment.js"></script>
     <script src="bower_components/chartjs/Chart.min.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -84,8 +88,10 @@
         <script src="app/account/account.js"></script>
         <script src="app/header/header.js"></script>
         <script src="app/race/races.js"></script>
+        <script src="app/profile/profile.js"></script>
         <script src="app/wbc/wbc.js"></script>
         <script src="app/loading/loading.js"></script>
+        <script src="bower_components/moment/locale/da.js"></script>
         <script src="app/config.js" />
         <!-- endbuild -->
 </body>

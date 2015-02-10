@@ -19,52 +19,59 @@ angular.module('f2015.loading', [])
         });
       }
     };
-
   }])
-  .factory('loadingMonitor', ['$rootScope', '$timeout', '$q', function($rootScope, $timeout, $q){
+  .factory('loadingState', ['$rootScope', '$timeout', function($rootScope, $timeout) {
     var outstanding = 0;
     var timer;
 
-    function ajaxCompleted() {
-      outstanding--;
-      if (outstanding === 0) {
-        $timeout.cancel(timer);
-        $rootScope.$broadcast('f2015-timer', false);
+    return {
+      ajaxStarted: function() {
+        if (outstanding === 0) {
+          timer = $timeout(function() {
+            $rootScope.$broadcast('f2015-timer', true);
+          }, 500);
+        }
+        outstanding++;
+      },
+      ajaxCompleted: function() {
+        outstanding--;
+        if (outstanding === 0) {
+          $timeout.cancel(timer);
+          $rootScope.$broadcast('f2015-timer', false);
+        }
+      },
+      get running() {
+        return outstanding !== 0;
       }
-    }
-
-    function ajaxStarted() {
-      if (outstanding === 0) {
-        timer = $timeout(function() {
-          $rootScope.$broadcast('f2015-timer', true);
-        }, 500);
-      }
-      outstanding++;
-    }
+    };
+  }])
+  .factory('loadingInterceptor', ['$q', 'loadingState', function($q, loadingState){
 
     return {
       // optional method
       'request': function(config) {
-        ajaxStarted();
+        loadingState.ajaxStarted();
         return config;
       },
 
       // optional method
       'requestError': function(rejection) {
-        ajaxCompleted();
+        loadingState.ajaxCompleted();
         return $q.reject(rejection);
       },
 
       // optional method
       'response': function(response) {
-        ajaxCompleted();
+        loadingState.ajaxCompleted();
         return response;
       },
 
       // optional method
       'responseError': function(rejection) {
-        ajaxCompleted();
+        loadingState.ajaxCompleted();
         return $q.reject(rejection);
       }
     };
+  }]).config(['$httpProvider', function($httpProvider) {
+    $httpProvider.interceptors.push('loadingInterceptor');
   }]);

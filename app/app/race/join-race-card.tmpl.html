@@ -1,0 +1,18 @@
+<md-card class="md-whiteframe-z1">
+  <md-toolbar>
+    <h2 class="md-toolbar-tools">
+      <span flex ng-bind="'Deltag i ' + race.name"></span>
+    </h2>
+  </md-toolbar>
+  <md-card-content>
+    <md-content>
+      <p>Du har endnu ikke spillet på {{race.name}}.</p>
+      <p>Men du kan heldigvis nå det endnu. Spillet lukker <span am-time-ago="race.closeDate"></span>.</p>
+    </md-content>
+    <div layout="row" layout-align="end center">
+      <md-button class="md-accent md-raised" aria-label="Deltag i løb">
+        Jeg skal deltage!
+      </md-button>
+    </div>
+  </md-card-content>
+</md-card>
