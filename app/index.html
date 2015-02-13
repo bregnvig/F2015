@@ -17,10 +17,10 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="f2015" ng-controller="HomeCtrl">
-    <div layout="column" layout-fill>
+  <body ng-app="f2015">
+    <div layout="column" layout-fill style="position: relative">
       <f2015-header></f2015-header>
-      <div layout="row" layout-align-gt-sm="center" flex >
+      <div layout="row" layout-align-gt-sm="center" flex style="    position:absolute;  height: calc(100% - 64px); width: 100%;">
         <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="drawer" md-is-locked-open="$media('gt-md')">
           <md-toolbar ng-class="header.menuButtonHidden ? 'md-hue-2' : ''">
             <h1 class="md-toolbar-tools">Velkommen {{header.credentials.firstName}}</h1>
@@ -81,7 +81,9 @@
         <script src="app/common/common-filters.js"></script>
         <script src="app/common/common-directive.js"></script>
         <script src="app/common/model/race-model.js"></script>
+        <script src="app/common/model/driver-model.js"></script>
         <script src="app/common/model/wbc-model.js"></script>
+        <script src="app/common/model/ergast-model.js"></script>
         <script src="app/account/account-service.js"></script>
         <script src="app/home/home.js"></script>
         <script src="app/authentication/login-directive.js"></script>
@@ -91,6 +93,7 @@
         <script src="app/profile/profile.js"></script>
         <script src="app/wbc/wbc.js"></script>
         <script src="app/loading/loading.js"></script>
+        <script src="app/hint/hint.js"></script>
         <script src="bower_components/moment/locale/da.js"></script>
         <script src="app/config.js" />
         <!-- endbuild -->

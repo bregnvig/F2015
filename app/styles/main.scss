@@ -43,6 +43,11 @@
 md-content {
   &.below-sub-header {
     position:absolute;
+    height: 100%;
+    width: 100%;
+  }
+  &.below-sub-header-stationary {
+    position:absolute;
     height: calc(100% - 64px);
     width: 100%;
   }

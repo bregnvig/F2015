@@ -14,6 +14,7 @@ angular
     'f2015.common-filter',
     'f2015.common-directive',
     'f2015.model.race',
+    'f2015.model.driver',
     'f2015.model.wbc',
     'f2015.header',
     'f2015.account',
@@ -21,6 +22,7 @@ angular
     'f2015.wbc',
     'f2015.profile',
     'f2015.loading',
+    'f2015.hint',
     'f2015.authentication'
   ])
   .config(['$locationProvider', '$stateProvider', '$urlRouterProvider', '$mdThemingProvider', '$httpProvider', function($locationProvider, $stateProvider, $urlRouterProvider, $mdThemingProvider, $httpProvider) {
@@ -29,7 +31,7 @@ angular
 
     $mdThemingProvider.theme('default')
       .primaryPalette('light-green')
-      .accentPalette('green');
+      .accentPalette('orange');
 
     $stateProvider
       .state('f2015', {
@@ -60,6 +62,11 @@ angular
         url: '/result/:id',
         templateUrl: 'app/race/bid.tmpl.html',
         controller: 'ResultCtrl as bid'
+      })
+      .state('create-result', {
+        url: '/create-result/:id',
+        templateUrl: 'app/race/bid.tmpl.html',
+        controller: 'CreateResultCtrl as bid'
       })
       .state('wbc', {
         url: '/wbc',
@@ -94,12 +101,13 @@ angular
     $urlRouterProvider.otherwise('/');
 
     var regexMilliseconds = /^\d{10}000$/;
+    var regexUnixTime = /^\d{8}00$/;
+    var regexISO = /^20\d{2}-\d{2}-\d{2}$/;
     function convertDateMillisecondsToDates(input) {
       // Ignore things that aren't objects.
       if (typeof input !== 'object') {
         return input;
       }
-
       for (var key in input) {
         if (!input.hasOwnProperty(key)) {
           continue;
@@ -108,6 +116,10 @@ angular
         // Check for string properties which look like dates.
         if (typeof value === 'number' && (value).toString().match(regexMilliseconds)) {
            input[key] = new Date(value);
+        } else if(typeof value === 'number' && (value).toString().match(regexUnixTime)) {
+          input[key] = new Date(value*1000);
+        } else if(typeof value === 'string' && (value).toString().match(regexISO)) {
+          input[key] = new Date(value);
         } else if (typeof value === 'object') {
           convertDateMillisecondsToDates(value);
         }

@@ -1,0 +1,16 @@
+<md-card class="md-whiteframe-z1">
+  <md-toolbar>
+    <h2 class="md-toolbar-tools">
+      <span flex>Vejrudsigt</span>
+    </h2>
+  </md-toolbar>
+  <md-card-content>
+    <md-content layout="row" layout-align="space-around center">
+      <div ng-repeat="forecast in forecasts" layout="column" layout-align="center center">
+        <strong>{{forecast.dt | amDateFormat:'dddd'}}</strong>
+        <img height="112" width="112" src="http://openweathermap.org/img/w/{{forecast.weather[0].icon}}.png">
+        {{forecast.weather[0].description}} - {{forecast.temp.day | number: 0}}&#x2103;
+      </div>
+    </md-content>
+  </md-card-content>
+</md-card>

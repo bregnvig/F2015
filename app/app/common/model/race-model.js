@@ -20,6 +20,21 @@ angular.module('f2015.model.race', ['f2015.resource', 'f2015.authentication', 'c
           return (fullRaces[id] = raceResource.get({id: id}));
         }
       },
+      submitResult: function(race, result, callback) {
+        var data = angular.copy(result);
+        delete data.polePositionTimeInText;
+        delete data.driver;
+        raceResource.save({'id':race.id}, data, callback).$promise.then(function() {
+          fullRaces = {};
+          all = undefined;
+        });
+      },
+      rollback: function(race, callback) {
+        raceResource.delete({'id':race.id}, undefined, callback).$promise.then(function() {
+          fullRaces = {};
+          all = undefined;
+        });
+      },
       bid: function(id, playername) {
         var race = this.get(id);
         var result = {};

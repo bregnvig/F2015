@@ -1,8 +1,13 @@
-<md-content class="below-header">
+<md-toolbar class="md-hue-1" md-scroll-shrink>
+  <h2 class="md-toolbar-tools">
+    <span flex>Løb</span>
+  </h2>
+</md-toolbar>
+<md-content class="below-sub-header">
   <md-list>
     <md-item ng-repeat="race in races.races.all">
       <md-item-content>
-          <md-button class="list-item" ui-sref="race({id: race.id})">
+          <md-button class="list-item" ui-sref="race({id: race.id})" ng-disabled="false && (race.completed === false && race.closed === false && race.participant === false)">
             <div class="md-tile-content" >
               <h3><strong>{{race.name}}</strong></h3>
               <p>{{race | raceStatus}} <span ng-if="race.opened" am-time-ago="race.closeDate"></span></p>

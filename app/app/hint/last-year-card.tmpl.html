@@ -1,0 +1,14 @@
+<md-card class="md-whiteframe-z1">
+  <md-toolbar>
+    <h2 class="md-toolbar-tools">
+      <span flex>{{race.name}} {{next.season-1}}</span>
+    </h2>
+  </md-toolbar>
+  <md-card-content>
+    <md-content>
+      <p>Sidste års var det {{qualify[0].Driver | driverName}} der fik pole position i {{race.name}}</p>
+      <p>{{qualify[0].Driver | driverName}} kørte omgangen på {{qualify[0].Q3}}</p>
+      <p><span ng-repeat="result in results | limitTo: 3">{{($last ? ' og ' : ($first ? '' : ', ')) + (result.Driver | driverName)}}</span> endte på podiet</p>
+    </md-content>
+  </md-card-content>
+</md-card>
