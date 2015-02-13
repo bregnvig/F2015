@@ -7,8 +7,8 @@ angular.module('f2015.model.ergast', ['ngResource'])
       return mrData.RaceTable.Races.length ? mrData.RaceTable.Races[0].Results : null;
     }
 
-    var currentSeason = 2014; //new Date().getFullYear();
-    var previousSeason = 2013; //currentSeason-1;
+    var currentSeason = new Date().getFullYear();
+    var previousSeason = currentSeason-1;
     var resultResource = $resource('http://ergast.com/api/f1/:season/circuits/:circuitId/:type.json',
       {
         season: previousSeason
