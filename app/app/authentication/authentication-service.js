@@ -4,10 +4,10 @@ angular.module('f2015.authentication', ['ngResource', 'config'])
   .factory('authenticationService', ['$window', '$rootScope', '$resource', 'ENV', function($window, $rootScope, $resource, ENV) {
 
     var authenticationResource = $resource(ENV.apiEndpoint + '/ws/login/:userName/:password');
-    var credentials;
+    var credentials = {};
 
     function loggedIn(value) {
-      credentials = value;
+      angular.copy(value, credentials);
       $rootScope.$broadcast('login-successful', credentials);
     }
 
@@ -31,7 +31,7 @@ angular.module('f2015.authentication', ['ngResource', 'config'])
         }
       },
       load:function() {
-        if (!credentials && localStorage.credentials) {
+        if (this.loggedIn === false && localStorage.credentials) {
           loggedIn(angular.fromJson(localStorage.credentials));
         } else {
           $rootScope.$broadcast('login-failed');
@@ -39,7 +39,7 @@ angular.module('f2015.authentication', ['ngResource', 'config'])
         return credentials;
       },
       get loggedIn() {
-        return !!credentials;
+        return !!(credentials && credentials.playername);
       },
       get credentials() {
         return credentials;

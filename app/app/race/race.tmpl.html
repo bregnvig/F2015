@@ -1,14 +1,14 @@
 <md-toolbar class="md-hue-1" md-scroll-shrink>
   <h2 class="md-toolbar-tools">
     <span flex ng-bind="race.get.name"></span>
-    <md-button aria-label="Hent resultat" class="menu-button" ng-if="header.credentials.gameAdministrator && !race.get.completed" ui-sref="create-result({id: race.get.id})"><i class="fa fa-fw fa-lg fa-cloud-download"></i></md-button>
-    <md-button aria-label="Rul resultatet tilbage" class="menu-button" ng-if="header.credentials.gameAdministrator && race.get.completed" ng-click="race.rollback()"><i class="fa fa-fw fa-lg fa-undo"></i></md-button>
+    <md-button aria-label="Hent resultat" class="menu-button" ng-if="race.credentials.gameAdministrator && !race.get.completed" ui-sref="f2015.race.create-result()"><i class="fa fa-fw fa-lg fa-cloud-download"></i></md-button>
+    <md-button aria-label="Rul resultatet tilbage" class="menu-button" ng-if="race.credentials.gameAdministrator && race.get.completed" ng-click="race.rollback()"><i class="fa fa-fw fa-lg fa-undo"></i></md-button>
   </h2>
 </md-toolbar>
 <md-content class="below-sub-header">
   <md-list>
     <md-item-content ng-if="race.get.raceResult">
-      <md-button class="list-item" ui-sref="result({id: race.get.id})">
+      <md-button class="list-item" ui-sref="f2015.race.result()">
         <div class="md-tile-content" >
           <h3><strong>Resultat</strong></h3>
         </div>
@@ -17,7 +17,7 @@
     <md-divider></md-divider>
     <md-item ng-repeat="bid in race.get.bids">
       <md-item-content>
-        <md-button class="list-item" ui-sref="bid({id: race.get.id, player: bid.player.playername})" aria-label="{{bid.player | playerName | noTrophy}}">
+        <md-button class="list-item" ui-sref="f2015.race.bid({player: bid.player.playername})" aria-label="{{bid.player | playerName | noTrophy}}">
           <div class="md-tile-content" >
             <h3><strong ng-bind-html="bid.player | playerName"></strong><span ng-if="bid.points" class="pull-right">{{bid.points}}</span></h3>
           </div>

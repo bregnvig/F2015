@@ -1,0 +1,20 @@
+<md-card class="md-whiteframe-z1">
+  <md-toolbar>
+    <h2 class="md-toolbar-tools">
+      <span flex>Delresultat</span>
+    </h2>
+  </md-toolbar>
+  <md-card-content>
+    <md-content>
+      <p>Efter kvalifikationen er kørt ser det ca. sådan her ud:</p>
+      <ul>
+        <li ng-repeat="bid in bids | limitTo: limit"><strong ng-bind-html="bid.player | playerName | noTrophy"></strong> - {{bid.points}} point</li>
+      </ul>
+    </md-content>
+    <div layout="row" layout-align="end center">
+      <md-button aria-label="Se mere af delresultatet" ng-click="showToggle()" ng-bind="limit === 3 ? 'Se mere' : 'Se mindre'">
+
+      </md-button>
+    </div>
+  </md-card-content>
+</md-card>

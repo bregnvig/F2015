@@ -6,12 +6,23 @@ angular.module('f2015.model.race', ['f2015.resource', 'f2015.authentication', 'c
     var raceResource = secureResource(ENV.apiEndpoint+'/ws/race/:id');
     var racesResource = secureResource(ENV.apiEndpoint+'/ws/races');
     var currentRace;
+    var currentBids;
     var all;
     var fullRaces = {};
 
     return {
       get current() {
-        return currentRace || (currentRace = raceResource.get());
+        if (currentRace) {
+          return currentRace;
+        }
+        currentRace = raceResource.get();
+        currentRace.$promise.then(function() {
+          $rootScope.$broadcast('current-race', currentRace);
+        });
+        return currentRace;
+      },
+      get currentBids() {
+        return currentBids || (currentBids = raceResource.get({'players': true}));
       },
       get: function(id) {
         if (fullRaces[id]) {
@@ -19,6 +30,9 @@ angular.module('f2015.model.race', ['f2015.resource', 'f2015.authentication', 'c
         } else {
           return (fullRaces[id] = raceResource.get({id: id}));
         }
+      },
+      submitIntermediate: function(race, result, callback) {
+        return raceResource.save({'id':race.id, 'intermediate': true}, result, callback);
       },
       submitResult: function(race, result, callback) {
         var data = angular.copy(result);

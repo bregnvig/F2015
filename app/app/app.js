@@ -23,6 +23,7 @@ angular
     'f2015.profile',
     'f2015.loading',
     'f2015.hint',
+    'f2015.hint.afterQualify',
     'f2015.authentication'
   ])
   .config(['$locationProvider', '$stateProvider', '$urlRouterProvider', '$mdThemingProvider', '$httpProvider', function($locationProvider, $stateProvider, $urlRouterProvider, $mdThemingProvider, $httpProvider) {
@@ -35,67 +36,143 @@ angular
 
     $stateProvider
       .state('f2015', {
+        abstract: true,
+        resolve: {
+          account: function() {
+
+          }
+        },
+        views: {
+          header: {
+            templateUrl: 'app/header/header.tmpl.html',
+            controller: 'HeaderCtrl as header'
+          },
+          menu: {
+            templateUrl: 'app/header/menu.tmpl.html',
+            controller: 'MenuCtrl as menu'
+          }
+        }
+      })
+      .state('f2015.home', {
         url: '/',
-        templateUrl: 'app/home/home.tmpl.html'
+        views: {
+          '@': {
+            templateUrl: 'app/home/home.tmpl.html'
+          }
+        }
       })
-      .state('account', {
+      .state('f2015.account', {
         url: '/account',
-        templateUrl: 'app/account/account.tmpl.html',
-        controller: 'AccountCtrl as account'
+        views: {
+          '@': {
+            templateUrl: 'app/account/account.tmpl.html',
+            controller: 'AccountCtrl as account'
+          }
+        }
       })
-      .state('races', {
+      .state('f2015.races', {
         url: '/race',
-        templateUrl: 'app/race/races.tmpl.html',
-        controller: 'RacesCtrl as races'
+        views: {
+          '@': {
+            templateUrl: 'app/race/races.tmpl.html',
+            controller: 'RacesCtrl as races'
+          }
+        }
       })
-      .state('race', {
+      .state('f2015.race', {
         url: '/race/:id',
-        templateUrl: 'app/race/race.tmpl.html',
-        controller: 'RaceCtrl as race'
+        cache: false,
+        resolve: {
+          currentRace: ['$stateParams', 'raceModel', function($stateParams, raceModel) {
+            return raceModel.get($stateParams.id);
+          }]
+        },
+        views: {
+          '@': {
+            templateUrl: 'app/race/race.tmpl.html',
+            controller: 'RaceCtrl as race'
+          }
+        }
       })
-      .state('bid', {
-        url: '/race/:id/:player',
-        templateUrl: 'app/race/bid.tmpl.html',
-        controller: 'BidCtrl as bid'
+      .state('f2015.race.bid', {
+        url: '/:player',
+        views: {
+          '@': {
+            templateUrl: 'app/race/bid.tmpl.html',
+            controller: 'BidCtrl as bid'
+          }
+        }
       })
-      .state('result', {
-        url: '/result/:id',
-        templateUrl: 'app/race/bid.tmpl.html',
-        controller: 'ResultCtrl as bid'
+      .state('f2015.race.result', {
+        url: '/result',
+        views: {
+          '@': {
+            templateUrl: 'app/race/bid.tmpl.html',
+            controller: 'ResultCtrl as bid'
+          }
+        }
       })
-      .state('create-result', {
-        url: '/create-result/:id',
-        templateUrl: 'app/race/bid.tmpl.html',
-        controller: 'CreateResultCtrl as bid'
+      .state('f2015.race.create-result', {
+        url: '/create-result',
+        views: {
+          '@': {
+            templateUrl: 'app/race/bid.tmpl.html',
+            controller: 'CreateResultCtrl as bid'
+          }
+        }
       })
-      .state('wbc', {
+      .state('f2015.wbc', {
         url: '/wbc',
-        templateUrl: 'app/wbc/wbc.tmpl.html',
-        controller: 'WbcCtrl as wbc'
+        views: {
+          '@': {
+            templateUrl: 'app/wbc/wbc.tmpl.html',
+            controller: 'WbcCtrl as wbc'
+          }
+        }
       })
-      .state('wbc-player', {
-        url: '/wbc/player/:player',
-        templateUrl: 'app/wbc/player.tmpl.html',
-        controller: 'WbcPlayerCtrl as wbcPlayer'
+      .state('f2015.wbc.player', {
+        url: '/player/:player',
+        views: {
+          '@': {
+            templateUrl: 'app/wbc/player.tmpl.html',
+            controller: 'WbcPlayerCtrl as wbcPlayer'
+          }
+        }
       })
-      .state('wbc-graph', {
-        url: '/wbc/graph',
-        templateUrl: 'app/wbc/wbc-graph.tmpl.html',
-        controller: 'WbcGraphCtrl as wbcGraph'
+      .state('f2015.wbc.graph', {
+        url: '/graph',
+        views: {
+          '@': {
+            templateUrl: 'app/wbc/wbc-graph.tmpl.html',
+            controller: 'WbcGraphCtrl as wbcGraph'
+          }
+        }
       })
-      .state('rules', {
+      .state('f2015.rules', {
         url: '/rules',
-        templateUrl: 'app/rules/rules.tmpl.html'
+        views: {
+          '@': {
+            templateUrl: 'app/rules/rules.tmpl.html'
+          }
+        }
       })
-      .state('password', {
+      .state('f2015.password', {
         url: '/password',
-        templateUrl: 'app/profile/password.tmpl.html',
-        controller: 'PasswordCtrl as password'
+        views: {
+          '@': {
+            templateUrl: 'app/profile/password.tmpl.html',
+            controller: 'PasswordCtrl as password'
+          }
+        }
       })
-      .state('profile', {
+      .state('f2015.profile', {
         url: '/profile',
-        templateUrl: 'app/profile/profile.tmpl.html',
-        controller: 'ProfileCtrl as profile'
+        views: {
+          '@': {
+            templateUrl: 'app/profile/profile.tmpl.html',
+            controller: 'ProfileCtrl as profile'
+          }
+        }
       });
 
     $urlRouterProvider.otherwise('/');
