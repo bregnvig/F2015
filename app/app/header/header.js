@@ -26,6 +26,7 @@ angular.module('f2015.header', [])
   .controller('MenuCtrl', ['$scope', '$mdSidenav', 'accountService', 'authenticationService', function($scope, $mdSidenav, account, authentication) {
     var menu = this;
     menu.account = account.get;
+    menu.credentials = authentication.credentials;
     menu.toggle = function() {
       $mdSidenav('drawer').toggle();
     };

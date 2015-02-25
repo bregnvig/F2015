@@ -67,7 +67,7 @@ angular.module('f2015.hint', ['f2015.model.ergast'])
       templateUrl: 'app/hint/develop-card.tmpl.html',
       link: function($scope, element) {
         if (ENV.name === 'development') {
-          element.removeClass('ng-hide');
+          //element.removeClass('ng-hide');
           $scope.testIt = function() {
             raceModel.get(114).$promise.then(function(race) {
               $rootScope.$broadcast('current-race', race);

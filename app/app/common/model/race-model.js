@@ -4,6 +4,7 @@ angular.module('f2015.model.race', ['f2015.resource', 'f2015.authentication', 'c
   .factory('raceModel', ['$rootScope', 'secureResource', 'ENV', function($rootScope, secureResource, ENV) {
 
     var raceResource = secureResource(ENV.apiEndpoint+'/ws/race/:id');
+    var bidResource = secureResource(ENV.apiEndpoint+'/ws/bid');
     var racesResource = secureResource(ENV.apiEndpoint+'/ws/races');
     var currentRace;
     var currentBids;
@@ -30,6 +31,12 @@ angular.module('f2015.model.race', ['f2015.resource', 'f2015.authentication', 'c
         } else {
           return (fullRaces[id] = raceResource.get({id: id}));
         }
+      },
+      submitBid: function(bid, callback) {
+        bidResource.save(null, bid, callback).$promise.then(function() {
+          $rootScope.$broadcast('bid-submitted');
+          currentRace = undefined;
+        });
       },
       submitIntermediate: function(race, result, callback) {
         return raceResource.save({'id':race.id, 'intermediate': true}, result, callback);

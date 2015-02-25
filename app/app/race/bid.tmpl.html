@@ -2,7 +2,7 @@
   <h2 class="md-toolbar-tools">
     <strong ng-if="bid.get.firstCrash" ng-bind-html="bid.get.player | playerName" flex>
     </strong>
-    <span ng-if="bid.get.firstCrash" class="pull-right" ng-bind="bid.get.points">
+    <span ng-if="bid.get.firstCrash && bid.race.completed" class="pull-right" ng-bind="bid.get.points">
     </span>
     <span ng-if="bid.get.firstCrashes">Resultat</span>
   </h2>
@@ -45,7 +45,7 @@
     </md-list>
   </section>
   <section>
-    <md-subheader class="md-primary">{{bid.get.driver.name}}</md-subheader>
+    <md-subheader class="md-primary">{{bid.race.selectedDriver.name}}</md-subheader>
     <md-list layout="column">
       <md-item>
         <md-item-content>

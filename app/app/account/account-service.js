@@ -10,6 +10,12 @@ angular.module('f2015.account', ['f2015.resource', 'config', 'ngMaterial'])
     accountBackend = secureResource(ENV.apiEndpoint+'/ws/player/account');
     account = accountBackend.get();
 
+    $rootScope.$on('bid-submitted', function() {
+      accountBackend.get(function(result) {
+        angular.copy(result, account);
+      });
+    });
+
     return {
       get get() {
         return account;

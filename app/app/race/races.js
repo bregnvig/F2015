@@ -24,12 +24,37 @@ angular.module('f2015.race', ['f2015.model.race', 'f2015.model.ergast'])
   }])
   .controller('BidCtrl', ['$stateParams', 'currentRace', function($stateParams, currentRace) {
     var bid = this;
-    for(var i = 0; i < currentRace.bids.length; i++){
-      if (currentRace.bids[i].player.playername === $stateParams.player) {
-        bid.get = currentRace.bids[i];
-        break;
+    currentRace.$promise.then(function() {
+      bid.race = currentRace;
+      for(var i = 0; i < currentRace.bids.length; i++){
+        if (currentRace.bids[i].player.playername === $stateParams.player) {
+          bid.get = currentRace.bids[i];
+          break;
+        }
       }
-    }
+    });
+  }])
+  .controller('EnterBidCtrl', ['$state', 'currentRace', 'drivers', 'raceModel', function($state, currentRace, drivers, raceModel) {
+    var bid = this;
+    bid.drivers = drivers;
+    bid.grid = [];
+    bid.podium = [];
+    bid.selectedDriver = [];
+    bid.race = currentRace;
+
+    bid.submitBid = function() {
+      var submit = {};
+      submit.grid = bid.grid;
+      submit.fastestLap = bid.fastestLap;
+      submit.podium = bid.podium;
+      submit.firstCrash = bid.firstCrash;
+      submit.selectedDriver = bid.selectedDriver;
+      submit.polePositionTime = (60 * 1000 * bid.minutes) + (1000 * bid.seconds) + bid.milliseconds;
+      raceModel.submitBid(submit, function() {
+        $state.go('f2015.home');
+      });
+    };
+
   }])
   .controller('ResultCtrl', ['$stateParams', 'currentRace', function($stateParams, currentRace) {
     var bid = this;
@@ -42,7 +67,7 @@ angular.module('f2015.race', ['f2015.model.race', 'f2015.model.ergast'])
       link: function($scope, element) {
         $scope.race = raceModel.current;
         $scope.$watch('race', function (newValue) {
-          if (newValue && newValue.name) {
+          if (newValue && newValue.name && newValue.participant === false) {
             element.removeClass('ng-hide');
           }
         }, true);
@@ -106,5 +131,36 @@ angular.module('f2015.race', ['f2015.model.race', 'f2015.model.ergast'])
       });
       return raceResult;
     };
-  }]);
+  }])
+  .directive('unique', function() {
+    return {
+      restrict: 'A', // only activate on element attribute
+      require: '?ngModel', // get a hold of NgModelController
+      link: function(scope, elem, attrs, ngModel) {
+        if(!ngModel) {
+          console.log('No model - ejecting');
+          return;
+        }
+
+        scope.$watch(attrs.unique, function(values) {
+          validate(values);
+        }, true);
+
+        var validate = function(values) {
+          // values
+          var val1 = ngModel.$viewValue;
+          var count = 0;
+          if (val1) {
+            values.forEach(function(driver) {
+              if (driver && val1.id === driver.id) {
+                count++;
+              }
+            });
+          }
+          // set validity
+          ngModel.$setValidity('unique', !val1 || count <= 1);
+        };
+      }
+    };
+  });
 

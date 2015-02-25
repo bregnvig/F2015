@@ -1,7 +1,7 @@
 <md-toolbar class="md-hue-1" md-scroll-shrink>
   <h2 class="md-toolbar-tools">
     <span flex ng-bind="race.get.name"></span>
-    <md-button aria-label="Hent resultat" class="menu-button" ng-if="race.credentials.gameAdministrator && !race.get.completed" ui-sref="f2015.race.create-result()"><i class="fa fa-fw fa-lg fa-cloud-download"></i></md-button>
+    <md-button aria-label="Hent resultat" class="menu-button" ng-if="race.credentials.gameAdministrator && race.get.closed && !race.get.completed" ui-sref="f2015.race.create-result()"><i class="fa fa-fw fa-lg fa-cloud-download"></i></md-button>
     <md-button aria-label="Rul resultatet tilbage" class="menu-button" ng-if="race.credentials.gameAdministrator && race.get.completed" ng-click="race.rollback()"><i class="fa fa-fw fa-lg fa-undo"></i></md-button>
   </h2>
 </md-toolbar>

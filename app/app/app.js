@@ -94,6 +94,20 @@ angular
           }
         }
       })
+      .state('f2015.race.enter-bid', {
+        url: '/enter-bid',
+        resolve: {
+          drivers: ['driverModel', function(driverModel) {
+            return driverModel.drivers;
+          }]
+        },
+        views: {
+          '@': {
+            templateUrl: 'app/race/enter-bid.tmpl.html',
+            controller: 'EnterBidCtrl as bid'
+          }
+        }
+      })
       .state('f2015.race.bid', {
         url: '/:player',
         views: {
