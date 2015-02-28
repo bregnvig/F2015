@@ -10,5 +10,9 @@
       <p>{{qualify[0].Driver | driverName}} kørte omgangen på {{qualify[0].Q3}}</p>
       <p><span ng-repeat="result in results | limitTo: 3">{{($last ? ' og ' : ($first ? '' : ', ')) + (result.Driver | driverName)}}</span> endte på podiet</p>
     </md-content>
+    <div layout="row" layout-align="end center">
+      <md-button aria-label="Se mere af sidste års resultat" ui-sref="f2015.old-race">Se mere
+      </md-button>
+    </div>
   </md-card-content>
 </md-card>

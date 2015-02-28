@@ -1,10 +1,10 @@
 <div layout="row" layout-sm="column" layout-padding layout-wrap>
   <develop-card flex-sm="100" flex="50" flex-md="100"  class="ng-hide"></develop-card>
   <login-card flex-sm="100" flex="50" flex-md="100"  class="ng-hide"></login-card>
-  <account-warning-card flex-sm="100" flex-md="100" flex="50"  class="ng-hide"></account-warning-card>
-  <after-qualify-card flex-sm="100" flex-md="100" flex="50"  class="ng-hide"></after-qualify-card>
-  <last-year flex-sm="100" flex-md="100" flex="50"  class="ng-hide"></last-year>
-  <join-race-card flex-sm="100" flex-md="100" flex="50"  class="ng-hide"></join-race-card>
+  <account-warning-card flex-sm="100" flex-md="100" flex="50"  class="ng-hide" ng-if="loggedIn"></account-warning-card>
+  <after-qualify-card flex-sm="100" flex-md="100" flex="50"  class="ng-hide" ng-if="loggedIn"></after-qualify-card>
+  <last-year flex-sm="100" flex-md="100" flex="50"  class="ng-hide" ng-if="loggedIn"></last-year>
+  <join-race-card flex-sm="100" flex-md="100" flex="50"  class="ng-hide" ng-if="loggedIn"></join-race-card>
   <weather-forecast-card flex-sm="100" flex-md="100" flex="50"  class="ng-hide"></weather-forecast-card>
-  <join-wbc-card  flex-sm="100" flex-md="100" flex="50"  class="ng-hide"></join-wbc-card>
+  <join-wbc-card  flex-sm="100" flex-md="100" flex="50"  class="ng-hide" ng-if="loggedIn"></join-wbc-card>
 </div>

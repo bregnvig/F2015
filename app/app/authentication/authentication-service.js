@@ -13,7 +13,7 @@ angular.module('f2015.authentication', ['ngResource', 'config'])
 
     return {
       login: function(userName, password) {
-        credentials = null;
+        credentials = {};
         delete localStorage.credentials;
         return authenticationResource.get({userName: userName, password: password}, function(result) {
           loggedIn(result);
@@ -22,13 +22,7 @@ angular.module('f2015.authentication', ['ngResource', 'config'])
         });
       },
       save:function() {
-        if (credentials.$promise) {
-          credentials.$promise.then(function() {
-            localStorage.credentials = angular.toJson(credentials);
-          });
-        } else {
-          localStorage.credentials = angular.toJson(credentials);
-        }
+        localStorage.credentials = angular.toJson(credentials);
       },
       load:function() {
         if (this.loggedIn === false && localStorage.credentials) {

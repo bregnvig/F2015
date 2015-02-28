@@ -22,6 +22,15 @@ angular.module('f2015.race', ['f2015.model.race', 'f2015.model.ergast'])
       });
     };
   }])
+  .controller('OldRaceCtrl', ['raceModel', 'ergastModel', function(raceModel, ergastModel) {
+    var oldRace = this;
+    oldRace.race = raceModel.current;
+    oldRace.race.$promise.then(function(race) {
+      oldRace.previousSeason = ergastModel.previousSeason;
+      oldRace.qualifyResult = ergastModel.getLastSeasonQualify(race.circuitId);
+      oldRace.raceResult= ergastModel.getLastSeasonResults(race.circuitId);
+    });
+  }])
   .controller('BidCtrl', ['$stateParams', 'currentRace', function($stateParams, currentRace) {
     var bid = this;
     currentRace.$promise.then(function() {
@@ -34,23 +43,31 @@ angular.module('f2015.race', ['f2015.model.race', 'f2015.model.ergast'])
       }
     });
   }])
-  .controller('EnterBidCtrl', ['$state', 'currentRace', 'drivers', 'raceModel', function($state, currentRace, drivers, raceModel) {
-    var bid = this;
-    bid.drivers = drivers;
-    bid.grid = [];
-    bid.podium = [];
-    bid.selectedDriver = [];
-    bid.race = currentRace;
+  .controller('EnterBidCtrl', ['$scope', '$state', 'currentRace', 'drivers', 'raceModel', function($scope, $state, currentRace, drivers, raceModel) {
+    var enterBid = this;
+    enterBid.race = currentRace;
+    enterBid.drivers = drivers;
+    enterBid.bid = localStorage.bid ? angular.fromJson(localStorage.bid) : {};
+    if (!enterBid.bid.grid) {
+      enterBid.bid.grid = [];
+      enterBid.bid.podium = [];
+      enterBid.bid.selectedDriver = [];
+    }
 
-    bid.submitBid = function() {
+    $scope.$on('$stateChangeStart', function() {
+      localStorage.bid = angular.toJson(enterBid.bid);
+    });
+
+    enterBid.submitBid = function() {
       var submit = {};
-      submit.grid = bid.grid;
-      submit.fastestLap = bid.fastestLap;
-      submit.podium = bid.podium;
-      submit.firstCrash = bid.firstCrash;
-      submit.selectedDriver = bid.selectedDriver;
-      submit.polePositionTime = (60 * 1000 * bid.minutes) + (1000 * bid.seconds) + bid.milliseconds;
+      submit.grid = enterBid.grid;
+      submit.fastestLap = enterBid.fastestLap;
+      submit.podium = enterBid.podium;
+      submit.firstCrash = enterBid.firstCrash;
+      submit.selectedDriver = enterBid.selectedDriver;
+      submit.polePositionTime = (60 * 1000 * enterBid.minutes) + (1000 * enterBid.seconds) + enterBid.milliseconds;
       raceModel.submitBid(submit, function() {
+        localStorage.bid = undefined;
         $state.go('f2015.home');
       });
     };

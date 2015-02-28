@@ -46,4 +46,27 @@ angular.module('f2015.common-filter', [])
       return '';
     };
 
+  }])
+  .filter('ergastDriverName', [function() {
+    return function(driver) {
+      if (driver && driver.driverId) {
+        return driver.givenName + ' ' + driver.familyName;
+      }
+      return driver;
+    };
+
+  }])
+  .filter('ergastQualifyTime', [function() {
+    return function(result) {
+      if (result && result.Q1) {
+        if (result.Q3) {
+          return result.Q3;
+        } else if (result.Q2) {
+          return result.Q2;
+        }
+        return result.Q1;
+      }
+      return '';
+    };
+
   }]);

@@ -37,11 +37,6 @@ angular
     $stateProvider
       .state('f2015', {
         abstract: true,
-        resolve: {
-          account: function() {
-
-          }
-        },
         views: {
           header: {
             templateUrl: 'app/header/header.tmpl.html',
@@ -57,7 +52,8 @@ angular
         url: '/',
         views: {
           '@': {
-            templateUrl: 'app/home/home.tmpl.html'
+            templateUrl: 'app/home/home.tmpl.html',
+            controller: 'HomeCtrl'
           }
         }
       })
@@ -76,6 +72,16 @@ angular
           '@': {
             templateUrl: 'app/race/races.tmpl.html',
             controller: 'RacesCtrl as races'
+          }
+        }
+      })
+      .state('f2015.old-race', {
+        url: '/race/last-year',
+        cache: false,
+        views: {
+          '@': {
+            templateUrl: 'app/race/old-race.tmpl.html',
+            controller: 'OldRaceCtrl as oldRace'
           }
         }
       })
@@ -104,7 +110,7 @@ angular
         views: {
           '@': {
             templateUrl: 'app/race/enter-bid.tmpl.html',
-            controller: 'EnterBidCtrl as bid'
+            controller: 'EnterBidCtrl as enterBid'
           }
         }
       })
@@ -222,5 +228,5 @@ angular
     });
   }])
   .run(['amMoment', function(amMoment) {
-    amMoment.changeLocale('da');
+    //amMoment.changeLocale('da');
   }]);

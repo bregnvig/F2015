@@ -10,7 +10,8 @@ angular.module('f2015.hint', ['f2015.model.ergast'])
         scope.race = raceModel.current;
         scope.next = ergastModel.next(function(race) {
           if (race !== null) {
-              scope.qualify = ergastModel.getLastSeasonQualify(race.Circuit.circuitId, function() {
+            scope.qualify = ergastModel.getLastSeasonQualify(race.Circuit.circuitId);
+            scope.qualify.$promise.then(function() {
               scope.results = ergastModel.getLastSeasonResults(race.Circuit.circuitId);
               element.removeClass('ng-hide');
             });

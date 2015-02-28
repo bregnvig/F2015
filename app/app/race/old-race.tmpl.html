@@ -1,0 +1,35 @@
+<md-toolbar class="md-hue-1" md-scroll-shrink>
+  <h2 class="md-toolbar-tools">
+    <span flex>{{oldRace.race.name}} {{oldRace.previousSeason}}</span>
+  </h2>
+</md-toolbar>
+<md-content class="below-sub-header">
+  <md-tabs md-selected="1">
+    <md-tab label="Kvalifikation">
+      <md-list>
+        <md-item ng-repeat="result in oldRace.qualifyResult">
+          <md-item-content>
+            <div class="md-tile-content" >
+              <h3><strong>{{result.Driver | ergastDriverName}}</strong><span class="pull-right">{{result | ergastQualifyTime }}</span></h3>
+            </div>
+          </md-item-content>
+          <md-divider ng-if="!$last"></md-divider>
+        </md-item>
+      </md-list>
+    </md-tab>
+    <md-tab label="Resultat">
+      <md-list>
+        <md-item ng-repeat="result in oldRace.raceResult">
+          <md-item-content>
+            <div class="md-tile-content" >
+              <h3><strong>{{result.Driver | ergastDriverName}}</strong><span class="pull-right">{{result.points}}</span></h3>
+              <p>{{result.status}}</p>
+            </div>
+          </md-item-content>
+          <md-divider ng-if="!$last"></md-divider>
+        </md-item>
+      </md-list>
+    </md-tab>
+  </md-tabs>
+</md-content>
+<back></back>

@@ -333,6 +333,15 @@ module.exports = function (grunt) {
 
     // Copies remaining files to places other tasks can use
     copy: {
+      development: {
+        files: [{
+          expand: true,
+          dot: true,
+          cwd: 'bower_components/moment/locale',
+          src: 'da.js',
+          dest: '<%= yeoman.app %>/app'
+        }]
+      },
       dist: {
         files: [{
           expand: true,
@@ -357,7 +366,21 @@ module.exports = function (grunt) {
           cwd: '.',
           src: 'bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/*',
           dest: '<%= yeoman.dist %>'
-        }]
+        },
+        {
+          expand: true,
+          dot: true,
+          cwd: 'bower_components/font-awesome',
+          src: ['fonts/*.*'],
+          dest: '<%= yeoman.dist %>'
+        },
+          {
+            expand: true,
+            dot: true,
+            cwd: 'bower_components/moment/locale',
+            src: 'da.js',
+            dest: '<%= yeoman.app %>/app'
+          }]
       },
       styles: {
         expand: true,
@@ -410,7 +433,7 @@ module.exports = function (grunt) {
       },
       production: {
         options: {
-          dest: '<%= yeoman.dist %>/app/config.js'
+          dest: '<%= yeoman.app %>/app/config.js'
         },
         constants: {
           ENV: {

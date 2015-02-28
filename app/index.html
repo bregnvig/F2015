@@ -6,16 +6,15 @@
     <meta name="description" content="">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <link rel="apple-touch-icon" href="favicon.ico"/>
+    <link rel="apple-touch-icon" href="apple-touch-icon.png"/>
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
-    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="styles/main.css">
 
     <!-- endbuild -->
@@ -52,7 +51,9 @@
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="app/da.js"></script>
         <script src="app/app.js"></script>
+        <script src="app/config.js"></script>
         <script src="app/authentication/authentication-service.js"></script>
         <script src="app/common/resource.js"></script>
         <script src="app/common/common-contants.js"></script>
@@ -73,8 +74,6 @@
         <script src="app/loading/loading.js"></script>
         <script src="app/hint/hint.js"></script>
         <script src="app/hint/after-qualify.js"></script>
-        <script src="bower_components/moment/locale/da.js"></script>
-        <script src="app/config.js" />
         <!-- endbuild -->
 </body>
 </html>

@@ -1,7 +1,7 @@
 <form name="enterBidForm">
 <md-toolbar class="md-hue-1">
   <h2 class="md-toolbar-tools">
-    <span flex>{{bid.race.name}}</span>
+    <span flex>{{enterBid.race.name}}</span>
   </h2>
 </md-toolbar>
   <md-content class="below-sub-header-stationary">
@@ -11,11 +11,11 @@
         <md-item flex-sm="100" flex="50">
           <md-item-content>
             <div class="md-tile-content" flex layout="column">
-              <md-select name="grid0" ng-model="bid.grid[0]" unique="bid.grid" flex required>
-                <md-select-label>{{ bid.grid[0] ? bid.grid[0].name : 'Vælg 1. kører' }}</md-select-label>
-                <md-option ng-repeat="driver in bid.drivers" ng-value="driver" >{{driver.name}}</md-option>
+              <md-select name="grid0" ng-model="enterBid.bid.grid[0]" unique="enterBid.bid.grid" flex required>
+                <md-select-label>{{ enterBid.bid.grid[0] ? enterBid.bid.grid[0].name : 'Vælg 1. kører' }}</md-select-label>
+                <md-option ng-repeat="driver in enterBid.drivers" ng-value="driver" >{{driver.name}}</md-option>
               </md-select>
-              <md-input-container ng-if="!enterBidForm.grid0.$valid && bid.grid[0]">
+              <md-input-container ng-if="!enterBidForm.grid0.$valid && enterBid.bid.grid[0]">
                 <div ng-messages="enterBidForm.grid0.$error" ng-messages-include="error-messages">
                 </div>
               </md-input-container>
@@ -25,11 +25,11 @@
         <md-item flex-sm="100" flex="50">
           <md-item-content>
             <div class="md-tile-content" flex layout="column">
-              <md-select name="grid1" ng-model="bid.grid[1]" unique="bid.grid" flex required>
-                <md-select-label>{{ bid.grid[1] ? bid.grid[1].name : 'Vælg 2. kører' }}</md-select-label>
-                <md-option ng-repeat="driver in bid.drivers" ng-value="driver" >{{driver.name}}</md-option>
+              <md-select name="grid1" ng-model="enterBid.bid.grid[1]" unique="enterBid.bid.grid" flex required>
+                <md-select-label>{{ enterBid.bid.grid[1] ? enterBid.bid.grid[1].name : 'Vælg 2. kører' }}</md-select-label>
+                <md-option ng-repeat="driver in enterBid.drivers" ng-value="driver" >{{driver.name}}</md-option>
               </md-select>
-              <md-input-container ng-if="!enterBidForm.grid1.$valid  && bid.grid[1]">
+              <md-input-container ng-if="!enterBidForm.grid1.$valid  && enterBid.bid.grid[1]">
                 <div ng-messages="enterBidForm.grid1.$error" ng-messages-include="error-messages">
                 </div>
               </md-input-container>
@@ -39,11 +39,11 @@
         <md-item flex-sm="100" flex="50">
           <md-item-content>
             <div class="md-tile-content" flex layout="column">
-              <md-select name="grid2" ng-model="bid.grid[2]" unique="bid.grid" flex required>
-                <md-select-label>{{ bid.grid[2] ? bid.grid[2].name : 'Vælg 3. kører' }}</md-select-label>
-                <md-option ng-repeat="driver in bid.drivers" ng-value="driver" >{{driver.name}}</md-option>
+              <md-select name="grid2" ng-model="enterBid.bid.grid[2]" unique="enterBid.bid.grid" flex required>
+                <md-select-label>{{ enterBid.bid.grid[2] ? enterBid.bid.grid[2].name : 'Vælg 3. kører' }}</md-select-label>
+                <md-option ng-repeat="driver in enterBid.drivers" ng-value="driver" >{{driver.name}}</md-option>
               </md-select>
-              <md-input-container ng-if="!enterBidForm.grid2.$valid && bid.grid[2]">
+              <md-input-container ng-if="!enterBidForm.grid2.$valid && enterBid.bid.grid[2]">
                 <div ng-messages="enterBidForm.grid2.$error" ng-messages-include="error-messages">
                 </div>
               </md-input-container>
@@ -53,11 +53,11 @@
         <md-item flex-sm="100" flex="50">
           <md-item-content>
             <div class="md-tile-content" flex layout="column">
-              <md-select name="grid3" ng-model="bid.grid[3]" unique="bid.grid" flex required>
-                <md-select-label>{{ bid.grid[3] ? bid.grid[3].name : 'Vælg 4. kører' }}</md-select-label>
-                <md-option ng-repeat="driver in bid.drivers" ng-value="driver" >{{driver.name}}</md-option>
+              <md-select name="grid3" ng-model="enterBid.bid.grid[3]" unique="enterBid.bid.grid" flex required>
+                <md-select-label>{{ enterBid.bid.grid[3] ? enterBid.bid.grid[3].name : 'Vælg 4. kører' }}</md-select-label>
+                <md-option ng-repeat="driver in enterBid.drivers" ng-value="driver" >{{driver.name}}</md-option>
               </md-select>
-              <md-input-container ng-if="!enterBidForm.grid3.$valid && bid.grid[3]">
+              <md-input-container ng-if="!enterBidForm.grid3.$valid && enterBid.bid.grid[3]">
                 <div ng-messages="enterBidForm.grid3.$error" ng-messages-include="error-messages">
                 </div>
               </md-input-container>
@@ -67,11 +67,11 @@
         <md-item flex-sm="100" flex="50">
           <md-item-content>
             <div class="md-tile-content" flex layout="column">
-              <md-select name="grid4" ng-model="bid.grid[4]" unique="bid.grid" flex required>
-                <md-select-label>{{ bid.grid[4] ? bid.grid[4].name : 'Vælg 5. kører' }}</md-select-label>
-                <md-option ng-repeat="driver in bid.drivers" ng-value="driver" >{{driver.name}}</md-option>
+              <md-select name="grid4" ng-model="enterBid.bid.grid[4]" unique="enterBid.bid.grid" flex required>
+                <md-select-label>{{ enterBid.bid.grid[4] ? enterBid.bid.grid[4].name : 'Vælg 5. kører' }}</md-select-label>
+                <md-option ng-repeat="driver in enterBid.drivers" ng-value="driver" >{{driver.name}}</md-option>
               </md-select>
-              <md-input-container ng-if="!enterBidForm.grid4.$valid && bid.grid[4]">
+              <md-input-container ng-if="!enterBidForm.grid4.$valid && enterBid.bid.grid[4]">
                 <div ng-messages="enterBidForm.grid4.$error" ng-messages-include="error-messages">
                 </div>
               </md-input-container>
@@ -81,11 +81,11 @@
         <md-item flex-sm="100" flex="50">
           <md-item-content>
             <div class="md-tile-content" flex layout="column">
-              <md-select name="grid5" ng-model="bid.grid[5]" unique="bid.grid" flex required>
-                <md-select-label>{{ bid.grid[5] ? bid.grid[5].name : 'Vælg 6. kører' }}</md-select-label>
-                <md-option ng-repeat="driver in bid.drivers" ng-value="driver" >{{driver.name}}</md-option>
+              <md-select name="grid5" ng-model="enterBid.bid.grid[5]" unique="enterBid.bid.grid" flex required>
+                <md-select-label>{{ enterBid.bid.grid[5] ? enterBid.bid.grid[5].name : 'Vælg 6. kører' }}</md-select-label>
+                <md-option ng-repeat="driver in enterBid.drivers" ng-value="driver" >{{driver.name}}</md-option>
               </md-select>
-              <md-input-container ng-if="!enterBidForm.grid5.$valid && bid.grid[5]">
+              <md-input-container ng-if="!enterBidForm.grid5.$valid && enterBid.bid.grid[5]">
                 <div ng-messages="enterBidForm.grid5.$error" ng-messages-include="error-messages">
                 </div>
               </md-input-container>
@@ -100,9 +100,9 @@
         <md-item flex-sm="100" flex="50">
           <md-item-content>
             <div class="md-tile-content" flex layout="row">
-              <md-select ng-model="bid.fastestLap" flex >
-                <md-select-label>{{ bid.fastestLap ? bid.fastestLap.name : 'Vælg hurtigste kører' }}</md-select-label>
-                <md-option ng-repeat="driver in bid.drivers" ng-value="driver" >{{driver.name}}</md-option>
+              <md-select ng-model="enterBid.bid.fastestLap" flex >
+                <md-select-label>{{ enterBid.bid.fastestLap ? enterBid.bid.fastestLap.name : 'Vælg hurtigste kører' }}</md-select-label>
+                <md-option ng-repeat="driver in enterBid.drivers" ng-value="driver" >{{driver.name}}</md-option>
               </md-select>
             </div>
           </md-item-content>
@@ -115,11 +115,11 @@
         <md-item flex-sm="100" flex="33">
           <md-item-content>
             <div class="md-tile-content" flex layout="column">
-              <md-select name="podium0" ng-model="bid.podium[0]" unique="bid.podium" flex required>
-                <md-select-label>{{ bid.podium[0] ? bid.podium[0].name : 'Vælg 1. pladsen' }}</md-select-label>
-                <md-option ng-repeat="driver in bid.drivers" ng-value="driver" >{{driver.name}}</md-option>
+              <md-select name="podium0" ng-model="enterBid.bid.podium[0]" unique="enterBid.bid.podium" flex required>
+                <md-select-label>{{ enterBid.bid.podium[0] ? enterBid.bid.podium[0].name : 'Vælg 1. pladsen' }}</md-select-label>
+                <md-option ng-repeat="driver in enterBid.drivers" ng-value="driver" >{{driver.name}}</md-option>
               </md-select>
-              <md-input-container ng-if="!enterBidForm.podium0.$valid && bid.podium[0]">
+              <md-input-container ng-if="!enterBidForm.podium0.$valid && enterBid.bid.podium[0]">
                 <div ng-messages="enterBidForm.podium0.$error" ng-messages-include="error-messages">
                 </div>
               </md-input-container>
@@ -129,11 +129,11 @@
         <md-item flex-sm="100" flex="33">
           <md-item-content>
             <div class="md-tile-content" flex layout="column">
-              <md-select name="podium1" ng-model="bid.podium[1]" unique="bid.podium" flex required>
-                <md-select-label>{{ bid.podium[1] ? bid.podium[1].name : 'Vælg 2. pladsen' }}</md-select-label>
-                <md-option ng-repeat="driver in bid.drivers" ng-value="driver" >{{driver.name}}</md-option>
+              <md-select name="podium1" ng-model="enterBid.bid.podium[1]" unique="enterBid.bid.podium" flex required>
+                <md-select-label>{{ enterBid.bid.podium[1] ? enterBid.bid.podium[1].name : 'Vælg 2. pladsen' }}</md-select-label>
+                <md-option ng-repeat="driver in enterBid.drivers" ng-value="driver" >{{driver.name}}</md-option>
               </md-select>
-              <md-input-container ng-if="!enterBidForm.podium1.$valid  && bid.podium[1]">
+              <md-input-container ng-if="!enterBidForm.podium1.$valid  && enterBid.bid.podium[1]">
                 <div ng-messages="enterBidForm.podium1.$error" ng-messages-include="error-messages">
                 </div>
               </md-input-container>
@@ -143,11 +143,11 @@
         <md-item flex-sm="100" flex="33">
           <md-item-content>
             <div class="md-tile-content" flex layout="column">
-              <md-select name="podium2" ng-model="bid.podium[2]" unique="bid.podium" flex required>
-                <md-select-label>{{ bid.podium[2] ? bid.podium[2].name : 'Vælg 3. pladsen' }}</md-select-label>
-                <md-option ng-repeat="driver in bid.drivers" ng-value="driver" >{{driver.name}}</md-option>
+              <md-select name="podium2" ng-model="enterBid.bid.podium[2]" unique="enterBid.bid.podium" flex required>
+                <md-select-label>{{ enterBid.bid.podium[2] ? enterBid.bid.podium[2].name : 'Vælg 3. pladsen' }}</md-select-label>
+                <md-option ng-repeat="driver in enterBid.drivers" ng-value="driver" >{{driver.name}}</md-option>
               </md-select>
-              <md-input-container ng-if="!enterBidForm.podium2.$valid && bid.podium[2]">
+              <md-input-container ng-if="!enterBidForm.podium2.$valid && enterBid.bid.podium[2]">
                 <div ng-messages="enterBidForm.podium2.$error" ng-messages-include="error-messages">
                 </div>
               </md-input-container>
@@ -158,16 +158,16 @@
     </section>
     <section>
       <md-subheader class="md-primary" layout="column">
-        <span flex>{{bid.race.selectedDriver.name}}</span>
+        <span flex>{{enterBid.race.selectedDriver.name}}</span>
       </md-subheader>
       <md-list layout="row" layout-sm="column">
         <md-item flex-sm="100" flex="50">
           <md-item-content>
             <div class="md-tile-content" flex layout="column">
-              <md-select name="startPosition" ng-model="bid.selectedDriver[0]" flex placeholder="Vælg startsplacring" required>
-                <md-option ng-repeat="driver in bid.drivers track by $index" ng-value="$index+1" >{{$index+1}}</md-option>
+              <md-select name="startPosition" ng-model="enterBid.bid.selectedDriver[0]" flex placeholder="Vælg startsplacring" required>
+                <md-option ng-repeat="driver in enterBid.drivers track by $index" ng-value="$index+1" >{{$index+1}}</md-option>
               </md-select>
-              <md-input-container ng-if="!enterBidForm.startPosition.$valid && bid.selectedDriver[0]">
+              <md-input-container ng-if="!enterBidForm.startPosition.$valid && enterBid.bid.selectedDriver[0]">
                 <div ng-messages="enterBidForm.startPosition.$error" ng-messages-include="error-messages">
                 </div>
               </md-input-container>
@@ -177,10 +177,10 @@
         <md-item flex-sm="100" flex="50">
           <md-item-content>
             <div class="md-tile-content" flex layout="column">
-                <md-select name="endPosition" ng-model="bid.selectedDriver[1]" required="" placeholder="Vælg slutsplacring" flex>
-                  <md-option ng-repeat="driver in bid.drivers track by $index" ng-value="$index+1" >{{$index+1}}</md-option>
+                <md-select name="endPosition" ng-model="enterBid.bid.selectedDriver[1]" required="" placeholder="Vælg slutsplacring" flex>
+                  <md-option ng-repeat="driver in enterBid.drivers track by $index" ng-value="$index+1" >{{$index+1}}</md-option>
                 </md-select>
-                <md-input-container ng-if="!enterBidForm.endPosition.$valid && bid.selectedDriver[1]">
+                <md-input-container ng-if="!enterBidForm.endPosition.$valid && enterBid.bid.selectedDriver[1]">
                   <div ng-messages="enterBidForm.endPosition.$error" ng-messages-include="error-messages">
                   </div>
                 </md-input-container>
@@ -194,9 +194,9 @@
       <md-list layout="row" layout-sm="column">
         <md-item flex-sm="100" flex="50">
           <div class="md-tile-content" flex layout="row">
-            <md-select ng-model="bid.firstCrash" flex >
-              <md-select-label>{{ bid.firstCrash ? bid.firstCrash.name : 'Vælg først udgået' }}</md-select-label>
-              <md-option ng-repeat="driver in bid.drivers" ng-value="driver" >{{driver.name}}</md-option>
+            <md-select ng-model="enterBid.bid.firstCrash" flex >
+              <md-select-label>{{ enterBid.bid.firstCrash ? enterBid.bid.firstCrash.name : 'Vælg først udgået' }}</md-select-label>
+              <md-option ng-repeat="driver in enterBid.drivers" ng-value="driver" >{{driver.name}}</md-option>
             </md-select>
           </div>
         </md-item>
@@ -210,7 +210,7 @@
             <div class="md-tile-content" layout="row">
               <md-input-container flex>
                 <label>Minutter</label>
-                <input type="number" name="minutes" required ng-model="bid.minutes" min="1" max="2" maxlength="1">
+                <input type="number" name="minutes" required ng-model="enterBid.bid.minutes" min="1" max="2" maxlength="1">
                 <div ng-messages="enterBidForm.minutes.$error"  ng-messages-include="error-messages" ng-if="enterBidForm.minutes.$dirty">
                   <div ng-message="min">&gt; 0</div>
                   <div ng-message="max">&lt;= 2</div>
@@ -218,7 +218,7 @@
               </md-input-container>
               <md-input-container flex>
                 <label>Sekunder</label>
-                <input type="number" name="seconds" ng-model="bid.seconds" required min="0" max="59" maxlength="2">
+                <input type="number" name="seconds" ng-model="enterBid.bid.seconds" required min="0" max="59" maxlength="2">
                 <div ng-messages="enterBidForm.seconds.$error" ng-messages-include="error-messages" ng-if="enterBidForm.seconds.$dirty">
                   <div ng-message="min">&gt; 0</div>
                   <div ng-message="max">&lt;= 59</div>
@@ -226,7 +226,7 @@
               </md-input-container>
               <md-input-container flex>
                 <label>Millisekunder</label>
-                <input type="number" name="milliseconds" required ng-model="bid.milliseconds" min="0" max="999" ng-maxlength="3">
+                <input type="number" name="milliseconds" required ng-model="enterBid.bid.milliseconds" min="0" max="999" ng-maxlength="3">
                 <div ng-messages="enterBidForm.milliseconds.$error" ng-messages-include="error-messages" ng-if="enterBidForm.milliseconds.$dirty">
                   <div ng-message="min">&gt; 0</div>
                   <div ng-message="max">&lt;= 999</div>
@@ -238,7 +238,7 @@
       </md-list>
     </section>
   </md-content>
-  <md-button class="md-fab md-fab-bottom-right f2015-fab-bottom-right" aria-label="Indsend resultat" ng-disabled="!enterBidForm.$valid" ng-click="bid.submitBid()">
+  <md-button class="md-fab md-fab-bottom-right f2015-fab-bottom-right" aria-label="Indsend resultat" ng-disabled="!enterBidForm.$valid" ng-click="enterBid.submitBid()">
     <i class="fa fa-send"></i>
   </md-button>
 </form>

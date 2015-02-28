@@ -9,6 +9,8 @@ angular.module('f2015.authentication')
       link: function($scope, element) {
         if (authenticationService.loggedIn) {
           element.addClass('ng-hide');
+        } else {
+          element.removeClass('ng-hide');
         }
         $scope.$on('login-successful', function () {
           console.log('Login succeeded');
@@ -33,7 +35,7 @@ angular.module('f2015.authentication')
     var loginCard = this;
     loginCard.rememberMe = true;
     loginCard.login = function() {
-      console.log('Login now', loginCard.userName, loginCard.password);
+      console.log('Login now', loginCard.userName);
       authenticationService.login(loginCard.userName, loginCard.password).$promise.then(function() {
         if (loginCard.rememberMe) {
           authenticationService.save();
