@@ -10,7 +10,7 @@
           <md-button class="list-item" ui-sref="f2015.race({id: race.id})" ng-disabled="(race.completed === false && race.closed === false && race.participant === false)">
             <div class="md-tile-content" >
               <h3><strong>{{race.name}}</strong></h3>
-              <p>{{race | raceStatus}} <span ng-if="race.opened" am-time-ago="race.closeDate"></span></p>
+              <p>{{race | raceStatus}} <span ng-if="race.opened" am-time-ago="race.closeDate"></span><span ng-if="race.waiting" am-time-ago="race.openDate"></span></p>
             </div>
           </md-button>
       </md-item-content>

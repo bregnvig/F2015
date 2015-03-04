@@ -1,11 +1,9 @@
 'use strict';
 
 angular.module('f2015.header', [])
-  .controller('HeaderCtrl', ['$scope', '$http', '$mdSidenav', 'ENV',function($scope, $http, $mdSidenav, ENV) {
+  .controller('HeaderCtrl', ['$scope', '$http', '$mdSidenav', 'ENV', 'authenticationService' ,function($scope, $http, $mdSidenav, ENV, authentication) {
     var header = this;
-    function initializeHeader(credentials) {
-      header.credentials = credentials;
-    }
+    header.credentials = authentication.credentials;
     $scope.$mdSidenav = $mdSidenav;
     $scope.$watch('$mdSidenav(\'drawer\').isLockedOpen()', function (newValue) {
       header.menuButtonHidden = newValue;
@@ -15,12 +13,6 @@ angular.module('f2015.header', [])
     };
     $http.get(ENV.apiEndpoint+'/ws/season-name').then(function(response) {
       header.seasonName = response.data;
-    });
-    $scope.$on('login-successful', function (event, credentials) {
-      initializeHeader(credentials);
-    });
-    $scope.$on('login-failed', function () {
-      initializeHeader();
     });
   }])
   .controller('MenuCtrl', ['$scope', '$mdSidenav', 'accountService', 'authenticationService', function($scope, $mdSidenav, account, authentication) {

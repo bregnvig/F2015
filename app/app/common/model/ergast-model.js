@@ -6,6 +6,10 @@ angular.module('f2015.model.ergast', ['ngResource'])
       var mrData = angular.fromJson(data).MRData;
       return mrData.RaceTable.Races.length ? mrData.RaceTable.Races[0].Results : null;
     }
+    function driverTransformResponse(data) {
+      var mrData = angular.fromJson(data).MRData;
+      return mrData.RaceTable.Races.length ? mrData.RaceTable.Races : null;
+    }
 
     var currentSeason = new Date().getFullYear();
     var previousSeason = currentSeason-1;
@@ -60,6 +64,30 @@ angular.module('f2015.model.ergast', ['ngResource'])
           transformResponse: [resultTransformResponse].concat($http.defaults.transformResponse)
         }
       });
+    var driverResource = $resource('http://ergast.com/api/f1/:season/drivers/:code/:type.json',
+      {
+        season: previousSeason
+      },
+      {
+        'qualify': {
+          method: 'get',
+          isArray: true,
+          params: {
+            'type': 'qualifying'
+          },
+          cache: true,
+          transformResponse: [driverTransformResponse].concat($http.defaults.transformResponse)
+        },
+        'results': {
+          method: 'get',
+          isArray: true,
+          params: {
+            'type': 'results'
+          },
+          cache: true,
+          transformResponse: [driverTransformResponse].concat($http.defaults.transformResponse)
+        }
+      });
     return {
       get currentSeason() {
         return currentSeason;
@@ -93,6 +121,12 @@ angular.module('f2015.model.ergast', ['ngResource'])
           qualifyResults.currentSeason[circuitId] = resultResource.qualify({'circuitId': circuitId, 'season': currentSeason}, callback);
         }
         return qualifyResults.currentSeason[circuitId];
+      },
+      getDriverQualify:function(code, callback) {
+        return driverResource.qualify({'code': code}, callback);
+      },
+      getDriverResults:function(code, callback) {
+        return driverResource.results({'code': code}, callback);
       }
     };
 

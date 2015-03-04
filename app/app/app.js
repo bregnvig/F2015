@@ -19,6 +19,7 @@ angular
     'f2015.header',
     'f2015.account',
     'f2015.race',
+    'f2015.driver',
     'f2015.wbc',
     'f2015.profile',
     'f2015.loading',
@@ -104,7 +105,7 @@ angular
         url: '/enter-bid',
         resolve: {
           drivers: ['driverModel', function(driverModel) {
-            return driverModel.drivers;
+            return driverModel.activeDrivers;
           }]
         },
         views: {
@@ -173,6 +174,29 @@ angular
         views: {
           '@': {
             templateUrl: 'app/rules/rules.tmpl.html'
+          }
+        }
+      })
+      .state('f2015.drivers', {
+        url: '/drivers',
+        resolve: {
+          allDrivers: ['driverModel', function(driverModel) {
+            return driverModel.all;
+          }]
+        },
+        views: {
+          '@': {
+            templateUrl: 'app/driver/drivers.tmpl.html',
+            controller: 'DriversCtrl as drivers'
+          }
+        }
+      })
+      .state('f2015.drivers.show', {
+        url: '/{id}',
+        views: {
+          '@': {
+            templateUrl: 'app/driver/driver.tmpl.html',
+            controller: 'DriverCtrl as driver'
           }
         }
       })

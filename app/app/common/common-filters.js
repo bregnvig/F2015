@@ -39,7 +39,7 @@ angular.module('f2015.common-filter', [])
         } else if(race.closed) {
           return 'Afventer resultat';
         } else {
-          return 'Ikke åbent endnu';
+          return 'Åbner ';
         }
 
       }

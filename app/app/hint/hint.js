@@ -29,7 +29,7 @@ angular.module('f2015.hint', ['f2015.model.ergast'])
       return '';
     };
   }])
-  .directive('weatherForecastCard', ['$resource', 'ergastModel', function($resource, ergastModel) {
+  .directive('weatherForecastCard', ['$resource', 'raceModel', 'ergastModel', function($resource, raceModel, ergastModel) {
     var weatherApi = $resource('http://api.openweathermap.org/data/2.5/forecast/daily?cnt=16&mode=json&units=metric&lang=da&APPID=89ad11753c4d9dfd5d597ca8829cb331');
 
     return {
@@ -51,6 +51,7 @@ angular.module('f2015.hint', ['f2015.model.ergast'])
                 break;
               }
             }
+            scope.race = raceModel.current;
             scope.forecasts = forecasts;
             element.removeClass('ng-hide');
 

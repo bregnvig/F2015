@@ -13,11 +13,12 @@ angular.module('f2015.authentication', ['ngResource', 'config'])
 
     return {
       login: function(userName, password) {
-        credentials = {};
+        credentials.playername = undefined;
         delete localStorage.credentials;
         return authenticationResource.get({userName: userName, password: password}, function(result) {
           loggedIn(result);
         }, function() {
+          credentials.playername = undefined;
           $rootScope.$broadcast('login-failed');
         });
       },
