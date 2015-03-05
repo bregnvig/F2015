@@ -86,7 +86,20 @@ angular.module('f2015.model.ergast', ['ngResource'])
           },
           cache: true,
           transformResponse: [driverTransformResponse].concat($http.defaults.transformResponse)
+        },
+        'status': {
+          method: 'get',
+          isArray: true,
+          params: {
+            'type': 'status'
+          },
+          cache: true,
+          transformResponse: [function(data) {
+            var mrData = angular.fromJson(data).MRData;
+            return mrData.StatusTable.Status ? mrData.StatusTable.Status : null;
+          }].concat($http.defaults.transformResponse)
         }
+
       });
     return {
       get currentSeason() {
@@ -122,11 +135,23 @@ angular.module('f2015.model.ergast', ['ngResource'])
         }
         return qualifyResults.currentSeason[circuitId];
       },
-      getDriverQualify:function(code, callback) {
+      getLastYearDriverQualify:function(code, callback) {
         return driverResource.qualify({'code': code}, callback);
       },
-      getDriverResults:function(code, callback) {
+      getLastYearDriverResults:function(code, callback) {
         return driverResource.results({'code': code}, callback);
+      },
+      getLastYearDriverStatus:function(code, callback) {
+        return driverResource.status({'code': code}, callback);
+      },
+      getCurrentYearDriverQualify:function(code, callback) {
+        return driverResource.qualify({'code': code, 'season': currentSeason}, callback);
+      },
+      getCurrentYearDriverResults:function(code, callback) {
+        return driverResource.results({'code': code, 'season': currentSeason}, callback);
+      },
+      getCurrentYearDriverStatus:function(code, callback) {
+        return driverResource.status({'code': code, 'season': currentSeason}, callback);
       }
     };
 

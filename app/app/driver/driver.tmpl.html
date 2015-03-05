@@ -7,6 +7,44 @@
   </h2>
 </md-toolbar>
 <md-content class="below-sub-header">
+  <div  layout-sm="column" layout="row" layout-margin>
+    <md-card flex class="md-whiteframe-z1">
+      <md-toolbar>
+        <h3 class="md-toolbar-tools">
+          <span flex>Start gennemsnit</span>
+        </h3>
+      </md-toolbar>
+      <md-card-content>
+        <md-content>
+          <p class="number-card" ng-bind="driver.avgGrid"></p>
+        </md-content>
+      </md-card-content>
+    </md-card>
+    <md-card flex class="md-whiteframe-z1">
+      <md-toolbar class="md-accent">
+        <h3 class="md-toolbar-tools">
+          <span flex>Slut gennemsnit</span>
+        </h3>
+      </md-toolbar>
+      <md-card-content>
+        <md-content>
+          <p class="number-card" ng-bind="driver.avgPosition"></p>
+        </md-content>
+      </md-card-content>
+    </md-card>
+    <md-card flex class="md-whiteframe-z1">
+      <md-toolbar class="md-warn">
+        <h3 class="md-toolbar-tools">
+          <span flex>Udgået</span>
+        </h3>
+      </md-toolbar>
+      <md-card-content >
+        <md-content>
+          <p class="number-card" ng-bind="driver.retired"></p>
+        </md-content>
+      </md-card-content>
+    </md-card>
+  </div>
   <md-tabs md-selected="1">
     <md-tab label="Kvalifikation {{driver.previousYear}}">
       <md-list>
