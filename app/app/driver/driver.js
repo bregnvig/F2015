@@ -1,6 +1,32 @@
 'use strict';
 
 angular.module('f2015.driver', ['f2015.model.driver', 'f2015.model.ergast'])
+  .config(['$stateProvider', function($stateProvider) {
+    $stateProvider
+      .state('f2015.drivers', {
+        url: '/drivers',
+        resolve: {
+          allDrivers: ['driverModel', function(driverModel) {
+            return driverModel.all;
+          }]
+        },
+        views: {
+          '@': {
+            templateUrl: 'app/driver/drivers.tmpl.html',
+            controller: 'DriversCtrl as drivers'
+          }
+        }
+      })
+      .state('f2015.drivers.show', {
+        url: '/{id}',
+        views: {
+          '@': {
+            templateUrl: 'app/driver/driver.tmpl.html',
+            controller: 'DriverCtrl as driver'
+          }
+        }
+      });
+  }])
   .controller('DriversCtrl', ['allDrivers', function(allDrivers) {
     var drivers = this;
     allDrivers.$promise.then(function() {

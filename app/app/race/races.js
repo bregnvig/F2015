@@ -1,6 +1,84 @@
 'use strict';
 
 angular.module('f2015.race', ['f2015.model.race', 'f2015.model.ergast'])
+  .config(['$stateProvider', function($stateProvider) {
+    $stateProvider
+      .state('f2015.races', {
+        url: '/race',
+        views: {
+          '@': {
+            templateUrl: 'app/race/races.tmpl.html',
+            controller: 'RacesCtrl as races'
+          }
+        }
+      })
+      .state('f2015.old-race', {
+        url: '/race/last-year',
+        cache: false,
+        views: {
+          '@': {
+            templateUrl: 'app/race/old-race.tmpl.html',
+            controller: 'OldRaceCtrl as oldRace'
+          }
+        }
+      })
+      .state('f2015.race', {
+        url: '/race/:id',
+        cache: false,
+        resolve: {
+          currentRace: ['$stateParams', 'raceModel', function($stateParams, raceModel) {
+            return raceModel.get($stateParams.id);
+          }]
+        },
+        views: {
+          '@': {
+            templateUrl: 'app/race/race.tmpl.html',
+            controller: 'RaceCtrl as race'
+          }
+        }
+      })
+      .state('f2015.race.enter-bid', {
+        url: '/enter-bid',
+        resolve: {
+          drivers: ['driverModel', function(driverModel) {
+            return driverModel.activeDrivers;
+          }]
+        },
+        views: {
+          '@': {
+            templateUrl: 'app/race/enter-bid.tmpl.html',
+            controller: 'EnterBidCtrl as enterBid'
+          }
+        }
+      })
+      .state('f2015.race.bid', {
+        url: '/:player',
+        views: {
+          '@': {
+            templateUrl: 'app/race/bid.tmpl.html',
+            controller: 'BidCtrl as bid'
+          }
+        }
+      })
+      .state('f2015.race.result', {
+        url: '/result',
+        views: {
+          '@': {
+            templateUrl: 'app/race/bid.tmpl.html',
+            controller: 'ResultCtrl as bid'
+          }
+        }
+      })
+      .state('f2015.race.create-result', {
+        url: '/create-result',
+        views: {
+          '@': {
+            templateUrl: 'app/race/bid.tmpl.html',
+            controller: 'CreateResultCtrl as bid'
+          }
+        }
+      });
+  }])
   .controller('RacesCtrl', ['raceModel', function(raceModel) {
     var races = this;
     races.races = raceModel;

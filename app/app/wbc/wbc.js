@@ -1,6 +1,36 @@
 'use strict';
 
 angular.module('f2015.wbc', ['f2015.model.wbc'])
+  .config(['$stateProvider', function($stateProvider) {
+    $stateProvider
+      .state('f2015.wbc', {
+        url: '/wbc',
+        views: {
+          '@': {
+            templateUrl: 'app/wbc/wbc.tmpl.html',
+            controller: 'WbcCtrl as wbc'
+          }
+        }
+      })
+      .state('f2015.wbc.player', {
+        url: '/player/:player',
+        views: {
+          '@': {
+            templateUrl: 'app/wbc/player.tmpl.html',
+            controller: 'WbcPlayerCtrl as wbcPlayer'
+          }
+        }
+      })
+      .state('f2015.wbc.graph', {
+        url: '/graph',
+        views: {
+          '@': {
+            templateUrl: 'app/wbc/wbc-graph.tmpl.html',
+            controller: 'WbcGraphCtrl as wbcGraph'
+          }
+        }
+      });
+  }])
   .controller('WbcCtrl', ['wbcModel', function(wbcModel) {
     var wbc = this;
     wbc.standing = wbcModel.standing;
