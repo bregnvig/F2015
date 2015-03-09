@@ -35,6 +35,7 @@ angular.module('f2015.model.race', ['f2015.resource', 'f2015.authentication', 'c
       submitBid: function(bid, callback) {
         bidResource.save(null, bid, callback).$promise.then(function() {
           $rootScope.$broadcast('bid-submitted');
+          fullRaces = {};
           currentRace = undefined;
         });
       },

@@ -164,7 +164,8 @@
         <md-item flex-sm="100" flex="50">
           <md-item-content>
             <div class="md-tile-content" flex layout="column">
-              <md-select name="startPosition" ng-model="enterBid.bid.selectedDriver[0]" flex placeholder="Vælg startsplacring" required>
+              <md-select name="startPosition" ng-model="enterBid.bid.selectedDriver[0]" flex required>
+                <md-select-label>{{ enterBid.bid.selectedDriver[0] ? enterBid.bid.selectedDriver[0] : 'Vælg startsplacering' }}</md-select-label>
                 <md-option ng-repeat="driver in enterBid.drivers track by $index" ng-value="$index+1" >{{$index+1}}</md-option>
               </md-select>
               <md-input-container ng-if="!enterBidForm.startPosition.$valid && enterBid.bid.selectedDriver[0]">
@@ -177,7 +178,8 @@
         <md-item flex-sm="100" flex="50">
           <md-item-content>
             <div class="md-tile-content" flex layout="column">
-                <md-select name="endPosition" ng-model="enterBid.bid.selectedDriver[1]" required="" placeholder="Vælg slutsplacring" flex>
+                <md-select name="endPosition" ng-model="enterBid.bid.selectedDriver[1]" required="" placeholder="Vælg slutplacering" flex>
+                  <md-select-label>{{ enterBid.bid.selectedDriver[1] ? enterBid.bid.selectedDriver[1] : 'Vælg slutplacering' }}</md-select-label>
                   <md-option ng-repeat="driver in enterBid.drivers track by $index" ng-value="$index+1" >{{$index+1}}</md-option>
                 </md-select>
                 <md-input-container ng-if="!enterBidForm.endPosition.$valid && enterBid.bid.selectedDriver[1]">

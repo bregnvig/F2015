@@ -138,12 +138,12 @@ angular.module('f2015.race', ['f2015.model.race', 'f2015.model.ergast'])
 
     enterBid.submitBid = function() {
       var submit = {};
-      submit.grid = enterBid.grid;
-      submit.fastestLap = enterBid.fastestLap;
-      submit.podium = enterBid.podium;
-      submit.firstCrash = enterBid.firstCrash;
-      submit.selectedDriver = enterBid.selectedDriver;
-      submit.polePositionTime = (60 * 1000 * enterBid.minutes) + (1000 * enterBid.seconds) + enterBid.milliseconds;
+      submit.grid = enterBid.bid.grid;
+      submit.fastestLap = enterBid.bid.fastestLap;
+      submit.podium = enterBid.bid.podium;
+      submit.firstCrash = enterBid.bid.firstCrash;
+      submit.selectedDriver = enterBid.bid.selectedDriver;
+      submit.polePositionTime = (60 * 1000 * enterBid.bid.minutes) + (1000 * enterBid.bid.seconds) + enterBid.bid.milliseconds;
       raceModel.submitBid(submit, function() {
         localStorage.bid = undefined;
         $state.go('f2015.home');

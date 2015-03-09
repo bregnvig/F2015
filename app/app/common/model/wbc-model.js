@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('f2015.model.wbc', ['f2015.resource', 'config'])
-  .factory('wbcModel', ['ENV', 'secureResource', function(ENV, secureResource) {
+  .factory('wbcModel', ['$rootScope', 'ENV', 'secureResource', function($rootScope, ENV, secureResource) {
     var wbcEntryResource = secureResource(ENV.apiEndpoint+'/ws/v2/wbc/players/:playerName', {
       playerName: '@playerName'
     });
@@ -35,7 +35,9 @@ angular.module('f2015.model.wbc', ['f2015.resource', 'config'])
         return wbcResource.get();
       },
       join: function(player) {
-        return wbcEntryResource.save({'playerName': player.playername});
+        return wbcEntryResource.save({'playerName': player.playername}, function() {
+          $rootScope.$broadcast('wbc-joined');
+        });
       }
     };
 

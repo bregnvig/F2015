@@ -12,11 +12,14 @@ angular.module('f2015.common-filter', [])
           result += player.lastName;
         }
         if (player.lastYearWBC) {
-          result = '<i class="fa fa-trophy lastYearWBC-' + player.lastYearWBC + '"></i> ' + result;
+          result = '<i title="'+player.lastYearWBC+'. plads i sidste års WBC" class="fa fa-trophy lastYearWBC-' + player.lastYearWBC + '"></i> ' + result;
           switch (player.lastYearWBC) {
             case 1:
               break;
           }
+        }
+        if (player.wbcParticipant) {
+          result += ' <i title="Deltager i WBC" class="fa fa-star-o"></i>';
         }
         return result;
       }
@@ -25,7 +28,7 @@ angular.module('f2015.common-filter', [])
   }])
   .filter('noTrophy', [function() {
     return function(text) {
-      return text.replace(/^<i.*fa-trophy.*<\/i> /, '');
+      return text.replace(/^<i.*fa-trophy.*<\/i> /, '').replace(/ <i.*fa-star-o.*<\/i>$/, '');
     };
 
   }])
