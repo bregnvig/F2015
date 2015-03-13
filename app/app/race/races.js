@@ -106,7 +106,15 @@ angular.module('f2015.race', ['f2015.model.race', 'f2015.model.ergast'])
     oldRace.race.$promise.then(function(race) {
       oldRace.previousSeason = ergastModel.previousSeason;
       oldRace.qualifyResult = ergastModel.getLastSeasonQualify(race.circuitId);
-      oldRace.raceResult= ergastModel.getLastSeasonResults(race.circuitId);
+      oldRace.raceResult = ergastModel.getLastSeasonResults(race.circuitId, function(drivers) {
+        oldRace.fastestLaps = angular.copy(drivers);
+        oldRace.fastestLaps.sort(function(a,b) {
+          return (a.FastestLap ? a.FastestLap.rank : 1000) - (b.FastestLap ? b.FastestLap.rank : 1000);
+        });
+      });
+      oldRace.withFastestLap = function(driver) {
+        return driver.FastestLap ? true : false;
+      };
     });
   }])
   .controller('BidCtrl', ['$stateParams', 'currentRace', function($stateParams, currentRace) {
