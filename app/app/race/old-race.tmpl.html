@@ -10,7 +10,7 @@
         <md-item ng-repeat="result in oldRace.qualifyResult">
           <md-item-content>
             <div class="md-tile-content" >
-              <h3><strong>{{result.Driver | ergastDriverName}}</strong><span class="pull-right">{{result | ergastQualifyTime }}</span></h3>
+              <h3><strong>{{result.Driver | ergastDriverName}}</strong><span class="pull-right">{{result.Q || (result | ergastQualifyTime) }}</span></h3>
             </div>
           </md-item-content>
           <md-divider ng-if="!$last"></md-divider>
@@ -30,7 +30,7 @@
         </md-item>
       </md-list>
     </md-tab>
-    <md-tab label="Hurtigeste omgang">
+    <md-tab label="Hurtigste omgang">
       <md-list>
         <md-item ng-repeat="result in oldRace.fastestLaps | filter: oldRace.withFastestLap">
           <md-item-content>

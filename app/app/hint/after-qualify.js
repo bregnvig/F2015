@@ -41,9 +41,9 @@ angular.module('f2015.hint.afterQualify', ['f2015.model.ergast', 'f2015.model.ra
             driverModel.activeDrivers.$promise.then(function() {
               qualifyResults.forEach(function(result, index) {
                 if (index < 7) {
-                  intermediateResult.grid.push(driverModel.getDriver(result.Driver.code));
+                  intermediateResult.grid.push(driverModel.getDriver(result.Driver.driverId));
                 }
-                if (race.selectedDriver.code === result.Driver.code) {
+                if (race.selectedDriver.code === result.Driver.driverId) {
                   intermediateResult.selectedDriver.push(result.position);
                 }
               });

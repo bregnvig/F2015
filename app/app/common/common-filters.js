@@ -63,11 +63,11 @@ angular.module('f2015.common-filter', [])
     return function(result) {
       if (result && result.Q1) {
         if (result.Q3) {
-          return result.Q3;
+          return 'Q3 - ' + result.Q3;
         } else if (result.Q2) {
-          return result.Q2;
+          return 'Q2 - ' + result.Q2;
         }
-        return result.Q1;
+        return 'Q1 - ' + result.Q1;
       }
       return '';
     };

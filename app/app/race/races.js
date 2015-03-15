@@ -100,12 +100,18 @@ angular.module('f2015.race', ['f2015.model.race', 'f2015.model.ergast'])
       });
     };
   }])
-  .controller('OldRaceCtrl', ['raceModel', 'ergastModel', function(raceModel, ergastModel) {
+  .controller('OldRaceCtrl', ['$interval', 'raceModel', 'ergastModel', 'ergastQualifyTimeFilter', function($interval, raceModel, ergastModel, qualifyTimeFilter) {
     var oldRace = this;
     oldRace.race = raceModel.current;
     oldRace.race.$promise.then(function(race) {
       oldRace.previousSeason = ergastModel.previousSeason;
-      oldRace.qualifyResult = ergastModel.getLastSeasonQualify(race.circuitId);
+      oldRace.qualifyResult = ergastModel.getLastSeasonQualify(race.circuitId, function(results) {
+        $interval(function() {
+          results.forEach(function(result) {
+            oldRace.qualifyTime(result);
+          });
+        }, 2500);
+      });
       oldRace.raceResult = ergastModel.getLastSeasonResults(race.circuitId, function(drivers) {
         oldRace.fastestLaps = angular.copy(drivers);
         oldRace.fastestLaps.sort(function(a,b) {
@@ -114,6 +120,14 @@ angular.module('f2015.race', ['f2015.model.race', 'f2015.model.ergast'])
       });
       oldRace.withFastestLap = function(driver) {
         return driver.FastestLap ? true : false;
+      };
+      oldRace.qualifyTime = function(result) {
+        var max = result.Q3 ? 3 : (result.Q2 ? 2 : 1);
+        if (!result.Q) {
+          result.QPos = max;
+        }
+        result.QPos = result.QPos - 1 < 1 ? max : result.QPos - 1;
+        result.Q = 'Q'+(result.QPos) +  ' - ' + result['Q'+result.QPos];
       };
     });
   }])
@@ -211,17 +225,17 @@ angular.module('f2015.race', ['f2015.model.race', 'f2015.model.ergast'])
         polePositionTime: undefined
       };
       results.forEach(function(result) {
-        var code = result.Driver.code;
+        var driverId = result.Driver.driverId;
         if (result.grid <= 7) {
-          raceResult.grid[result.grid-1] = driverModel.getDriver(code);
+          raceResult.grid[result.grid-1] = driverModel.getDriver(driverId);
         }
         if (result.FastestLap && result.FastestLap.rank === '1') {
-          raceResult.fastestLap = driverModel.getDriver(code);
+          raceResult.fastestLap = driverModel.getDriver(driverId);
         }
         if (result.position <= 4) {
-          raceResult.podium[result.position-1] = driverModel.getDriver(code);
+          raceResult.podium[result.position-1] = driverModel.getDriver(driverId);
         }
-        if (code === selectedDriverCode) {
+        if (driverId === selectedDriverCode) {
           raceResult.selectedDriver[0] = parseInt(result.grid);
           raceResult.selectedDriver[1] = parseInt(result.position);
         }
@@ -229,7 +243,7 @@ angular.module('f2015.race', ['f2015.model.race', 'f2015.model.ergast'])
           if (raceResult.firstCrashes.length === 3) {
             raceResult.firstCrashes.pop();
           }
-          raceResult.firstCrashes.push(driverModel.getDriver(code));
+          raceResult.firstCrashes.push(driverModel.getDriver(driverId));
         }
       });
       return raceResult;
