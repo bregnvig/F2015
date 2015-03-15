@@ -193,13 +193,13 @@ angular.module('f2015.race', ['f2015.model.race', 'f2015.model.ergast'])
   }])
   .controller('CreateResultCtrl', ['$stateParams', '$state', 'currentRace', 'raceModel', 'ergastModel', 'raceResultCreator', function($stateParams, $state, currentRace, raceModel, ergastModel, raceResultCreator) {
     var bid = this;
-    ergastModel.getCurrentResults(currentRace.circuitId, function(results) {
+    ergastModel.getCurrentResults(currentRace.circuitId).$promise.then(function(results)  {
       var raceResult = raceResultCreator(currentRace.selectedDriver.code, results);
-      ergastModel.getCurrentQualify(currentRace.circuitId, function(qualifyResult) {
+      ergastModel.getCurrentQualify(currentRace.circuitId).$promise.then(function(qualifyResult) {
         var times = /(\d):(\d{2})\.(\d{3})/.exec(qualifyResult[0].Q3);
         var millis = times[1] * 1000 * 60;
         millis += times[2] * 1000;
-        millis += times[3];
+        millis += parseInt(times[3]);
         raceResult.polePositionTime = parseInt(millis);
         raceResult.polePositionTimeInText = qualifyResult[0].Q3;
         bid.get = raceResult;
