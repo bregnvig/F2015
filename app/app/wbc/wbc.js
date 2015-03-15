@@ -72,7 +72,7 @@ angular.module('f2015.wbc', ['f2015.model.wbc'])
       $rootScope.$broadcast('wbc-players-updated');
     }, true);
   }])
-  .directive('wbcGraph', ['wbcModel', 'colors', function(wbcModel, colors) {
+  .directive('wbcGraph', ['$timeout', 'wbcModel', 'colors', function($timeout, wbcModel, colors) {
 
     function createGraph(history, element) {
       var partOfGraph = localStorage.partOfGraph !== undefined ? JSON.parse(localStorage.partOfGraph) : {};
@@ -106,12 +106,14 @@ angular.module('f2015.wbc', ['f2015.model.wbc'])
       lineChartData.datasets = [];
       Object.getOwnPropertyNames(dataSets).forEach(function(playerName) {
         if (partOfGraph[playerName] === true) {
+          dataSets[playerName].data.unshift(numberOfPlayers);
           lineChartData.datasets.push(dataSets[playerName]);
         }
       });
+      lineChartData.labels.unshift('');
       var canvas = element.find('canvas')[0];
-      canvas.width= [0].clientWidth;
-      canvas.height = element.find('div')[0].clientHeight;
+      canvas.width= element.find('div')[0].clientWidth;
+      canvas.height = element.find('div')[0].clientHeight-64;
       var lineChart = lineChart || new Chart(canvas.getContext('2d'));
       lineChart.Line(lineChartData, {
         scaleOverride : true,
@@ -130,12 +132,14 @@ angular.module('f2015.wbc', ['f2015.model.wbc'])
     }
 
     function link($scope, element) {
-      wbcModel.graph.$promise.then(function(history) {
-        $scope.$on('wbc-players-updated', function () {
+      $timeout(function() {
+        wbcModel.graph.$promise.then(function(history) {
+          $scope.$on('wbc-players-updated', function () {
+            createGraph(history, element);
+          });
           createGraph(history, element);
         });
-        createGraph(history, element);
-      });
+      }, 300);
     }
 
     return {
