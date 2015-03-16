@@ -4,7 +4,7 @@
   <account-warning-card flex-sm="100" flex-md="100" flex="50"  class="ng-hide" ng-if="loggedIn"></account-warning-card>
   <after-qualify-card flex-sm="100" flex-md="100" flex="50"  class="ng-hide" ng-if="loggedIn"></after-qualify-card>
   <last-year flex-sm="100" flex-md="100" flex="50"  class="ng-hide" ng-if="loggedIn"></last-year>
-  <join-race-card flex-sm="100" flex-md="100" flex="50"  class="ng-hide" ng-if="loggedIn"></join-race-card>
-  <weather-forecast-card flex-sm="100" flex-md="100" flex="50"  class="ng-hide"></weather-forecast-card>
+  <join-race-card flex-sm="100" flex-md="100" flex="50"  class="ng-hide" ng-if="loggedIn && currentRace.opened"></join-race-card>
+  <weather-forecast-card flex-sm="100" flex-md="100" flex="50" class="ng-hide"></weather-forecast-card>
   <join-wbc-card  flex-sm="100" flex-md="100" flex="50"  class="ng-hide" ng-if="loggedIn"></join-wbc-card>
 </div>

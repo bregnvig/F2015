@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('f2015.home', [])
-  .controller('HomeCtrl', ['$scope', 'authenticationService', function ($scope, authenticationService) {
+  .controller('HomeCtrl', ['$scope', 'currentRace', 'authenticationService', function ($scope, currentRace, authenticationService) {
     $scope.loggedIn = authenticationService.loggedIn;
     $scope.$on('login-successful', function () {
       $scope.loggedIn = true;
@@ -9,4 +9,5 @@ angular.module('f2015.home', [])
     $scope.$on('login-failed', function () {
       $scope.loggedIn = false;
     });
+    $scope.currentRace = currentRace;
   }]);

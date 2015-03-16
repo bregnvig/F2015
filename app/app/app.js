@@ -38,6 +38,11 @@ angular
     $stateProvider
       .state('f2015', {
         abstract: true,
+        resolve: {
+          currentRace: ['raceModel', function(raceModel) {
+            return raceModel.current;
+          }]
+        },
         views: {
           header: {
             templateUrl: 'app/header/header.tmpl.html',

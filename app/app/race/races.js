@@ -26,7 +26,7 @@ angular.module('f2015.race', ['f2015.model.race', 'f2015.model.ergast'])
         url: '/race/:id',
         cache: false,
         resolve: {
-          currentRace: ['$stateParams', 'raceModel', function($stateParams, raceModel) {
+          selectedRace: ['$stateParams', 'raceModel', function($stateParams, raceModel) {
             return raceModel.get($stateParams.id);
           }]
         },
@@ -83,9 +83,9 @@ angular.module('f2015.race', ['f2015.model.race', 'f2015.model.ergast'])
     var races = this;
     races.races = raceModel;
   }])
-  .controller('RaceCtrl', ['$state', '$mdDialog', 'currentRace', 'raceModel', 'authenticationService', function($state, $mdDialog, currentRace, raceModel, authenticationService) {
+  .controller('RaceCtrl', ['$state', '$mdDialog', 'selectedRace', 'raceModel', 'authenticationService', function($state, $mdDialog, selectedRace, raceModel, authenticationService) {
     var race = this;
-    race.get = currentRace;
+    race.get = selectedRace;
     race.credentials = authenticationService.credentials;
     race.rollback = function() {
       var confirm = $mdDialog.confirm()
@@ -100,19 +100,21 @@ angular.module('f2015.race', ['f2015.model.race', 'f2015.model.ergast'])
       });
     };
   }])
-  .controller('OldRaceCtrl', ['$interval', 'raceModel', 'ergastModel', 'ergastQualifyTimeFilter', function($interval, raceModel, ergastModel, qualifyTimeFilter) {
+  .controller('OldRaceCtrl', ['$interval', 'currentRace', 'raceModel', 'ergastModel', function($interval, currentRace, raceModel, ergastModel) {
     var oldRace = this;
-    oldRace.race = raceModel.current;
+    oldRace.race = currentRace;
     oldRace.race.$promise.then(function(race) {
       oldRace.previousSeason = ergastModel.previousSeason;
-      oldRace.qualifyResult = ergastModel.getLastSeasonQualify(race.circuitId, function(results) {
+      oldRace.qualifyResult = ergastModel.getLastSeasonQualify(race.circuitId)
+      oldRace.qualifyResult.$promise.then(function(results) {
         $interval(function() {
           results.forEach(function(result) {
             oldRace.qualifyTime(result);
           });
         }, 2500);
       });
-      oldRace.raceResult = ergastModel.getLastSeasonResults(race.circuitId, function(drivers) {
+      oldRace.raceResult = ergastModel.getLastSeasonResults(race.circuitId);
+      oldRace.raceResult.$promise.then(function(drivers) {
         oldRace.fastestLaps = angular.copy(drivers);
         oldRace.fastestLaps.sort(function(a,b) {
           return (a.FastestLap ? a.FastestLap.rank : 1000) - (b.FastestLap ? b.FastestLap.rank : 1000);
@@ -131,21 +133,21 @@ angular.module('f2015.race', ['f2015.model.race', 'f2015.model.ergast'])
       };
     });
   }])
-  .controller('BidCtrl', ['$stateParams', 'currentRace', function($stateParams, currentRace) {
+  .controller('BidCtrl', ['$stateParams', 'selectedRace', function($stateParams, selectedRace) {
     var bid = this;
-    currentRace.$promise.then(function() {
-      bid.race = currentRace;
-      for(var i = 0; i < currentRace.bids.length; i++){
-        if (currentRace.bids[i].player.playername === $stateParams.player) {
-          bid.get = currentRace.bids[i];
+    selectedRace.$promise.then(function() {
+      bid.race = selectedRace;
+      for(var i = 0; i < selectedRace.bids.length; i++){
+        if (selectedRace.bids[i].player.playername === $stateParams.player) {
+          bid.get = selectedRace.bids[i];
           break;
         }
       }
     });
   }])
-  .controller('EnterBidCtrl', ['$scope', '$state', 'currentRace', 'drivers', 'raceModel', function($scope, $state, currentRace, drivers, raceModel) {
+  .controller('EnterBidCtrl', ['$scope', '$state', 'selectedRace', 'drivers', 'raceModel', function($scope, $state, selectedRace, drivers, raceModel) {
     var enterBid = this;
-    enterBid.race = currentRace;
+    enterBid.race = selectedRace;
     enterBid.drivers = drivers;
     enterBid.bid = localStorage.bid ? angular.fromJson(localStorage.bid) : {};
     if (!enterBid.bid.grid) {
@@ -173,9 +175,9 @@ angular.module('f2015.race', ['f2015.model.race', 'f2015.model.ergast'])
     };
 
   }])
-  .controller('ResultCtrl', ['$stateParams', 'currentRace', function($stateParams, currentRace) {
+  .controller('ResultCtrl', ['$stateParams', 'selectedRace', function($stateParams, selectedRace) {
     var bid = this;
-    bid.get = currentRace.raceResult;
+    bid.get = selectedRace.raceResult;
   }])
   .directive('joinRaceCard',['raceModel', function(raceModel) {
     return {
@@ -191,11 +193,11 @@ angular.module('f2015.race', ['f2015.model.race', 'f2015.model.ergast'])
       }
     };
   }])
-  .controller('CreateResultCtrl', ['$stateParams', '$state', 'currentRace', 'raceModel', 'ergastModel', 'raceResultCreator', function($stateParams, $state, currentRace, raceModel, ergastModel, raceResultCreator) {
+  .controller('CreateResultCtrl', ['$stateParams', '$state', 'selectedRace', 'raceModel', 'ergastModel', 'raceResultCreator', function($stateParams, $state, selectedRace, raceModel, ergastModel, raceResultCreator) {
     var bid = this;
-    ergastModel.getCurrentResults(currentRace.circuitId).$promise.then(function(results)  {
-      var raceResult = raceResultCreator(currentRace.selectedDriver.code, results);
-      ergastModel.getCurrentQualify(currentRace.circuitId).$promise.then(function(qualifyResult) {
+    ergastModel.getCurrentResults(selectedRace.circuitId).$promise.then(function(results)  {
+      var raceResult = raceResultCreator(selectedRace.selectedDriver.code, results);
+      ergastModel.getCurrentQualify(selectedRace.circuitId).$promise.then(function(qualifyResult) {
         var times = /(\d):(\d{2})\.(\d{3})/.exec(qualifyResult[0].Q3);
         var millis = times[1] * 1000 * 60;
         millis += times[2] * 1000;
@@ -203,10 +205,10 @@ angular.module('f2015.race', ['f2015.model.race', 'f2015.model.ergast'])
         raceResult.polePositionTime = parseInt(millis);
         raceResult.polePositionTimeInText = qualifyResult[0].Q3;
         bid.get = raceResult;
-        bid.get.driver = currentRace.selectedDriver;
+        bid.get.driver = selectedRace.selectedDriver;
         bid.submitResult = function() {
-          raceModel.submitResult(currentRace, raceResult, function() {
-            //$state.go('f2015.race', {'id': currentRace.id}, {reload: true});
+          raceModel.submitResult(selectedRace, raceResult, function() {
+            //$state.go('f2015.race', {'id': selectedRace.id}, {reload: true});
             $state.go('f2015.races');
           });
         };
