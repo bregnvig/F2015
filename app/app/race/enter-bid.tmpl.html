@@ -8,7 +8,7 @@
     <section>
       <md-subheader class="md-primary">Grid</md-subheader>
       <md-list layout="row" layout-sm="column" layout-wrap>
-        <md-item flex-sm="100" flex="50">
+        <md-item flex-gt-sm="50">
           <md-item-content>
             <div class="md-tile-content" flex layout="column">
               <md-select name="grid0" ng-model="enterBid.bid.grid[0]" unique="enterBid.bid.grid" flex required>
@@ -22,7 +22,7 @@
             </div>
           </md-item-content>
         </md-item>
-        <md-item flex-sm="100" flex="50">
+        <md-item flex-gt-sm="50">
           <md-item-content>
             <div class="md-tile-content" flex layout="column">
               <md-select name="grid1" ng-model="enterBid.bid.grid[1]" unique="enterBid.bid.grid" flex required>
@@ -36,7 +36,7 @@
             </div>
           </md-item-content>
         </md-item>
-        <md-item flex-sm="100" flex="50">
+        <md-item flex-gt-sm="50">
           <md-item-content>
             <div class="md-tile-content" flex layout="column">
               <md-select name="grid2" ng-model="enterBid.bid.grid[2]" unique="enterBid.bid.grid" flex required>
@@ -50,7 +50,7 @@
             </div>
           </md-item-content>
         </md-item>
-        <md-item flex-sm="100" flex="50">
+        <md-item flex-gt-sm="50">
           <md-item-content>
             <div class="md-tile-content" flex layout="column">
               <md-select name="grid3" ng-model="enterBid.bid.grid[3]" unique="enterBid.bid.grid" flex required>
@@ -64,7 +64,7 @@
             </div>
           </md-item-content>
         </md-item>
-        <md-item flex-sm="100" flex="50">
+        <md-item flex-gt-sm="50">
           <md-item-content>
             <div class="md-tile-content" flex layout="column">
               <md-select name="grid4" ng-model="enterBid.bid.grid[4]" unique="enterBid.bid.grid" flex required>
@@ -78,7 +78,7 @@
             </div>
           </md-item-content>
         </md-item>
-        <md-item flex-sm="100" flex="50">
+        <md-item flex-gt-sm="50">
           <md-item-content>
             <div class="md-tile-content" flex layout="column">
               <md-select name="grid5" ng-model="enterBid.bid.grid[5]" unique="enterBid.bid.grid" flex required>
@@ -97,7 +97,7 @@
     <section>
       <md-subheader class="md-primary">Hurtigste kører</md-subheader>
       <md-list layout="row" layout-sm="column">
-        <md-item flex-sm="100" flex="50">
+        <md-item flex-gt-sm="50">
           <md-item-content>
             <div class="md-tile-content" flex layout="row">
               <md-select ng-model="enterBid.bid.fastestLap" flex >
@@ -112,7 +112,7 @@
     <section>
       <md-subheader class="md-primary">Podium</md-subheader>
       <md-list layout="row" layout-sm="column">
-        <md-item flex-sm="100" flex="33">
+        <md-item flex-gt-sm="33">
           <md-item-content>
             <div class="md-tile-content" flex layout="column">
               <md-select name="podium0" ng-model="enterBid.bid.podium[0]" unique="enterBid.bid.podium" flex required>
@@ -126,7 +126,7 @@
             </div>
           </md-item-content>
         </md-item>
-        <md-item flex-sm="100" flex="33">
+        <md-item flex-gt-sm="33">
           <md-item-content>
             <div class="md-tile-content" flex layout="column">
               <md-select name="podium1" ng-model="enterBid.bid.podium[1]" unique="enterBid.bid.podium" flex required>
@@ -140,7 +140,7 @@
             </div>
           </md-item-content>
         </md-item>
-        <md-item flex-sm="100" flex="33">
+        <md-item flex-gt-sm="33">
           <md-item-content>
             <div class="md-tile-content" flex layout="column">
               <md-select name="podium2" ng-model="enterBid.bid.podium[2]" unique="enterBid.bid.podium" flex required>
@@ -161,7 +161,7 @@
         <span flex>{{enterBid.race.selectedDriver.name}}</span>
       </md-subheader>
       <md-list layout="row" layout-sm="column">
-        <md-item flex-sm="100" flex="50">
+        <md-item flex-gt-sm="50">
           <md-item-content>
             <div class="md-tile-content" flex layout="column">
               <md-select name="startPosition" ng-model="enterBid.bid.selectedDriver[0]" flex required>
@@ -175,7 +175,7 @@
             </div>
           </md-item-content>
         </md-item>
-        <md-item flex-sm="100" flex="50">
+        <md-item flex-gt-sm="50">
           <md-item-content>
             <div class="md-tile-content" flex layout="column">
                 <md-select name="endPosition" ng-model="enterBid.bid.selectedDriver[1]" required="" placeholder="Vælg slutplacering" flex>
@@ -194,7 +194,7 @@
     <section>
       <md-subheader class="md-primary">Først udgået</md-subheader>
       <md-list layout="row" layout-sm="column">
-        <md-item flex-sm="100" flex="50">
+        <md-item flex-gt-sm="50">
           <div class="md-tile-content" flex layout="row">
             <md-select ng-model="enterBid.bid.firstCrash" flex >
               <md-select-label>{{ enterBid.bid.firstCrash ? enterBid.bid.firstCrash.name : 'Vælg først udgået' }}</md-select-label>
@@ -240,7 +240,7 @@
       </md-list>
     </section>
   </md-content>
-  <md-button class="md-fab md-fab-bottom-right f2015-fab-bottom-right" aria-label="Indsend resultat" ng-disabled="!enterBidForm.$valid" ng-click="enterBid.submitBid()">
+  <md-button class="md-fab md-fab-bottom-right md-accent" aria-label="Indsend resultat" ng-disabled="!enterBidForm.$valid" ng-click="enterBid.submitBid()">
     <i class="fa fa-send"></i>
   </md-button>
 </form>

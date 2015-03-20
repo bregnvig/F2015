@@ -8,7 +8,7 @@
   <md-list>
     <md-item ng-repeat="entry in wbc.standing">
       <md-item-content>
-        <md-button class="list-item" ui-sref="f2015.wbc.player({player: entry.player.playername})">
+        <md-button class="list-item" md-no-ink ui-sref="f2015.wbc.player({player: entry.player.playername})">
           <div class="md-tile-content">
             <h3><strong ng-bind-html="entry.player | playerName"></strong><span class="pull-right">{{entry.points}}</span></h3>
           </div>
