@@ -132,5 +132,5 @@ angular
     });
   }])
   .run(['amMoment', function(amMoment) {
-    //amMoment.changeLocale('da');
+    amMoment.changeLocale('da');
   }]);

@@ -51,21 +51,21 @@ angular.module('f2015.race', ['f2015.model.race', 'f2015.model.ergast'])
           }
         }
       })
-      .state('f2015.race.bid', {
-        url: '/:player',
-        views: {
-          '@': {
-            templateUrl: 'app/race/bid.tmpl.html',
-            controller: 'BidCtrl as bid'
-          }
-        }
-      })
       .state('f2015.race.result', {
         url: '/result',
         views: {
           '@': {
             templateUrl: 'app/race/bid.tmpl.html',
             controller: 'ResultCtrl as bid'
+          }
+        }
+      })
+      .state('f2015.race.bid', {
+        url: '/:player',
+        views: {
+          '@': {
+            templateUrl: 'app/race/bid.tmpl.html',
+            controller: 'BidCtrl as bid'
           }
         }
       })
@@ -177,7 +177,10 @@ angular.module('f2015.race', ['f2015.model.race', 'f2015.model.ergast'])
   }])
   .controller('ResultCtrl', ['$stateParams', 'selectedRace', function($stateParams, selectedRace) {
     var bid = this;
-    bid.get = selectedRace.raceResult;
+    selectedRace.$promise.then(function() {
+      bid.race = selectedRace;
+      bid.get = selectedRace.raceResult;
+    });
   }])
   .directive('joinRaceCard',['raceModel', function(raceModel) {
     return {
