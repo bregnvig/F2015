@@ -79,9 +79,12 @@ angular.module('f2015.race', ['f2015.model.race', 'f2015.model.ergast'])
         }
       });
   }])
-  .controller('RacesCtrl', ['raceModel', function(raceModel) {
+  .controller('RacesCtrl', ['$state', 'raceModel', function($state, raceModel) {
     var races = this;
     races.races = raceModel;
+    races.navigateTo = function(race) {
+      $state.go('f2015.race', {id: race.id});
+    };
   }])
   .controller('RaceCtrl', ['$state', '$mdDialog', 'selectedRace', 'raceModel', 'authenticationService', function($state, $mdDialog, selectedRace, raceModel, authenticationService) {
     var race = this;
@@ -98,6 +101,9 @@ angular.module('f2015.race', ['f2015.model.race', 'f2015.model.ergast'])
           $state.go('f2015.races');
         });
       });
+    };
+    race.navigateTo = function(state, params) {
+      $state.go(state, params);
     };
   }])
   .controller('OldRaceCtrl', ['$interval', 'currentRace', 'raceModel', 'ergastModel', function($interval, currentRace, raceModel, ergastModel) {

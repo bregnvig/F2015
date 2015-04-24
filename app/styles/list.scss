@@ -4,6 +4,19 @@ button.md-button {
     text-align: left;
   }
   p {
+    text-transform: uppercase;
+  }
+}
+
+md-list-item.md-2-line .md-list-item-text h3, md-list-item.md-2-line > .md-no-style .md-list-item-text h3, md-list-item.md-3-line .md-list-item-text h3, md-list-item.md-3-line > .md-no-style .md-list-item-text h3 {
+  line-height: 1.5em;
+}
+
+.md-1-line .md-list-item-text {
+  flex: 1;
+}
+.md-list-item-text {
+  p {
     text-transform: none;
   }
 }

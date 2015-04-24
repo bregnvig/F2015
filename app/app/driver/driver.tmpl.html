@@ -48,28 +48,24 @@
   <md-tabs md-selected="1">
     <md-tab label="Kvalifikation {{driver.previousYear}}">
       <md-list>
-        <md-item ng-repeat="result in driver.qualifyResult">
-          <md-item-content>
-            <div class="md-tile-content" >
-              <h3><strong>{{result.raceName}}</strong><span class="pull-right">{{result.QualifyingResults[0].position }}</span></h3>
-              <p>{{result.QualifyingResults[0] | ergastQualifyTime}}</p>
-            </div>
-          </md-item-content>
+        <md-list-item class="md-2-line" ng-repeat="result in driver.qualifyResult">
+          <div class="md-list-item-text" >
+            <h3>{{result.raceName}}<strong class="pull-right">{{result.QualifyingResults[0].position }}</strong></h3>
+            <p>{{result.QualifyingResults[0] | ergastQualifyTime}}</p>
+          </div>
           <md-divider ng-if="!$last"></md-divider>
-        </md-item>
+        </md-list-item>
       </md-list>
     </md-tab>
     <md-tab label="Resultat {{driver.previousYear}}">
       <md-list>
-        <md-item ng-repeat="result in driver.raceResult">
-          <md-item-content>
-            <div class="md-tile-content" >
-              <h3><strong>{{result.raceName}}</strong><span class="pull-right">{{result.Results[0].position }}</span></h3>
-              <p>{{result.Results[0].status}}</p>
-            </div>
-          </md-item-content>
+        <md-list-item class="md-2-line" ng-repeat="result in driver.raceResult">
+          <div class="md-list-item-text" >
+            <h3>{{result.raceName}}<strong class="pull-right">{{result.Results[0].position }}</strong></h3>
+            <p>{{result.Results[0].status}}</p>
+          </div>
           <md-divider ng-if="!$last"></md-divider>
-        </md-item>
+        </md-list-item>
       </md-list>
     </md-tab>
   </md-tabs>
