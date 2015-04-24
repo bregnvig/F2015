@@ -1,9 +1,9 @@
 <md-toolbar class="md-hue-1">
   <h2 class="md-toolbar-tools">
-    <strong ng-if="bid.get.firstCrash" ng-bind-html="bid.get.player | playerName" flex>
-    </strong>
-    <span ng-if="bid.get.firstCrash && bid.race.completed" class="pull-right" ng-bind="bid.get.points">
+    <span ng-if="bid.get.firstCrash" ng-bind-html="bid.get.player | playerName" flex>
     </span>
+    <strong ng-if="bid.get.firstCrash && bid.race.completed" class="pull-right" ng-bind="bid.get.points">
+    </strong>
     <span ng-if="bid.get.firstCrashes">Resultat</span>
   </h2>
 </md-toolbar>
@@ -11,87 +11,71 @@
   <section>
     <md-subheader class="md-primary">Grid</md-subheader>
     <md-list layout="column">
-      <md-item ng-repeat="grid in bid.get.grid">
-        <md-item-content>
-          <div class="md-tile-content">
-            <h3><strong>{{grid.name}}</strong><span ng-if="grid.points" class="pull-right">{{grid.points}}</span></h3>
+      <md-list-item class="md-1-line" ng-repeat="grid in bid.get.grid">
+          <div class="md-list-item-text">
+            <p>{{grid.name}}<strong ng-if="grid.points" class="pull-right">{{grid.points}}</strong></p>
           </div>
-        </md-item-content>
-      </md-item>
+      </md-list-item>
     </md-list>
   </section>
   <section>
     <md-subheader class="md-primary">Hurtigste kører</md-subheader>
     <md-list layout="column">
-      <md-item>
-        <md-item-content>
-          <div class="md-tile-content">
-            <h3><strong>{{bid.get.fastestLap.name}}</strong><span ng-if="bid.get.fastestLap.points" class="pull-right">{{bid.get.fastestLap.points}}</span></h3>
+      <md-list-item class="md-1-line">
+          <div class="md-list-item-text">
+            <p>{{bid.get.fastestLap.name}}<strong ng-if="bid.get.fastestLap.points" class="pull-right">{{bid.get.fastestLap.points}}</strong></p>
           </div>
-        </md-item-content>
-      </md-item>
+      </md-list-item>
     </md-list>
   </section>
   <section>
     <md-subheader class="md-primary">Podium</md-subheader>
     <md-list layout="column">
-      <md-item ng-repeat="podium in bid.get.podium">
-        <md-item-content>
-          <div class="md-tile-content">
-            <h3><strong>{{podium.name}}</strong><span ng-if="podium.points" class="pull-right">{{podium.points}}</span></h3>
+      <md-list-item class="md-1-line" ng-repeat="podium in bid.get.podium">
+          <div class="md-list-item-text">
+            <p>{{podium.name}}<strong ng-if="podium.points" class="pull-right">{{podium.points}}</strong></p>
           </div>
-        </md-item-content>
-      </md-item>
+      </md-list-item>
     </md-list>
   </section>
   <section>
     <md-subheader class="md-primary">{{bid.race.selectedDriver.name}}</md-subheader>
     <md-list layout="column">
-      <md-item>
-        <md-item-content>
-          <div class="md-tile-content">
-            <h3><strong>Starter som nummer {{bid.get.selectedDriver[0]}}</strong><span ng-if="bid.get.selectedDriverPoints[0]" class="pull-right">{{bid.get.selectedDriverPoints[0]}}</span></h3>
-          </div>
-        </md-item-content>
-      </md-item>
-      <md-item>
-        <md-item-content>
-          <div class="md-tile-content">
-            <h3><strong>Slutter som nummer {{bid.get.selectedDriver[1]}}</strong><span ng-if="bid.get.selectedDriverPoints[1]" class="pull-right">{{bid.get.selectedDriverPoints[1]}}</span></h3>
-          </div>
-        </md-item-content>
-      </md-item>
+      <md-list-item class="md-1-line">
+        <div class="md-list-item-text">
+          <p>Starter som nummer {{bid.get.selectedDriver[0]}}<strong ng-if="bid.get.selectedDriverPoints[0]" class="pull-right">{{bid.get.selectedDriverPoints[0]}}</strong></p>
+        </div>
+      </md-list-item>
+      <md-list-item class="md-1-line">
+        <div class="md-list-item-text">
+          <p>Slutter som nummer {{bid.get.selectedDriver[1]}}<strong ng-if="bid.get.selectedDriverPoints[1]" class="pull-right">{{bid.get.selectedDriverPoints[1]}}</strong></p>
+        </div>
+      </md-list-item>
     </md-list>
   </section>
   <section>
     <md-subheader class="md-primary">Først udgået</md-subheader>
     <md-list layout="column">
-      <md-item ng-if="bid.get.firstCrash">
-        <md-item-content>
-          <div class="md-tile-content">
-            <h3><strong>{{bid.get.firstCrash.name}}</strong><span ng-if="bid.get.firstCrash.points" class="pull-right">{{bid.get.firstCrash.points}}</span></h3>
+      <md-list-item class="md-1-line" ng-if="bid.get.firstCrash">
+          <div class="md-list-item-text">
+            <p>{{bid.get.firstCrash.name}}<strong ng-if="bid.get.firstCrash.points" class="pull-right">{{bid.get.firstCrash.points}}</strong></p>
           </div>
-        </md-item-content>
-      </md-item>
-      <md-item ng-repeat="crash in bid.get.firstCrashes">
-        <md-item-content>
-          <div class="md-tile-content">
-            <h3><strong>{{crash.name}}</strong></h3>
+      </md-list-item>
+      <md-list-item class="md-1-line" ng-repeat="crash in bid.get.firstCrashes">
+          <div class="md-list-item-text">
+            <p>{{crash.name}}</p>
           </div>
-        </md-item-content>
-      </md-item>
+      </md-list-item>
     </md-list>
   </section>
   <section>
     <md-subheader class="md-primary">Pole tid</md-subheader>
     <md-list layout="column">
-      <md-item>
-        <md-item-content>
-          <div class="md-tile-content">
-            <h3><strong>{{bid.get.polePositionTimeInText}}</strong></h3>
-          </div>
-        </md-item-content>
-      </md-item>
+      <md-list-item class="md-1-line">
+        <div class="md-list-item-text">
+          <p>{{bid.get.polePositionTimeInText}}</p>
+        </div>
+      </md-list-item>
     </md-list>
   </section>
 </md-content>

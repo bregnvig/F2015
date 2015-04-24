@@ -31,13 +31,19 @@ angular.module('f2015.wbc', ['f2015.model.wbc'])
         }
       });
   }])
-  .controller('WbcCtrl', ['wbcModel', function(wbcModel) {
+  .controller('WbcCtrl', ['$state', 'wbcModel', function($state, wbcModel) {
     var wbc = this;
     wbc.standing = wbcModel.standing;
+    wbc.navigateTo = function(state, params) {
+      $state.go(state, params);
+    };
   }])
-  .controller('WbcPlayerCtrl', ['$stateParams', 'wbcModel', function($stateParams, wbcModel) {
+  .controller('WbcPlayerCtrl', ['$state', '$stateParams', 'wbcModel', function($state, $stateParams, wbcModel) {
     var wbcPlayer = this;
     wbcPlayer.entries = wbcModel.get($stateParams.player);
+    wbcPlayer.navigateTo = function(state, params) {
+      $state.go(state, params);
+    };
   }])
   .controller('GraphPeopleCtrl', ['$rootScope', '$scope', '$mdBottomSheet', 'wbcModel', 'colors', function($rootScope, $scope, $mdBottomSheet, wbcModel, colors) {
     $scope.colors = colors;

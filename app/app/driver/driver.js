@@ -27,7 +27,7 @@ angular.module('f2015.driver', ['f2015.model.driver', 'f2015.model.ergast'])
         }
       });
   }])
-  .controller('DriversCtrl', ['allDrivers', function(allDrivers) {
+  .controller('DriversCtrl', ['$state', 'allDrivers', function($state, allDrivers) {
     var drivers = this;
     allDrivers.$promise.then(function() {
       drivers.all = allDrivers;
@@ -35,6 +35,9 @@ angular.module('f2015.driver', ['f2015.model.driver', 'f2015.model.ergast'])
         return a.number - b.number;
       });
     });
+    drivers.navigateTo = function(state, params) {
+      $state.go(state, params);
+    };
   }])
   .controller('DriverCtrl', ['$scope', '$stateParams', 'ergastModel', 'allDrivers', 'authenticationService', function($scope, $stateParams, ergastModel, allDrivers, authentication) {
     var driver = this;
