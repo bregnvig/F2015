@@ -1,4 +1,4 @@
-<md-toolbar class="md-hue-1" md-scroll-shrink>
+<md-toolbar class="md-hue-1">
   <h2 class="md-toolbar-tools">
     <span flex>{{driver.get.name}}</span>
     <md-switch ng-model="driver.get.active" aria-label="Aktiv?" ng-click="driver.activateDriver()" ng-if="driver.credentials.gameAdministrator">
@@ -6,7 +6,7 @@
     </md-switch>
   </h2>
 </md-toolbar>
-<md-content class="below-sub-header">
+<md-content class="below-sub-header-stationary" layout="column">
   <div  layout-sm="column" layout="row" layout-margin>
     <md-card flex class="md-whiteframe-z1">
       <md-toolbar>
@@ -45,7 +45,7 @@
       </md-card-content>
     </md-card>
   </div>
-  <md-tabs md-selected="1">
+  <md-tabs md-selected="1" flex>
     <md-tab label="Kvalifikation {{driver.previousYear}}">
       <md-list>
         <md-list-item class="md-2-line" ng-repeat="result in driver.qualifyResult">
