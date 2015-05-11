@@ -251,12 +251,12 @@ angular.module('f2015.race', ['f2015.model.race', 'f2015.model.ergast'])
           raceResult.selectedDriver[1] = parseInt(result.position);
         }
         if (result.positionText === 'R') {
-          if (raceResult.firstCrashes.length === 3) {
-            raceResult.firstCrashes.pop();
-          }
-          raceResult.firstCrashes.push(driverModel.getDriver(driverId));
+          raceResult.firstCrashes.unshift(driverModel.getDriver(driverId));
         }
       });
+      if (raceResult.firstCrashes.length > 3) {
+        raceResult.firstCrashes.length = 3;
+      }
       return raceResult;
     };
   }])
