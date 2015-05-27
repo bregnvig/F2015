@@ -6,7 +6,13 @@ angular.module('f2015.account')
     account.account = accountService;
     account.showTransferInfo = function() {
       $mdDialog.show( {
-        templateUrl: 'app/account/transfer-info.tmpl.html'
+        templateUrl: 'app/account/transfer-info.tmpl.html',
+        clickOutsideToClose: true,
+        controller: function($scope) {
+          $scope.closeTransferInfo = function() {
+            $mdDialog.hide();
+          };
+        }
       });
     };
   }])

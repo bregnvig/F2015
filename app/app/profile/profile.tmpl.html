@@ -1,27 +1,27 @@
-<md-toolbar class="md-hue-1">
-  <h2 class="md-toolbar-tools">
-    <span>Personlige oplysninger</span>
-  </h2>
-</md-toolbar>
+  <md-toolbar class="md-hue-1">
+    <h2 class="md-toolbar-tools">
+      <span>Personlige oplysninger</span>
+    </h2>
+  </md-toolbar>
 <form name="profileForm">
-  <md-content layout-padding layout="row" layout-sm="column">
-    <md-input-container>
-      <label>Fornavn</label>
-      <input type="text" name="firstName" required md-maxlength="25" ng-model="profile.user.firstName">
-      <div ng-messages="profileForm.firstName.$error">
-        <div ng-message="required">Skal udfyldes.</div>
-        <div ng-message="md-maxlength">Fornavnet skal være mindre end 26 tegn.</div>
-      </div>
-    </md-input-container>
-    <md-input-container>
-      <label>Efternavn</label>
-      <input type="text" name="lastName" md-maxlength="25" ng-model="profile.user.lastName">
-      <div ng-messages="profileForm.lastName.$error">
-        <div ng-message="md-maxlength">Efternavnet skal være mindre end 26 tegn.</div>
-      </div>
-    </md-input-container>
-  </md-content>
-  <md-content layout-padding layout="row" layout-sm="column">
+  <md-content layout-padding>
+    <div layout layout-sm="column">
+      <md-input-container flex>
+        <label>Fornavn</label>
+        <input type="text" name="firstName" required md-maxlength="25" ng-model="profile.user.firstName">
+        <div ng-messages="profileForm.firstName.$error">
+          <div ng-message="required">Skal udfyldes.</div>
+          <div ng-message="md-maxlength">Fornavnet skal være mindre end 26 tegn.</div>
+        </div>
+      </md-input-container>
+      <md-input-container flex>
+        <label>Efternavn</label>
+        <input type="text" name="lastName" md-maxlength="25" ng-model="profile.user.lastName">
+        <div ng-messages="profileForm.lastName.$error">
+          <div ng-message="md-maxlength">Efternavnet skal være mindre end 26 tegn.</div>
+        </div>
+      </md-input-container>
+    </div>
     <md-input-container>
       <label>E-mail-adresse</label>
       <input type="email" name="email" ng-model="profile.user.emailAddress">
@@ -29,21 +29,20 @@
         <div ng-message="email">Skal være en gyldig e-mail-adresse.</div>
       </div>
     </md-input-container>
-  </md-content>
-  <md-content layout-padding layout="row" layout-sm="column">
-    <md-switch ng-model="profile.user.reminderWanted" aria-label="Modtag påmindelse">
-      Modtag påmindelse
-    </md-switch>
-    <md-input-container>
-      <label>SMS nummer</label>
-      <input type="text" ng-model="profile.user.sms" ng-disabled="!profile.user.reminderWanted">
-    </md-input-container>
-  </md-content>
-  <md-content layout-padding layout="row" layout-align="end center">
-    <md-button class="md-accent md-raised" ng-click="profile.update()" aria-label="Opdater profil"
-               ng-disabled="!profile.user.firstName && profile.running">
-      Opdater profil
-    </md-button>
-  </md-content>
+    <div layout layout-sm="column">
+      <md-switch ng-model="profile.user.reminderWanted" aria-label="Modtag påmindelse">
+        Modtag påmindelse
+      </md-switch>
+      <md-input-container flex>
+        <label>SMS nummer</label>
+        <input type="text" ng-model="profile.user.sms" ng-disabled="!profile.user.reminderWanted">
+      </md-input-container>
+    </div>
+    <div layout="row" layout-align="end center">
+      <md-button class="md-accent md-raised" ng-click="profile.update()" aria-label="Opdater profil"
+                 ng-disabled="!profile.user.firstName && profile.running">
+        Opdater profil
+      </md-button>
+    </div>
  </form>
 

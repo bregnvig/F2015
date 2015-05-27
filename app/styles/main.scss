@@ -69,7 +69,11 @@ ul {
   min-width: 0em;
 }
 
-
+.below-sub-header-stationary {
+  position:absolute;
+  height: calc(100% - 64px);
+  width: 100%;
+}
 .md-button {
   &:not(.md-fab):not(.menu-button) {
     min-width: 8em;
@@ -117,6 +121,14 @@ loading {
   text-align: center;
   margin: 0;
   padding: 0;
+}
+
+.amount-positive {
+  color: inherit;
+}
+
+.amount-negative {
+  color: rgb(198, 22, 5);
 }
 
 
