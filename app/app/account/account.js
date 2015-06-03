@@ -8,11 +8,11 @@ angular.module('f2015.account')
       $mdDialog.show( {
         templateUrl: 'app/account/transfer-info.tmpl.html',
         clickOutsideToClose: true,
-        controller: function($scope) {
+        controller: ['$scope', function($scope) {
           $scope.closeTransferInfo = function() {
             $mdDialog.hide();
           };
-        }
+        }]
       });
     };
   }])

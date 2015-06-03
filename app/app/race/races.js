@@ -155,7 +155,7 @@ angular.module('f2015.race', ['f2015.model.race', 'f2015.model.ergast'])
     var enterBid = this;
     enterBid.race = selectedRace;
     enterBid.drivers = drivers;
-    enterBid.bid = localStorage.bid ? angular.fromJson(localStorage.bid) : {};
+    enterBid.bid = localStorage['bid'+selectedRace.id] ? angular.fromJson(localStorage['bid'+selectedRace.id]) : {};
     if (!enterBid.bid.grid) {
       enterBid.bid.grid = [];
       enterBid.bid.podium = [];
@@ -163,7 +163,7 @@ angular.module('f2015.race', ['f2015.model.race', 'f2015.model.ergast'])
     }
 
     $scope.$on('$stateChangeStart', function() {
-      localStorage.bid = angular.toJson(enterBid.bid);
+      localStorage['bid'+selectedRace.id] = angular.toJson(enterBid.bid);
     });
 
     enterBid.submitBid = function() {
@@ -175,7 +175,7 @@ angular.module('f2015.race', ['f2015.model.race', 'f2015.model.ergast'])
       submit.selectedDriver = enterBid.bid.selectedDriver;
       submit.polePositionTime = (60 * 1000 * enterBid.bid.minutes) + (1000 * enterBid.bid.seconds) + enterBid.bid.milliseconds;
       raceModel.submitBid(submit, function() {
-        localStorage.bid = undefined;
+        localStorage['bid'+selectedRace.id] = undefined;
         $state.go('f2015.home');
       });
     };
