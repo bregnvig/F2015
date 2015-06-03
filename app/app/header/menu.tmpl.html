@@ -1,8 +1,8 @@
-<md-sidenav class="md-sidenav-right" md-component-id="drawer" md-is-locked-open="$mdMedia('gt-md')" ng-class="menu.closeButtonHidden ? '' : 'md-whiteframe-z2'">
+<md-sidenav class="md-sidenav-right" md-component-id="drawer" md-is-locked-open="$mdMedia('gt-md')" ng-class="menu.closeButtonHidden ? '' : 'md-whiteframe-z2'" layout="column">
   <md-toolbar ng-class="menu.closeButtonHidden ? 'md-hue-2' : ''">
     <h1 class="md-toolbar-tools">Velkommen {{menu.credentials.firstName}}</h1>
   </md-toolbar>
-  <md-content class="md-padding">
+  <md-content layout-padding flex>
     <md-button class="md-primary" ui-sref="f2015.home" ng-click="menu.toggle()" ng-disabled="!menu.credentials.playername">
       <i class="fa fa-fw fa-home fa-lg"></i> Forside
     </md-button>
@@ -30,5 +30,8 @@
     <md-button ng-click="menu.toggle()" class="md-primary" ng-hide="menu.closeButtonHidden">
       <i class="fa fa-fw fa-lg fa-close"></i> Luk menu
     </md-button>
+  </md-content>
+  <md-content layout layout-align="center" layout-margin>
+    <span class="version"><i class="fa fa-github"></i> <a ng-href="https://github.com/bregnvig/F2015/commit/{{revision}}" target="_blank">{{revision | limitTo: 7}}</a></span>
   </md-content>
 </md-sidenav>

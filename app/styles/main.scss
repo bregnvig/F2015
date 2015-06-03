@@ -27,9 +27,19 @@
   .md-button {
     width: 100%;
     text-align: left;
+    .fa {
+      margin-right: 16px;
+    }
   }
-  .fa {
-    margin-right: 16px;
+  .version {
+    a:visited {
+      color: inherit;
+    }
+    color: gray;
+    font-size: 0.8em;
+    .fa {
+      color: black;
+    }
   }
 }
 

@@ -15,7 +15,7 @@ angular.module('f2015.header', [])
       header.seasonName = response.data;
     });
   }])
-  .controller('MenuCtrl', ['$scope', '$mdSidenav', 'accountService', 'authenticationService', function($scope, $mdSidenav, account, authentication) {
+  .controller('MenuCtrl', ['$scope', '$mdSidenav', 'ENV', 'accountService', 'authenticationService', function($scope, $mdSidenav, ENV, account, authentication) {
     var menu = this;
     menu.account = account.get;
     menu.credentials = authentication.credentials;
@@ -23,6 +23,7 @@ angular.module('f2015.header', [])
       $mdSidenav('drawer').toggle();
     };
     $scope.$mdSidenav = $mdSidenav;
+    $scope.revision = ENV.revision;
     $scope.$watch('$mdSidenav(\'drawer\').isLockedOpen()', function (newValue) {
       menu.closeButtonHidden = newValue;
     });

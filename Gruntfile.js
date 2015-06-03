@@ -11,9 +11,9 @@ module.exports = function (grunt) {
 
   // Load grunt tasks automatically
   require('load-grunt-tasks')(grunt);
-
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
+  grunt.loadNpmTasks('grunt-git-revision');
 
   // Configurable paths for the application
   var appConfig = {
@@ -127,6 +127,14 @@ module.exports = function (grunt) {
           jshintrc: 'test/.jshintrc'
         },
         src: ['test/spec/{,*/}*.js']
+      }
+    },
+
+    revision: {
+      options: {
+        property: 'meta.revision',
+        ref: 'HEAD',
+        short: false
       }
     },
 
@@ -417,7 +425,7 @@ module.exports = function (grunt) {
       options: {
         space: '  ',
         wrap: '\'use strict\';\n\n {%= __ngModule %}',
-        name: 'config'
+        name: 'config',
       },
       // Environment targets
       development: {
@@ -426,6 +434,7 @@ module.exports = function (grunt) {
         },
         constants: {
           ENV: {
+            revision: '<%= meta.revision %>',
             name: 'development',
             apiEndpoint: 'http://localhost:8080/f2007'
           }
@@ -453,6 +462,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
+      'revision',
       'ngconstant:development',
       'wiredep',
       'concurrent:server',
@@ -477,6 +487,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'revision',
     'ngconstant:production',
     'wiredep',
     'useminPrepare',
