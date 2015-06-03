@@ -426,6 +426,11 @@ module.exports = function (grunt) {
         space: '  ',
         wrap: '\'use strict\';\n\n {%= __ngModule %}',
         name: 'config',
+        constants: {
+          ENV: {
+            revision: '<%= meta.revision %>'
+          }
+        }
       },
       // Environment targets
       development: {
@@ -434,7 +439,6 @@ module.exports = function (grunt) {
         },
         constants: {
           ENV: {
-            revision: '<%= meta.revision %>',
             name: 'development',
             apiEndpoint: 'http://localhost:8080/f2007'
           }
