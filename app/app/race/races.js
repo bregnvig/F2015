@@ -60,21 +60,21 @@ angular.module('f2015.race', ['f2015.model.race', 'f2015.model.ergast'])
           }
         }
       })
-      .state('f2015.race.bid', {
-        url: '/:player',
-        views: {
-          '@': {
-            templateUrl: 'app/race/bid.tmpl.html',
-            controller: 'BidCtrl as bid'
-          }
-        }
-      })
       .state('f2015.race.create-result', {
         url: '/create-result',
         views: {
           '@': {
             templateUrl: 'app/race/bid.tmpl.html',
             controller: 'CreateResultCtrl as bid'
+          }
+        }
+      })
+      .state('f2015.race.bid', {
+        url: '/:player',
+        views: {
+          '@': {
+            templateUrl: 'app/race/bid.tmpl.html',
+            controller: 'BidCtrl as bid'
           }
         }
       });
@@ -214,6 +214,7 @@ angular.module('f2015.race', ['f2015.model.race', 'f2015.model.ergast'])
         raceResult.polePositionTime = parseInt(millis);
         raceResult.polePositionTimeInText = qualifyResult[0].Q3;
         bid.get = raceResult;
+        bid.race = selectedRace;
         bid.get.driver = selectedRace.selectedDriver;
         bid.submitResult = function() {
           raceModel.submitResult(selectedRace, raceResult, function() {
