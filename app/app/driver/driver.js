@@ -27,12 +27,21 @@ angular.module('f2015.driver', ['f2015.model.driver', 'f2015.model.ergast'])
         }
       });
   }])
-  .controller('DriversCtrl', ['$state', 'allDrivers', function($state, allDrivers) {
+  .controller('DriversCtrl', ['$state', 'allDrivers', 'driverModel', 'ergastModel', function($state, allDrivers, driverModel, ergastModel) {
     var drivers = this;
     allDrivers.$promise.then(function() {
       drivers.all = allDrivers;
-      drivers.all.sort(function(a, b) {
-        return a.number - b.number;
+      ergastModel.getStandings(function(standings) {
+        standings.forEach(function(standing) {
+          drivers.all.forEach(function(driver) {
+            if (driver.code === standing.Driver.driverId) {
+              driver.points = standing.points;
+            }
+          });
+        });
+        drivers.all.sort(function(a, b) {
+          return b.points - a.points;
+        });
       });
     });
     drivers.navigateTo = function(state, params) {
@@ -43,6 +52,7 @@ angular.module('f2015.driver', ['f2015.model.driver', 'f2015.model.ergast'])
     var driver = this;
     driver.credentials = authentication.credentials;
     driver.previousYear = ergastModel.previousSeason;
+    driver.currentYear = ergastModel.currentSeason;
     allDrivers.$promise.then(function() {
       var filtered = allDrivers.filter(function(temp) {
         return temp.id === parseInt($stateParams.id);
@@ -58,12 +68,14 @@ angular.module('f2015.driver', ['f2015.model.driver', 'f2015.model.ergast'])
           }, 0).toFixed(1);
         });
         ergastModel.getCurrentYearDriverQualify(driver.get.code, function(result) {
+          driver.currentQualifyResult = result;
           var grid = result.reduce(function (previousValue, race) {
             return previousValue + parseInt(race.QualifyingResults[0].position);
           }, 0);
           driver.avgGrid = result.length !== 0 ? (grid / result.length).toFixed(1) : '-';
         });
         ergastModel.getCurrentYearDriverResults(driver.get.code, function(result) {
+          driver.currentRaceResult = result;
           var position = result.reduce(function(previousValue, race) {
             return previousValue + parseInt(race.Results[0].position);
           }, 0);

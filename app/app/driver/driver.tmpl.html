@@ -60,6 +60,28 @@
             </md-list-item>
           </md-list>
         </md-tab>
+        <md-tab label="Kvalifikation {{driver.currentYear}}">
+          <md-list flex>
+            <md-list-item class="md-2-line" ng-repeat="result in driver.currentQualifyResult">
+              <div class="md-list-item-text" >
+                <h3>{{result.raceName}}<strong class="pull-right">{{result.QualifyingResults[0].position }}</strong></h3>
+                <p>{{result.QualifyingResults[0] | ergastQualifyTime}}</p>
+              </div>
+              <md-divider ng-if="!$last"></md-divider>
+            </md-list-item>
+          </md-list>
+        </md-tab>
+        <md-tab label="Resultat {{driver.currentYear}}">
+          <md-list>
+            <md-list-item class="md-2-line" ng-repeat="result in driver.currentRaceResult">
+              <div class="md-list-item-text" >
+                <h3>{{result.raceName}}<strong class="pull-right">{{result.Results[0].position }}</strong></h3>
+                <p>{{result.Results[0].status}}</p>
+              </div>
+              <md-divider ng-if="!$last"></md-divider>
+            </md-list-item>
+          </md-list>
+        </md-tab>
       </md-tabs>
     </section>
   </md-content>

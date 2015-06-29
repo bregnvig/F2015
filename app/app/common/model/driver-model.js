@@ -18,11 +18,11 @@ angular.module('f2015.model.driver', ['f2015.resource', 'config'])
     });
 
     return {
-      getDriver: function(code) {
-        if(!drivers[code]) {
-          drivers[code] = {};
+      getDriver: function(driverId) {
+        if(!drivers[driverId]) {
+          drivers[driverId] = {};
         }
-        return drivers[code];
+        return drivers[driverId];
       },
       get activeDrivers() {
         return driversResource.query();
