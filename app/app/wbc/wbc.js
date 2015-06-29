@@ -160,6 +160,7 @@ angular.module('f2015.wbc', ['f2015.model.wbc'])
       $mdBottomSheet.show({
         templateUrl: 'app/wbc/graph-people.tmpl.html',
         controller: 'GraphPeopleCtrl',
+        disableParentScroll: true,
         targetEvent: $event
       });
     };
