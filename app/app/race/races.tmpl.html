@@ -5,7 +5,7 @@
 </md-toolbar>
 <md-content class="below-sub-header">
   <md-list>
-    <md-list-item class="md-2-line" ng-repeat="race in races.races.all" ng-click="races.navigateTo(race)" ng-disabled="(race.waiting)">
+    <md-list-item class="md-2-line" ng-repeat="race in races.races.all track by $index" ng-click="races.navigateTo(race)" ng-disabled="(race.waiting)">
       <div class="md-list-item-text">
         <h3><strong>{{race.name}}</strong></h3>
         <p>{{race | raceStatus}} <span ng-if="race.opened" am-time-ago="race.closeDate"></span><span ng-if="race.waiting" am-time-ago="race.openDate"></span></p>
