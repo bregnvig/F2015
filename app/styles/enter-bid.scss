@@ -1,16 +1,18 @@
 form[name="enterBidForm"] {
-    .error {
+  md-select {
+    &.ng-invalid {
       color: #F44336;
     }
-    .error:focus {
+    &.ng-invalid:focus {
       color: #F44336;
     }
-    .error:hover {
+    &.ng-invalid:hover {
       color: #F44336;
     }
-    .control-group {
-      padding: 0 16px;
-    }
+  }
+  .control-group {
+    padding: 0 16px;
+  }
 }
 
 

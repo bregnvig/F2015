@@ -9,55 +9,61 @@
       <md-subheader class="md-primary">Grid</md-subheader>
         <div layout layout-sm="column" layout-padding>
           <md-input-container flex>
+            <label flex>Vælg 1. kører</label>
             <md-select name="grid0" ng-model="enterBid.bid.grid[0]" unique="enterBid.bid.grid" required>
-              <md-select-label flex>{{ enterBid.bid.grid[0] ? enterBid.bid.grid[0].name : 'Vælg 1. kører' }}</md-select-label>
-              <md-option ng-repeat="driver in enterBid.drivers" ng-value="driver" >{{driver.name}}</md-option>
+              <md-option ng-repeat="driver in enterBid.drivers" ng-value="driver.code" >{{driver.name}}</md-option>
             </md-select>
-            <div ng-if="!enterBidForm.grid0.$valid && enterBid.bid.grid[0]" ng-messages="enterBidForm.grid0.$error" ng-messages-include="error-messages">
+            <div ng-if="!enterBidForm.grid0.$valid && enterBid.bid.grid[0]" ng-messages="enterBidForm.grid0.$error">
+              <div ng-messages-include="error-messages"></div>
             </div>
           </md-input-container>
           <md-input-container flex>
+            <label flex>Vælg 2. kører</label>
             <md-select name="grid1" ng-model="enterBid.bid.grid[1]" unique="enterBid.bid.grid" required>
-              <md-select-label flex>{{ enterBid.bid.grid[1] ? enterBid.bid.grid[1].name : 'Vælg 2. kører' }}</md-select-label>
-              <md-option ng-repeat="driver in enterBid.drivers" ng-value="driver" >{{driver.name}}</md-option>
+              <md-option ng-repeat="driver in enterBid.drivers" ng-value="driver.code" >{{driver.name}}</md-option>
             </md-select>
-            <div ng-if="!enterBidForm.grid1.$valid && enterBid.bid.grid[1]" ng-messages="enterBidForm.grid1.$error" ng-messages-include="error-messages">
+            <div ng-if="!enterBidForm.grid1.$valid && enterBid.bid.grid[1]" ng-messages="enterBidForm.grid1.$error">
+              <div ng-messages-include="error-messages"></div>
             </div>
           </md-input-container>
         </div>
         <div layout layout-sm="column" layout-padding>
           <md-input-container flex>
+            <label flex>Vælg 3. kører</label>
             <md-select name="grid2" ng-model="enterBid.bid.grid[2]" unique="enterBid.bid.grid" required>
-              <md-select-label flex>{{ enterBid.bid.grid[2] ? enterBid.bid.grid[2].name : 'Vælg 3. kører' }}</md-select-label>
-              <md-option ng-repeat="driver in enterBid.drivers" ng-value="driver" >{{driver.name}}</md-option>
+              <md-option ng-repeat="driver in enterBid.drivers" ng-value="driver.code" >{{driver.name}}</md-option>
             </md-select>
-            <div ng-if="!enterBidForm.grid2.$valid && enterBid.bid.grid[2]" ng-messages="enterBidForm.grid2.$error" ng-messages-include="error-messages">
+            <div ng-if="!enterBidForm.grid2.$valid && enterBid.bid.grid[2]" ng-messages="enterBidForm.grid2.$error">
+              <div ng-messages-include="error-messages"></div>
             </div>
           </md-input-container>
           <md-input-container flex>
+            <label flex>Vælg 4. kører</label>
             <md-select name="grid3" ng-model="enterBid.bid.grid[3]" unique="enterBid.bid.grid" required>
-              <md-select-label flex>{{ enterBid.bid.grid[3] ? enterBid.bid.grid[3].name : 'Vælg 4. kører' }}</md-select-label>
-              <md-option ng-repeat="driver in enterBid.drivers" ng-value="driver" >{{driver.name}}</md-option>
+              <md-option ng-repeat="driver in enterBid.drivers" ng-value="driver.code" >{{driver.name}}</md-option>
             </md-select>
-            <div ng-if="!enterBidForm.grid3.$valid && enterBid.bid.grid[3]" ng-messages="enterBidForm.grid3.$error" ng-messages-include="error-messages">
+            <div ng-if="!enterBidForm.grid3.$valid && enterBid.bid.grid[3]" ng-messages="enterBidForm.grid3.$error">
+              <div ng-messages-include="error-messages"></div>
             </div>
           </md-input-container>
         </div>
         <div layout layout-sm="column" layout-padding>
           <md-input-container flex>
+            <label flex>Vælg 5. kører</label>
             <md-select name="grid4" ng-model="enterBid.bid.grid[4]" unique="enterBid.bid.grid" required>
-              <md-select-label flex>{{ enterBid.bid.grid[4] ? enterBid.bid.grid[4].name : 'Vælg 5. kører' }}</md-select-label>
-              <md-option ng-repeat="driver in enterBid.drivers" ng-value="driver" >{{driver.name}}</md-option>
+              <md-option ng-repeat="driver in enterBid.drivers" ng-value="driver.code" >{{driver.name}}</md-option>
             </md-select>
-            <div ng-if="!enterBidForm.grid4.$valid && enterBid.bid.grid[4]" ng-messages="enterBidForm.grid4.$error" ng-messages-include="error-messages">
+            <div ng-if="!enterBidForm.grid4.$valid && enterBid.bid.grid[4]" ng-messages="enterBidForm.grid4.$error">
+              <div ng-messages-include="error-messages"></div>
             </div>
           </md-input-container>
           <md-input-container flex>
+            <label flex>Vælg 6. kører</label>
             <md-select name="grid5" ng-model="enterBid.bid.grid[5]" unique="enterBid.bid.grid" required>
-              <md-select-label flex>{{ enterBid.bid.grid[5] ? enterBid.bid.grid[5].name : 'Vælg 6. kører' }}</md-select-label>
-              <md-option ng-repeat="driver in enterBid.drivers" ng-value="driver" >{{driver.name}}</md-option>
+              <md-option ng-repeat="driver in enterBid.drivers" ng-value="driver.code" >{{driver.name}}</md-option>
             </md-select>
-            <div ng-if="!enterBidForm.grid5.$valid && enterBid.bid.grid[5]" ng-messages="enterBidForm.grid5.$error" ng-messages-include="error-messages">
+            <div ng-if="!enterBidForm.grid5.$valid && enterBid.bid.grid[5]" ng-messages="enterBidForm.grid5.$error">
+              <div ng-messages-include="error-messages"></div>
             </div>
           </md-input-container>
         </div>
@@ -66,9 +72,9 @@
       <md-subheader class="md-primary">Hurtigste kører</md-subheader>
       <div layout layout-sm="column" layout-padding>
         <md-input-container flex flex-gt-sm="50">
+          <label flex>Vælg hurtigste kører</label>
           <md-select ng-model="enterBid.bid.fastestLap" >
-            <md-select-label flex>{{ enterBid.bid.fastestLap ? enterBid.bid.fastestLap.name : 'Vælg hurtigste kører' }}</md-select-label>
-            <md-option ng-repeat="driver in enterBid.drivers" ng-value="driver" >{{driver.name}}</md-option>
+            <md-option ng-repeat="driver in enterBid.drivers" ng-value="driver.code" >{{driver.name}}</md-option>
           </md-select>
         </md-input-container>
       </div>
@@ -77,27 +83,30 @@
       <md-subheader class="md-primary">Podium</md-subheader>
       <div layout layout-sm="column" layout-padding>
         <md-input-container flex>
+          <label flex>Vælg 1. pladsen</label>
           <md-select name="podium0" ng-model="enterBid.bid.podium[0]" unique="enterBid.bid.podium" required>
-            <md-select-label flex>{{ enterBid.bid.podium[0] ? enterBid.bid.podium[0].name : 'Vælg 1. pladsen' }}</md-select-label>
-            <md-option ng-repeat="driver in enterBid.drivers" ng-value="driver" >{{driver.name}}</md-option>
+            <md-option ng-repeat="driver in enterBid.drivers" ng-value="driver.code" >{{driver.name}}</md-option>
           </md-select>
-          <div ng-if="!enterBidForm.podium0.$valid  && enterBid.bid.podium[0]" ng-messages="enterBidForm.podium0.$error" ng-messages-include="error-messages">
+          <div ng-if="!enterBidForm.podium0.$valid  && enterBid.bid.podium[0]" ng-messages="enterBidForm.podium0.$error">
+            <div ng-messages-include="error-messages"></div>
           </div>
         </md-input-container>
         <md-input-container flex>
+          <label flex>Vælg 2. pladsen</label>
           <md-select name="podium1" ng-model="enterBid.bid.podium[1]" unique="enterBid.bid.podium" required>
-            <md-select-label flex>{{ enterBid.bid.podium[1] ? enterBid.bid.podium[1].name : 'Vælg 2. pladsen' }}</md-select-label>
-            <md-option ng-repeat="driver in enterBid.drivers" ng-value="driver" >{{driver.name}}</md-option>
+            <md-option ng-repeat="driver in enterBid.drivers" ng-value="driver.code" >{{driver.name}}</md-option>
           </md-select>
-          <div ng-if="!enterBidForm.podium1.$valid  && enterBid.bid.podium[1]" ng-messages="enterBidForm.podium1.$error" ng-messages-include="error-messages">
+          <div ng-if="!enterBidForm.podium1.$valid  && enterBid.bid.podium[1]" ng-messages="enterBidForm.podium1.$error">
+            <div ng-messages-include="error-messages"></div>
           </div>
         </md-input-container>
         <md-input-container flex>
+          <label flex>Vælg 3. pladsen</label>
           <md-select name="podium2" ng-model="enterBid.bid.podium[2]" unique="enterBid.bid.podium" required>
-            <md-select-label flex>{{ enterBid.bid.podium[2] ? enterBid.bid.podium[2].name : 'Vælg 3. pladsen' }}</md-select-label>
-            <md-option ng-repeat="driver in enterBid.drivers" ng-value="driver" >{{driver.name}}</md-option>
+            <md-option ng-repeat="driver in enterBid.drivers" ng-value="driver.code" >{{driver.name}}</md-option>
           </md-select>
-          <div ng-if="!enterBidForm.podium2.$valid  && enterBid.bid.podium[2]" ng-messages="enterBidForm.podium2.$error" ng-messages-include="error-messages">
+          <div ng-if="!enterBidForm.podium2.$valid  && enterBid.bid.podium[2]" ng-messages="enterBidForm.podium2.$error">
+            <div ng-messages-include="error-messages"></div>
           </div>
         </md-input-container>
       </div>
@@ -108,19 +117,21 @@
       </md-subheader>
       <div layout layout-sm="column" layout-padding>
         <md-input-container flex>
+          <label flex>Vælg startsplacering</label>
           <md-select name="startPosition" ng-model="enterBid.bid.selectedDriver[0]" required>
-            <md-select-label flex>{{ enterBid.bid.selectedDriver[0] ? enterBid.bid.selectedDriver[0] : 'Vælg startsplacering' }}</md-select-label>
             <md-option ng-repeat="driver in enterBid.drivers track by $index" ng-value="$index+1" >{{$index+1}}</md-option>
           </md-select>
-          <div ng-if="!enterBidForm.startPosition.$valid && bid.selectedDriver[0]" ng-messages="enterBidForm.startPosition.$error" ng-messages-include="error-messages">
+          <div ng-if="!enterBidForm.startPosition.$valid && bid.selectedDriver[0]" ng-messages="enterBidForm.startPosition.$error">
+            <div ng-messages-include="error-messages"></div>
           </div>
         </md-input-container>
         <md-input-container flex>
+          <label flex>Vælg slutplacering</label>
           <md-select name="endPosition" ng-model="enterBid.bid.selectedDriver[1]" required>
-            <md-select-label flex>{{ enterBid.bid.selectedDriver[1] ? enterBid.bid.selectedDriver[1] : 'Vælg slutplacering' }}</md-select-label>
             <md-option ng-repeat="driver in enterBid.drivers track by $index" ng-value="$index+1" >{{$index+1}}</md-option>
           </md-select>
-          <div ng-if="!enterBidForm.endPosition.$valid && bid.selectedDriver[1]" ng-messages="enterBidForm.endPosition.$error" ng-messages-include="error-messages">
+          <div ng-if="!enterBidForm.endPosition.$valid && bid.selectedDriver[1]" ng-messages="enterBidForm.endPosition.$error">
+            <div ng-messages-include="error-messages"></div>
           </div>
         </md-input-container>
       </div>
@@ -129,9 +140,9 @@
       <md-subheader class="md-primary">Først udgået</md-subheader>
       <div layout layout-sm="column" layout-padding>
         <md-input-container flex flex-gt-sm="50">
+          <label flex>Vælg først udgået</label>
           <md-select ng-model="enterBid.bid.firstCrash">
-            <md-select-label flex>{{ enterBid.bid.firstCrash ? enterBid.bid.firstCrash.name : 'Vælg først udgået' }}</md-select-label>
-            <md-option ng-repeat="driver in enterBid.drivers" ng-value="driver" >{{driver.name}}</md-option>
+            <md-option ng-repeat="driver in enterBid.drivers" ng-value="driver.code" >{{driver.name}}</md-option>
           </md-select>
         </md-input-container>
       </div>
@@ -142,7 +153,8 @@
         <md-input-container flex>
           <label>Minutter</label>
           <input type="number" name="minutes" required ng-model="enterBid.bid.minutes" min="1" max="2" maxlength="1">
-          <div ng-messages="enterBidForm.minutes.$error"  ng-messages-include="error-messages" ng-if="enterBidForm.minutes.$dirty">
+          <div ng-messages="enterBidForm.minutes.$error" ng-if="enterBidForm.minutes.$dirty">
+            <div ng-messages-include="error-messages"></div>
             <div ng-message="min">&gt; 0</div>
             <div ng-message="max">&lt;= 2</div>
           </div>
@@ -150,7 +162,8 @@
         <md-input-container flex>
           <label>Sekunder</label>
           <input type="number" name="seconds" ng-model="enterBid.bid.seconds" required min="0" max="59" maxlength="2">
-          <div ng-messages="enterBidForm.seconds.$error" ng-messages-include="error-messages" ng-if="enterBidForm.seconds.$dirty">
+          <div ng-messages="enterBidForm.seconds.$error" ng-if="enterBidForm.seconds.$dirty">
+            <div ng-messages-include="error-messages"></div>
             <div ng-message="min">&gt; 0</div>
             <div ng-message="max">&lt;= 59</div>
           </div>
@@ -158,7 +171,8 @@
         <md-input-container flex>
           <label>Millisekunder</label>
           <input type="number" name="milliseconds" required ng-model="enterBid.bid.milliseconds" min="0" max="999" ng-maxlength="3">
-          <div ng-messages="enterBidForm.milliseconds.$error" ng-messages-include="error-messages" ng-if="enterBidForm.milliseconds.$dirty">
+          <div ng-messages="enterBidForm.milliseconds.$error" ng-if="enterBidForm.milliseconds.$dirty">
+            <div ng-messages-include="error-messages"></div>
             <div ng-message="min">&gt; 0</div>
             <div ng-message="max">&lt;= 999</div>
           </div>

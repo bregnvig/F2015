@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('f2015.race', ['f2015.model.race', 'f2015.model.ergast'])
+angular.module('f2015.race', ['ngMessages', 'f2015.model.race', 'f2015.model.ergast'])
   .config(['$stateProvider', function($stateProvider) {
     $stateProvider
       .state('f2015.races', {
@@ -41,7 +41,7 @@ angular.module('f2015.race', ['f2015.model.race', 'f2015.model.ergast'])
         url: '/enter-bid',
         resolve: {
           drivers: ['driverModel', function(driverModel) {
-            return driverModel.activeDrivers;
+            return driverModel.activeDrivers.$promise;
           }]
         },
         views: {
@@ -151,27 +151,27 @@ angular.module('f2015.race', ['f2015.model.race', 'f2015.model.ergast'])
       }
     });
   }])
-  .controller('EnterBidCtrl', ['$scope', '$state', 'selectedRace', 'drivers', 'raceModel', function($scope, $state, selectedRace, drivers, raceModel) {
+  .controller('EnterBidCtrl', ['$scope', '$state', 'selectedRace', 'drivers', 'raceModel', 'driverModel', function($scope, $state, selectedRace, drivers, raceModel, driverModel) {
     var enterBid = this;
     enterBid.race = selectedRace;
-    enterBid.drivers = drivers;
     enterBid.bid = localStorage['bid'+selectedRace.id] ? angular.fromJson(localStorage['bid'+selectedRace.id]) : {};
+    enterBid.drivers = drivers;
     if (!enterBid.bid.grid) {
       enterBid.bid.grid = [];
       enterBid.bid.podium = [];
       enterBid.bid.selectedDriver = [];
     }
-
+    enterBid.getDriver = driverModel.getDriver;
     $scope.$on('$stateChangeStart', function() {
       localStorage['bid'+selectedRace.id] = angular.toJson(enterBid.bid);
     });
 
     enterBid.submitBid = function() {
       var submit = {};
-      submit.grid = enterBid.bid.grid;
-      submit.fastestLap = enterBid.bid.fastestLap;
-      submit.podium = enterBid.bid.podium;
-      submit.firstCrash = enterBid.bid.firstCrash;
+      submit.grid = driverModel.convert(enterBid.bid.grid);
+      submit.fastestLap = driverModel.convert(enterBid.bid.fastestLap);
+      submit.podium = driverModel.convert(enterBid.bid.podium);
+      submit.firstCrash = driverModel.convert(enterBid.bid.firstCrash);
       submit.selectedDriver = enterBid.bid.selectedDriver;
       submit.polePositionTime = (60 * 1000 * enterBid.bid.minutes) + (1000 * enterBid.bid.seconds) + enterBid.bid.milliseconds;
       raceModel.submitBid(submit, function() {
@@ -281,7 +281,7 @@ angular.module('f2015.race', ['f2015.model.race', 'f2015.model.ergast'])
           var count = 0;
           if (val1) {
             values.forEach(function(driver) {
-              if (driver && val1.id === driver.id) {
+              if (driver && val1 === driver) {
                 count++;
               }
             });
