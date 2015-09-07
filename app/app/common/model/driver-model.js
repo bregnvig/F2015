@@ -28,11 +28,9 @@ angular.module('f2015.model.driver', ['f2015.resource', 'config'])
         if (!driverIds) {
           return null;
         } else if (Array.isArray(driverIds)) {
-          var result = [];
-          driverIds.forEach(function(driverId) {
-            result.push(this.getDriver(driverId));
+          return driverIds.map(function(driverId) {
+            return this.getDriver(driverId);
           }, this);
-          return result;
         } else {
           return this.getDriver(driverIds);
         }
