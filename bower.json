@@ -3,19 +3,19 @@
   "version": "0.0.0",
   "dependencies": {
     "angular": "~1.4.x",
-    "angular-resource": "~1.4.x",
     "angular-animate": "~1.4.x",
     "angular-aria": "~1.4.x",
-    "angular-ui-router": "~0.2.x",
-    "angular-material": "~0.10.0",
-    "font-awesome": "~4.3.0",
+    "angular-material": "~0.11.0",
+    "angular-messages": "~1.4.x",
     "angular-moment": "~0.9.0",
-    "chartjs": "~1.0.1",
+    "angular-resource": "~1.4.x",
     "angular-sanitize": "~1.4.x",
-    "angular-messages": "~1.4.x"
+    "angular-ui-router": "~0.2.x",
+    "chartjs": "~1.0.1",
+    "font-awesome": "~4.x.x"
   },
   "devDependencies": {
-    "angular-material": "~0.10.1",
+    "angular-material": "~0.11.x",
     "angular-mocks": "1.4.x",
     "angular-scenario": "1.4.x"
   },

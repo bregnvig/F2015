@@ -79,8 +79,9 @@ angular.module('f2015.race', ['ngMessages', 'f2015.model.race', 'f2015.model.erg
         }
       });
   }])
-  .controller('RacesCtrl', ['$state', 'raceModel', function($state, raceModel) {
+  .controller('RacesCtrl', ['$state', 'raceModel', 'currentRace', function($state, raceModel, currentRace) {
     var races = this;
+    races.currentRace = currentRace;
     races.races = raceModel;
     races.navigateTo = function(race) {
       $state.go('f2015.race', {id: race.id});

@@ -40,10 +40,10 @@
       <md-tabs md-selected="1" flex>
         <md-tab label="Kvalifikation {{driver.previousYear}}">
           <md-list flex>
-            <md-list-item class="md-2-line" ng-repeat="result in driver.qualifyResult">
+            <md-list-item class="md-2-line" ng-repeat="result in driver.qualifyResult track by $index">
               <div class="md-list-item-text" >
-                <h3>{{result.raceName}}<strong class="pull-right">{{result.QualifyingResults[0].position }}</strong></h3>
-                <p>{{result.QualifyingResults[0] | ergastQualifyTime}}</p>
+                <h3>{{::result.raceName}}<strong class="pull-right">{{::result.QualifyingResults[0].position }}</strong></h3>
+                <p>{{::result.QualifyingResults[0] | ergastQualifyTime}}</p>
               </div>
               <md-divider ng-if="!$last"></md-divider>
             </md-list-item>
@@ -51,10 +51,10 @@
         </md-tab>
         <md-tab label="Resultat {{driver.previousYear}}">
           <md-list>
-            <md-list-item class="md-2-line" ng-repeat="result in driver.raceResult">
+            <md-list-item class="md-2-line" ng-repeat="result in driver.raceResult track by $index">
               <div class="md-list-item-text" >
-                <h3>{{result.raceName}}<strong class="pull-right">{{result.Results[0].position }}</strong></h3>
-                <p>{{result.Results[0].status}}</p>
+                <h3>{{::result.raceName}}<strong class="pull-right">{{::result.Results[0].position }}</strong></h3>
+                <p>{{::result.Results[0].status}}</p>
               </div>
               <md-divider ng-if="!$last"></md-divider>
             </md-list-item>
@@ -62,10 +62,10 @@
         </md-tab>
         <md-tab label="Kvalifikation {{driver.currentYear}}">
           <md-list flex>
-            <md-list-item class="md-2-line" ng-repeat="result in driver.currentQualifyResult">
+            <md-list-item class="md-2-line" ng-repeat="result in driver.currentQualifyResult track by $index">
               <div class="md-list-item-text" >
-                <h3>{{result.raceName}}<strong class="pull-right">{{result.QualifyingResults[0].position }}</strong></h3>
-                <p>{{result.QualifyingResults[0] | ergastQualifyTime}}</p>
+                <h3>{{::result.raceName}}<strong class="pull-right">{{::result.QualifyingResults[0].position }}</strong></h3>
+                <p>{{::result.QualifyingResults[0] | ergastQualifyTime}}</p>
               </div>
               <md-divider ng-if="!$last"></md-divider>
             </md-list-item>
@@ -73,10 +73,10 @@
         </md-tab>
         <md-tab label="Resultat {{driver.currentYear}}">
           <md-list>
-            <md-list-item class="md-2-line" ng-repeat="result in driver.currentRaceResult">
+            <md-list-item class="md-2-line" ng-repeat="result in driver.currentRaceResult track by $index">
               <div class="md-list-item-text" >
-                <h3>{{result.raceName}}<strong class="pull-right">{{result.Results[0].position }}</strong></h3>
-                <p>{{result.Results[0].status}}</p>
+                <h3>{{::result.raceName}}<strong class="pull-right">{{::result.Results[0].position }}</strong></h3>
+                <p>{{::result.Results[0].status}}</p>
               </div>
               <md-divider ng-if="!$last"></md-divider>
             </md-list-item>
@@ -86,4 +86,3 @@
     </section>
   </md-content>
 </div>
-<back></back>
