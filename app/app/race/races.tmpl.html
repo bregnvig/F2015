@@ -14,6 +14,6 @@
     </md-list-item>
   </md-list>
 </md-content>
-<md-button class="md-fab md-fab-bottom-right md-accent" aria-label="Jeg skal deltage" ng-if="races.currentRace.opened" ui-sref="f2015.race.enter-bid">
+<md-button class="md-fab md-fab-bottom-right md-accent" aria-label="Jeg skal deltage" ng-if="races.currentRace.opened && races.currentRace.participant === false" ui-sref="f2015.race.enter-bid">
   <i class="fa fa-plus"></i>
 </md-button>

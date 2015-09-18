@@ -1,0 +1,21 @@
+<md-card class="md-whiteframe-z1" ng-if="alreadyParticipatedCtrl.race.closed">
+  <md-toolbar>
+    <h2 class="md-toolbar-tools">
+      <span flex>Deltagere til {{alreadyParticipatedCtrl.race.name}}</span>
+    </h2>
+  </md-toolbar>
+  <md-card-content>
+    <md-content>
+      <p>Lige nu har de følgende spillet:</p>
+      <p>
+        <span ng-repeat="bid in alreadyParticipatedCtrl.race.bids">{{$first ? '' : ', '}}<a ui-sref="f2015.race.bid({id:alreadyParticipatedCtrl.race.id, player:bid.player.playername})">{{bid.player.firstName}}</a></span>
+      </p>
+    </md-content>
+    <div layout="row" layout-align="end center">
+      <md-button aria-label="Se bud" ui-sref="f2015.race({id:alreadyParticipatedCtrl.race.id})">
+        Se mere
+      </md-button>
+    </div>
+  </md-card-content>
+</md-card>
+

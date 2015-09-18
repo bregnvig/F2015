@@ -33,7 +33,7 @@ angular.module('f2015.hint.afterQualify', ['f2015.model.ergast', 'f2015.model.ra
       }
       if (!intermediateRaceResult && race && race.closed === true && race.completed === false) {
         ergastModel.getCurrentQualify(race.circuitId, function(qualifyResults) {
-          if (qualifyResults) {
+          if (qualifyResults && qualifyResults.length) {
             var intermediateResult = {
               grid: [],
               selectedDriver: []

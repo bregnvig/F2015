@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('f2015.hint', ['f2015.model.ergast'])
-  .directive('lastYear', ['raceModel', 'ergastModel',function(raceModel, ergastModel) {
+  .directive('lastYear', ['raceModel', 'ergastModel', function(raceModel, ergastModel) {
     return {
       restrict: 'E',
       scope: {},
@@ -42,7 +42,7 @@ angular.module('f2015.hint', ['f2015.model.ergast'])
           var parameters = {'lat': race.Circuit.Location.lat, 'lon': race.Circuit.Location.long};
           var forecasts = [];
           weatherApi.get(parameters, function(weatherData) {
-            for(var i = 0; i < weatherData.list.length; i++) {
+            for (var i = 0; i < weatherData.list.length; i++) {
               if (forecasts.length === 3) {
                 forecasts.shift();
               }
@@ -61,13 +61,28 @@ angular.module('f2015.hint', ['f2015.model.ergast'])
       }
     };
 
-  }]).
-  directive('developCard', ['$rootScope', 'ENV', 'raceModel', function($rootScope, ENV, raceModel) {
+  }])
+  .directive('alreadyParticipated', [ function() {
+
+    return {
+      restrict: 'E',
+      controllerAs: 'alreadyParticipatedCtrl',
+      templateUrl: 'app/hint/already-participated-card.tmpl.html',
+      controller: ['raceModel', function(raceModel) {
+        const vm = this;
+        raceModel.current.$promise.then(function() {
+          vm.race = raceModel.get(raceModel.current.id);
+        });
+      }]
+    };
+
+  }])
+  .directive('developCard', ['$rootScope', 'ENV', 'raceModel', function($rootScope, ENV, raceModel) {
     return {
       restrict: 'E',
       scope: {},
       templateUrl: 'app/hint/develop-card.tmpl.html',
-      link: function($scope, element) {
+      link: function($scope) {
         if (ENV.name === 'development') {
           //element.removeClass('ng-hide');
           $scope.testIt = function() {

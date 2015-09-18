@@ -152,6 +152,16 @@ loading {
   color: rgb(198, 22, 5);
 }
 
+already-participated {
+  a {
+    font-size: 1.2em;
+    margin-right: 4px;
+    color: gray;
+  }
+  a:visited {
+    color: darkgray;
+  }
+}
 
 @import "list";
 @import "enter-bid";

@@ -3,6 +3,7 @@
     <develop-card flex-sm="100" flex="50" flex-md="100" class="ng-hide"></develop-card>
     <login-card flex-sm="100" flex="50" flex-md="100" class="ng-hide"></login-card>
     <account-warning-card flex-sm="100" flex-md="100" flex="50" class="ng-hide" ng-if="loggedIn"></account-warning-card>
+    <already-participated flex-sm="100" flex-md="100" flex="50" ng-if="loggedIn"></already-participated>
     <after-qualify-card flex-sm="100" flex-md="100" flex="50" class="ng-hide" ng-if="loggedIn"></after-qualify-card>
     <last-year flex-sm="100" flex-md="100" flex="50" class="ng-hide" ng-if="loggedIn"></last-year>
     <join-race-card flex-sm="100" flex-md="100" flex="50" class="ng-hide" ng-if="loggedIn && currentRace.opened"></join-race-card>
