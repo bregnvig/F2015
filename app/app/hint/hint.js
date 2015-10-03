@@ -5,15 +5,17 @@ angular.module('f2015.hint', ['f2015.model.ergast'])
     return {
       restrict: 'E',
       scope: {},
+      replace: true,
       templateUrl: 'app/hint/last-year-card.tmpl.html',
-      link: function(scope, element) {
-        scope.race = raceModel.current;
-        scope.next = ergastModel.next(function(race) {
+      controllerAs: 'lastyearCtrl',
+      controller: function() {
+        var vm = this;
+        vm.race = raceModel.current;
+        vm.next = ergastModel.next(function(race) {
           if (race !== null) {
-            scope.qualify = ergastModel.getLastSeasonQualify(race.Circuit.circuitId);
-            scope.qualify.$promise.then(function() {
-              scope.results = ergastModel.getLastSeasonResults(race.Circuit.circuitId);
-              element.removeClass('ng-hide');
+            vm.qualify = ergastModel.getLastSeasonQualify(race.Circuit.circuitId);
+            vm.qualify.$promise.then(function() {
+              vm.results = ergastModel.getLastSeasonResults(race.Circuit.circuitId);
             });
           }
         });
@@ -35,11 +37,17 @@ angular.module('f2015.hint', ['f2015.model.ergast'])
     return {
       restrict: 'E',
       scope: {},
+      replace: true,
       templateUrl: 'app/hint/weather-card.tmpl.html',
-      link: function(scope, element) {
+      controllerAs: 'weatherCtrl',
+      controller: function() {
+        var vm = this;
 
         ergastModel.next(function(race) {
-          var parameters = {'lat': race.Circuit.Location.lat, 'lon': race.Circuit.Location.long};
+          var parameters = {
+            'lat': race.Circuit.Location.lat,
+            'lon': race.Circuit.Location.long
+          };
           var forecasts = [];
           weatherApi.get(parameters, function(weatherData) {
             for (var i = 0; i < weatherData.list.length; i++) {
@@ -51,10 +59,8 @@ angular.module('f2015.hint', ['f2015.model.ergast'])
                 break;
               }
             }
-            scope.race = raceModel.current;
-            scope.forecasts = forecasts;
-            element.removeClass('ng-hide');
-
+            vm.race = raceModel.current;
+            vm.forecasts = forecasts;
           });
         });
 
@@ -62,16 +68,39 @@ angular.module('f2015.hint', ['f2015.model.ergast'])
     };
 
   }])
-  .directive('alreadyParticipated', [ function() {
+  .directive('alreadyParticipated', [function() {
 
     return {
       restrict: 'E',
+      scope: {},
       controllerAs: 'alreadyParticipatedCtrl',
       templateUrl: 'app/hint/already-participated-card.tmpl.html',
       controller: ['raceModel', function(raceModel) {
-        const vm = this;
+        var vm = this;
         raceModel.current.$promise.then(function() {
           vm.race = raceModel.get(raceModel.current.id);
+        });
+      }]
+    };
+
+  }])
+  .directive('lastRace', ['authenticationService', function(authenticationService) {
+
+    return {
+      restrict: 'E',
+      scope: {},
+      replace: true,
+      controllerAs: 'lastRaceCtrl',
+      templateUrl: 'app/hint/last-race-card.tmpl.html',
+      controller: ['raceModel', function(raceModel) {
+        var vm = this;
+        vm.race = raceModel.get('previous');
+        vm.race.$promise.then(function(race) {
+          race.bids.forEach(function(bid, index) {
+            if (bid.player.playername === authenticationService.credentials.playername) {
+              vm.yourPosition = index + 1;
+            }
+          });
         });
       }]
     };
@@ -84,7 +113,7 @@ angular.module('f2015.hint', ['f2015.model.ergast'])
       templateUrl: 'app/hint/develop-card.tmpl.html',
       link: function($scope) {
         if (ENV.name === 'development') {
-          //element.removeClass('ng-hide');
+          // element.removeClass('ng-hide');
           $scope.testIt = function() {
             raceModel.get(114).$promise.then(function(race) {
               $rootScope.$broadcast('current-race', race);

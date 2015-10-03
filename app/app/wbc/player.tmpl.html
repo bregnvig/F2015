@@ -5,11 +5,11 @@
 </md-toolbar>
 <md-content class="below-sub-header">
   <md-list>
-    <md-list-item class="md-1-line" ng-repeat="entry in wbcPlayer.entries track by $index" ng-click="wbcPlayer.navigateTo('f2015.race', {id: entry.race.id})">
+    <md-list-item class="md-1-line" ng-repeat-start="entry in wbcPlayer.entries track by $index" ng-click="wbcPlayer.navigateTo('f2015.race', {id: entry.race.id})">
       <div class="md-list-item-text" >
         <p><span>{{::entry.race.name}}</span><strong class="pull-right">{{::entry.points}}</strong></p>
       </div>
-      <md-divider ng-if="!$last"></md-divider>
     </md-list-item>
+    <md-divider ng-repeat-end ng-if="!$last"></md-divider>
   </md-list>
 </md-content>

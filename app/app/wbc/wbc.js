@@ -72,7 +72,7 @@ angular.module('f2015.wbc', ['f2015.model.wbc'])
       $scope.players = people;
     });
     $scope.partOfGraph = partOfGraph;
-    $scope.$watch('partOfGraph', function () {
+    $scope.$watch('partOfGraph', function() {
       console.log('Changed');
       localStorage.partOfGraph = JSON.stringify(partOfGraph);
       $rootScope.$broadcast('wbc-players-updated');
@@ -85,7 +85,10 @@ angular.module('f2015.wbc', ['f2015.model.wbc'])
       var playerColorIndex = 0;
       var numberOfPlayers = 0;
       var dataSets = {};
-      var lineChartData = {labels: [], datasets : []};
+      var lineChartData = {
+        labels: [],
+        datasets: []
+      };
       history.forEach(function(element, index) {
         lineChartData.labels.push(element.race.name);
         element.positions.forEach(function(position) {
@@ -100,7 +103,7 @@ angular.module('f2015.wbc', ['f2015.model.wbc'])
               partOfGraph[position.player.playername] = true;
             }
             if (index !== 0) {
-              for(var j = 0; j < index; j++) {
+              for (var j = 0; j < index; j++) {
                 dataSets[position.player.playername].data[j] = numberOfPlayers;
               }
             }
@@ -118,29 +121,30 @@ angular.module('f2015.wbc', ['f2015.model.wbc'])
       });
       lineChartData.labels.unshift('');
       var canvas = element.find('canvas')[0];
-      canvas.width= element.find('div')[0].clientWidth;
-      canvas.height = element.find('div')[0].clientHeight-64;
+      canvas.width = element.find('div')[0].clientWidth;
+      canvas.height = element.find('div')[0].clientHeight - 64;
       var lineChart = lineChart || new Chart(canvas.getContext('2d'));
       lineChart.Line(lineChartData, {
-        scaleOverride : true,
-        scaleSteps : numberOfPlayers,
-        scaleStepWidth : -1,
-        scaleShowLabels : false,
-        scaleStartValue: numberOfPlayers+1,
-        animation : false,
-        datasetFill : false,
-        datasetStrokeWidth : 4,
-        pointDot : false,
-        bezierCurve : false,
+        scaleOverride: true,
+        scaleSteps: numberOfPlayers,
+        scaleStepWidth: -1,
+        scaleShowLabels: false,
+        scaleStartValue: numberOfPlayers + 1,
+        animation: false,
+        datasetFill: false,
+        datasetStrokeWidth: 4,
+        pointDot: false,
+        bezierCurve: false,
         showTooltips: false,
-        maintainAspectRatio:false,
-        responsive: true});
+        maintainAspectRatio: false,
+        responsive: true
+      });
     }
 
     function link($scope, element) {
       $timeout(function() {
         wbcModel.graph.$promise.then(function(history) {
-          $scope.$on('wbc-players-updated', function () {
+          $scope.$on('wbc-players-updated', function() {
             createGraph(history, element);
           });
           createGraph(history, element);
@@ -165,14 +169,14 @@ angular.module('f2015.wbc', ['f2015.model.wbc'])
       });
     };
   }])
-  .directive('joinWbcCard',['$mdDialog', '$mdToast', 'wbcModel', 'authenticationService', function($mdDialog, $mdToast, wbcModel, authenticationService) {
+  .directive('joinWbcCard', ['$mdDialog', '$mdToast', 'wbcModel', 'authenticationService', function($mdDialog, $mdToast, wbcModel, authenticationService) {
     return {
       restrict: 'E',
       templateUrl: 'app/wbc/join-wbc-card.tmpl.html',
       link: function($scope, element) {
         $scope.wbc = wbcModel.wbc;
 
-        $scope.$watch('wbc.latestJoinDate', function (newValue) {
+        $scope.$watch('wbc.latestJoinDate', function(newValue) {
           if (newValue && newValue > new Date() && authenticationService.credentials.wbcParticipant === false) {
             element.removeClass('ng-hide');
           }

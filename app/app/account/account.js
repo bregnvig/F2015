@@ -5,7 +5,7 @@ angular.module('f2015.account')
     var account = this;
     account.account = accountService;
     account.showTransferInfo = function() {
-      $mdDialog.show( {
+      $mdDialog.show({
         templateUrl: 'app/account/transfer-info.tmpl.html',
         clickOutsideToClose: true,
         controller: ['$scope', function($scope) {
@@ -16,13 +16,13 @@ angular.module('f2015.account')
       });
     };
   }])
-  .directive('accountWarningCard', ['accountService', function (accountService) {
+  .directive('accountWarningCard', ['accountService', function(accountService) {
     return {
       restrict: 'E',
       templateUrl: 'app/account/account-warning-card.tmpl.html',
       link: function($scope, element) {
         $scope.account = accountService.get;
-        $scope.$watch('account', function (newValue) {
+        $scope.$watch('account', function(newValue) {
           if (newValue && newValue.balance && newValue.balance < 0) {
             element.removeClass('ng-hide');
           } else {

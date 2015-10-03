@@ -84,7 +84,9 @@ angular.module('f2015.race', ['ngMessages', 'f2015.model.race', 'f2015.model.erg
     races.currentRace = currentRace;
     races.races = raceModel;
     races.navigateTo = function(race) {
-      $state.go('f2015.race', {id: race.id});
+      $state.go('f2015.race', {
+        id: race.id
+      });
     };
   }])
   .controller('RaceCtrl', ['$state', '$mdDialog', 'selectedRace', 'raceModel', 'authenticationService', function($state, $mdDialog, selectedRace, raceModel, authenticationService) {
@@ -112,7 +114,7 @@ angular.module('f2015.race', ['ngMessages', 'f2015.model.race', 'f2015.model.erg
     oldRace.race = currentRace;
     oldRace.race.$promise.then(function(race) {
       oldRace.previousSeason = ergastModel.previousSeason;
-      oldRace.qualifyResult = ergastModel.getLastSeasonQualify(race.circuitId)
+      oldRace.qualifyResult = ergastModel.getLastSeasonQualify(race.circuitId);
       oldRace.qualifyResult.$promise.then(function(results) {
         $interval(function() {
           results.forEach(function(result) {
@@ -123,7 +125,7 @@ angular.module('f2015.race', ['ngMessages', 'f2015.model.race', 'f2015.model.erg
       oldRace.raceResult = ergastModel.getLastSeasonResults(race.circuitId);
       oldRace.raceResult.$promise.then(function(drivers) {
         oldRace.fastestLaps = angular.copy(drivers);
-        oldRace.fastestLaps.sort(function(a,b) {
+        oldRace.fastestLaps.sort(function(a, b) {
           return (a.FastestLap ? a.FastestLap.rank : 1000) - (b.FastestLap ? b.FastestLap.rank : 1000);
         });
       });
@@ -136,7 +138,7 @@ angular.module('f2015.race', ['ngMessages', 'f2015.model.race', 'f2015.model.erg
           result.QPos = max;
         }
         result.QPos = result.QPos - 1 < 1 ? max : result.QPos - 1;
-        result.Q = 'Q'+(result.QPos) +  ' - ' + result['Q'+result.QPos];
+        result.Q = 'Q' + (result.QPos) + ' - ' + result['Q' + result.QPos];
       };
     });
   }])
@@ -144,7 +146,7 @@ angular.module('f2015.race', ['ngMessages', 'f2015.model.race', 'f2015.model.erg
     var bid = this;
     selectedRace.$promise.then(function() {
       bid.race = selectedRace;
-      for(var i = 0; i < selectedRace.bids.length; i++){
+      for (var i = 0; i < selectedRace.bids.length; i++) {
         if (selectedRace.bids[i].player.playername === $stateParams.player) {
           bid.get = selectedRace.bids[i];
           break;
@@ -155,7 +157,7 @@ angular.module('f2015.race', ['ngMessages', 'f2015.model.race', 'f2015.model.erg
   .controller('EnterBidCtrl', ['$scope', '$state', 'selectedRace', 'drivers', 'raceModel', 'driverModel', function($scope, $state, selectedRace, drivers, raceModel, driverModel) {
     var enterBid = this;
     enterBid.race = selectedRace;
-    enterBid.bid = localStorage['bid'+selectedRace.id] ? angular.fromJson(localStorage['bid'+selectedRace.id]) : {};
+    enterBid.bid = localStorage['bid' + selectedRace.id] ? angular.fromJson(localStorage['bid' + selectedRace.id]) : {};
     enterBid.drivers = drivers;
     if (!enterBid.bid.grid) {
       enterBid.bid.grid = [];
@@ -164,7 +166,7 @@ angular.module('f2015.race', ['ngMessages', 'f2015.model.race', 'f2015.model.erg
     }
     enterBid.getDriver = driverModel.getDriver;
     $scope.$on('$stateChangeStart', function() {
-      localStorage['bid'+selectedRace.id] = angular.toJson(enterBid.bid);
+      localStorage['bid' + selectedRace.id] = angular.toJson(enterBid.bid);
     });
 
     enterBid.submitBid = function() {
@@ -176,7 +178,7 @@ angular.module('f2015.race', ['ngMessages', 'f2015.model.race', 'f2015.model.erg
       submit.selectedDriver = enterBid.bid.selectedDriver;
       submit.polePositionTime = (60 * 1000 * enterBid.bid.minutes) + (1000 * enterBid.bid.seconds) + enterBid.bid.milliseconds;
       raceModel.submitBid(submit, function() {
-        localStorage['bid'+selectedRace.id] = undefined;
+        localStorage['bid' + selectedRace.id] = undefined;
         $state.go('f2015.home');
       });
     };
@@ -189,13 +191,15 @@ angular.module('f2015.race', ['ngMessages', 'f2015.model.race', 'f2015.model.erg
       bid.get = selectedRace.raceResult;
     });
   }])
-  .directive('joinRaceCard',['raceModel', function(raceModel) {
+  .directive('joinRaceCard', ['raceModel', function(raceModel) {
     return {
       restrict: 'E',
       templateUrl: 'app/race/join-race-card.tmpl.html',
       link: function($scope, element) {
+        var diff = raceModel.current.closeDate.getTime() - Date.now();
+        $scope.closingSoon = diff < (1000 * 60 * 60 * 24 * 2);
         $scope.race = raceModel.current;
-        $scope.$watch('race', function (newValue) {
+        $scope.$watch('race', function(newValue) {
           if (newValue && newValue.name && newValue.participant === false) {
             element.removeClass('ng-hide');
           }
@@ -205,7 +209,7 @@ angular.module('f2015.race', ['ngMessages', 'f2015.model.race', 'f2015.model.erg
   }])
   .controller('CreateResultCtrl', ['$stateParams', '$state', 'selectedRace', 'raceModel', 'ergastModel', 'raceResultCreator', function($stateParams, $state, selectedRace, raceModel, ergastModel, raceResultCreator) {
     var bid = this;
-    ergastModel.getCurrentResults(selectedRace.circuitId).$promise.then(function(results)  {
+    ergastModel.getCurrentResults(selectedRace.circuitId).$promise.then(function(results) {
       var raceResult = raceResultCreator(selectedRace.selectedDriver.code, results);
       ergastModel.getCurrentQualify(selectedRace.circuitId).$promise.then(function(qualifyResult) {
         var times = /(\d):(\d{2})\.(\d{3})/.exec(qualifyResult[0].Q3);
@@ -219,7 +223,7 @@ angular.module('f2015.race', ['ngMessages', 'f2015.model.race', 'f2015.model.erg
         bid.get.driver = selectedRace.selectedDriver;
         bid.submitResult = function() {
           raceModel.submitResult(selectedRace, raceResult, function() {
-            //$state.go('f2015.race', {'id': selectedRace.id}, {reload: true});
+            // $state.go('f2015.race', {'id': selectedRace.id}, {reload: true});
             $state.go('f2015.races');
           });
         };
@@ -233,20 +237,20 @@ angular.module('f2015.race', ['ngMessages', 'f2015.model.race', 'f2015.model.erg
         grid: [],
         fastestLap: undefined,
         firstCrashes: [],
-        podium:[],
+        podium: [],
         selectedDriver: [],
         polePositionTime: undefined
       };
       results.forEach(function(result) {
         var driverId = result.Driver.driverId;
         if (result.grid <= 7) {
-          raceResult.grid[result.grid-1] = driverModel.getDriver(driverId);
+          raceResult.grid[result.grid - 1] = driverModel.getDriver(driverId);
         }
         if (result.FastestLap && result.FastestLap.rank === '1') {
           raceResult.fastestLap = driverModel.getDriver(driverId);
         }
         if (result.position <= 4) {
-          raceResult.podium[result.position-1] = driverModel.getDriver(driverId);
+          raceResult.podium[result.position - 1] = driverModel.getDriver(driverId);
         }
         if (driverId === selectedDriverCode) {
           raceResult.selectedDriver[0] = parseInt(result.grid);
@@ -267,7 +271,7 @@ angular.module('f2015.race', ['ngMessages', 'f2015.model.race', 'f2015.model.erg
       restrict: 'A', // only activate on element attribute
       require: '?ngModel', // get a hold of NgModelController
       link: function(scope, elem, attrs, ngModel) {
-        if(!ngModel) {
+        if (!ngModel) {
           console.log('No model - ejecting');
           return;
         }

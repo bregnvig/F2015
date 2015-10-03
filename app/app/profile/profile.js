@@ -1,11 +1,11 @@
 'use strict';
 
 angular.module('f2015.profile', ['ngMaterial', 'ngMessages', 'f2015.authentication', 'f2015.resource', 'f2015.loading'])
-  .controller('ProfileCtrl', ['$scope', '$mdToast', 'authenticationService', 'loadingState' , 'profileResource', function($scope, $mdToast, authenticationService, loadingState, profileResource) {
+  .controller('ProfileCtrl', ['$scope', '$mdToast', 'authenticationService', 'loadingState', 'profileResource', function($scope, $mdToast, authenticationService, loadingState, profileResource) {
     var profile = this;
     profile.running = loadingState.running;
-    profile.user =  authenticationService.credentials;
-    $scope.$on('login-successful', function (event, credentials) {
+    profile.user = authenticationService.credentials;
+    $scope.$on('login-successful', function(event, credentials) {
       profile.user = credentials;
     });
     profile.update = function() {
@@ -41,11 +41,17 @@ angular.module('f2015.profile', ['ngMaterial', 'ngMessages', 'f2015.authenticati
       });
     return {
       updateProfile: function() {
-        var result = profileResource.update({playerName: authenticationService.credentials.playername}, authenticationService.credentials);
+        var result = profileResource.update({
+          playerName: authenticationService.credentials.playername
+        }, authenticationService.credentials);
         return result;
       },
       updatePassword: function(password) {
-        var result = passwordResource.update({playerName: authenticationService.credentials.playername}, {password: password});
+        var result = passwordResource.update({
+          playerName: authenticationService.credentials.playername
+        }, {
+          password: password
+        });
         return result;
       }
     };
@@ -56,7 +62,7 @@ angular.module('f2015.profile', ['ngMaterial', 'ngMessages', 'f2015.authenticati
       restrict: 'A', // only activate on element attribute
       require: '?ngModel', // get a hold of NgModelController
       link: function(scope, elem, attrs, ngModel) {
-        if(!ngModel) {
+        if (!ngModel) {
           console.log('No model - ejecting');
           return;
         }
@@ -67,7 +73,7 @@ angular.module('f2015.profile', ['ngMaterial', 'ngMessages', 'f2015.authenticati
         });
 
         // observe the other value and re-validate on change
-        attrs.$observe('equals', function () {
+        attrs.$observe('equals', function() {
           validate();
         });
 
@@ -77,7 +83,7 @@ angular.module('f2015.profile', ['ngMaterial', 'ngMessages', 'f2015.authenticati
           var val2 = attrs.equals;
 
           // set validity
-          ngModel.$setValidity('equals', ! val1 || ! val2 || val1 === val2);
+          ngModel.$setValidity('equals', !val1 || !val2 || val1 === val2);
         };
       }
     };

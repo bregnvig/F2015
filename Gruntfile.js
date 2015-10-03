@@ -456,6 +456,19 @@ module.exports = function (grunt) {
         }
       }
     },
+    jscs: {
+      options: {
+        'config': true
+      },
+      files: {
+        src: [
+          'app/app/*.js',
+          'app/app/*/*.js',
+          '!app/app/config.js',
+          '!app/app/da.js'
+        ]
+      }
+    },
   });
 
 
@@ -465,6 +478,7 @@ module.exports = function (grunt) {
     }
 
     grunt.task.run([
+      'jscs',
       'clean:server',
       'revision',
       'ngconstant:development',
@@ -513,4 +527,7 @@ module.exports = function (grunt) {
     'test',
     'build'
   ]);
+
+  grunt.loadNpmTasks('grunt-jscs');
+
 };

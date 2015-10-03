@@ -6,12 +6,12 @@
 </md-toolbar>
 <md-content class="below-sub-header">
   <md-list>
-    <md-list-item class="md-2-line" ng-repeat="movement in account.account.get.entries track by $index">
+    <md-list-item class="md-2-line" ng-repeat-start="movement in account.account.get.entries track by $index">
       <div class="md-list-item-text" >
         <h3>{{::movement.message}}<strong class="pull-right" ng-class="movement.amount >= 0 ? 'amount-positive' : 'amount-negative'">{{::movement.amount}} kr</strong></h3>
         <p>{{::movement.date |  amCalendar}}</p>
       </div>
-      <md-divider ng-if="!$last"></md-divider>
     </md-list-item>
+    <md-divider ng-repeat-end ng-if="!$last"></md-divider>
   </md-list>
 </md-content>

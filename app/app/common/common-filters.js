@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('f2015.common-filter', [])
-  .filter('playerName', [function() {
+  .filter('playerName', ['authenticationService', function() {
     return function(player) {
       if (player && player.hasOwnProperty('firstName') && player.hasOwnProperty('lastName')) {
         var result = player.firstName || '';
@@ -12,11 +12,7 @@ angular.module('f2015.common-filter', [])
           result += player.lastName;
         }
         if (player.lastYearWBC) {
-          result = '<i title="'+player.lastYearWBC+'. plads i sidste års WBC" class="fa fa-trophy lastYearWBC-' + player.lastYearWBC + '"></i> ' + result;
-          switch (player.lastYearWBC) {
-            case 1:
-              break;
-          }
+          result = '<i title="' + player.lastYearWBC + '. plads i sidste års WBC" class="fa fa-trophy lastYearWBC-' + player.lastYearWBC + '"></i> ' + result;
         }
         if (player.wbcParticipant) {
           result += ' <i title="Deltager i WBC" class="fa fa-star-o"></i>';
@@ -39,7 +35,7 @@ angular.module('f2015.common-filter', [])
           return 'Afsluttet';
         } else if (race.opened) {
           return 'Lukker';
-        } else if(race.closed) {
+        } else if (race.closed) {
           return 'Afventer resultat';
         } else {
           return 'Åbner ';

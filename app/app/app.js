@@ -29,8 +29,6 @@ angular
   ])
   .config(['$locationProvider', '$stateProvider', '$urlRouterProvider', '$mdThemingProvider', '$httpProvider', function($locationProvider, $stateProvider, $urlRouterProvider, $mdThemingProvider, $httpProvider) {
 
-    //$locationProvider.html5Mode(true);
-
     $mdThemingProvider.theme('default')
       .primaryPalette('light-green')
       .accentPalette('orange');
@@ -104,6 +102,7 @@ angular
     var regexMilliseconds = /^\d{10}000$/;
     var regexUnixTime = /^\d{8}00$/;
     var regexISO = /^20\d{2}-\d{2}-\d{2}$/;
+
     function convertDateMillisecondsToDates(input) {
       // Ignore things that aren't objects.
       if (typeof input !== 'object') {
@@ -116,17 +115,18 @@ angular
         var value = input[key];
         // Check for string properties which look like dates.
         if (typeof value === 'number' && (value).toString().match(regexMilliseconds)) {
-           input[key] = new Date(value);
-        } else if(typeof value === 'number' && (value).toString().match(regexUnixTime)) {
-          input[key] = new Date(value*1000);
-        } else if(typeof value === 'string' && (value).toString().match(regexISO)) {
+          input[key] = new Date(value);
+        } else if (typeof value === 'number' && (value).toString().match(regexUnixTime)) {
+          input[key] = new Date(value * 1000);
+        } else if (typeof value === 'string' && (value).toString().match(regexISO)) {
           input[key] = new Date(value);
         } else if (typeof value === 'object') {
           convertDateMillisecondsToDates(value);
         }
       }
     }
-    $httpProvider.defaults.transformResponse.push(function(responseData){
+
+    $httpProvider.defaults.transformResponse.push(function(responseData) {
       convertDateMillisecondsToDates(responseData);
       return responseData;
     });

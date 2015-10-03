@@ -1,5 +1,5 @@
-<md-card class="md-whiteframe-z1" ng-if="race.opened">
-  <md-toolbar>
+<md-card ng-class="closingSoon ?  'md-whiteframe-z2' : 'md-whiteframe-z1'" ng-if="race.opened">
+  <md-toolbar ng-class="{'md-warn': closingSoon}">
     <h2 class="md-toolbar-tools">
       <span flex ng-bind="'Deltag i ' + race.name"></span>
     </h2>

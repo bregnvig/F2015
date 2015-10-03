@@ -10,7 +10,7 @@ angular.module('f2015.loading', [])
 
         element.addClass('ng-hide');
 
-        $scope.$on('f2015-timer', function (event, show) {
+        $scope.$on('f2015-timer', function(event, show) {
           if (show) {
             element.removeClass('ng-hide');
           } else {
@@ -45,7 +45,7 @@ angular.module('f2015.loading', [])
       }
     };
   }])
-  .factory('loadingInterceptor', ['$q', 'loadingState', function($q, loadingState){
+  .factory('loadingInterceptor', ['$q', 'loadingState', function($q, loadingState) {
 
     return {
       // optional method

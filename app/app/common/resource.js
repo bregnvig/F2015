@@ -4,13 +4,23 @@ angular.module('f2015.resource', ['ngResource', 'f2015.authentication'])
   .factory('secureResource', ['$window', '$q', '$rootScope', '$resource', 'authenticationService', function($window, $q, $rootScope, $resource, authenticationService) {
 
     var defaultActions = {
-      'get': {method: 'GET'},
-      'save': {method: 'POST'},
-      'query': {method: 'GET', isArray: true},
-      'remove': {method: 'DELETE'},
-      'delete': {method: 'DELETE'}
+      'get': {
+        method: 'GET'
+      },
+      'save': {
+        method: 'POST'
+      },
+      'query': {
+        method: 'GET',
+        isArray: true
+      },
+      'remove': {
+        method: 'DELETE'
+      },
+      'delete': {
+        method: 'DELETE'
+      }
     };
-    //$http.defaults.headers.common.Authorization =
     var resources = {};
 
     function addCredentials(actions) {
@@ -22,7 +32,7 @@ angular.module('f2015.resource', ['ngResource', 'f2015.authentication'])
         if (!action.headers) {
           action.headers = {};
         }
-        action.headers.Authorization = 'Basic ' + $window.btoa(authenticationService.credentials.playername+':'+authenticationService.credentials.token);
+        action.headers.Authorization = 'Basic ' + $window.btoa(authenticationService.credentials.playername + ':' + authenticationService.credentials.token);
       });
       return actions;
     }
@@ -36,8 +46,8 @@ angular.module('f2015.resource', ['ngResource', 'f2015.authentication'])
 
       Object.getOwnPropertyNames(actions).forEach(function(actionName) {
         var action = actions[actionName];
-        proxy[actionName+'-metadata'] = addProxyAction(action.isArray);
-        proxy[actionName] = proxy[actionName+'-metadata'].action;
+        proxy[actionName + '-metadata'] = addProxyAction(action.isArray);
+        proxy[actionName] = proxy[actionName + '-metadata'].action;
       });
       return proxy;
     }
@@ -87,14 +97,14 @@ angular.module('f2015.resource', ['ngResource', 'f2015.authentication'])
       });
     }
 
-    $rootScope.$on('login-successful', function (event, credentials) {
+    $rootScope.$on('login-successful', function(event, credentials) {
       console.log('Credentials', credentials);
       Object.getOwnPropertyNames(resources).forEach(function(resourceName) {
         var resource = resources[resourceName];
         var real = getResourceReal.apply(undefined, resource.arguments);
         Object.getOwnPropertyNames(resource.proxy).forEach(function(actionName) {
           if (!actionName.match(/-metadata$/)) {
-            var metadata = resource.proxy[actionName+'-metadata'];
+            var metadata = resource.proxy[actionName + '-metadata'];
             metadata.real = real[actionName];
             while (metadata.invocations.length) {
               lazyExecutedAction(metadata, metadata.invocations.shift());
@@ -118,5 +128,6 @@ angular.module('f2015.resource', ['ngResource', 'f2015.authentication'])
         return resources[url].proxy;
       }
     }
+
     return resourceFactory;
   }]);

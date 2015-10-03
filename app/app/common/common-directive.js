@@ -6,8 +6,8 @@ angular.module('f2015.common-directive', [])
       restrict: 'E',
       templateUrl: 'app/common/back.tmpl.html',
       controller: function($scope) {
-        $scope.back = function () {
-         $window.history.back();
+        $scope.back = function() {
+          $window.history.back();
         };
       }
     };

@@ -63,13 +63,13 @@ angular.module('f2015.driver', ['f2015.model.driver', 'f2015.model.ergast'])
         driver.qualifyResult = ergastModel.getLastYearDriverQualify(driver.get.code);
         driver.raceResult = ergastModel.getLastYearDriverResults(driver.get.code);
         ergastModel.getCurrentYearDriverStatus(driver.get.code, function(result) {
-          driver.retired = result.reduce(function (previousValue, status) {
+          driver.retired = result.reduce(function(previousValue, status) {
             return previousValue + (status.status === 'Finished' ? 0 : parseInt(status.count));
           }, 0).toFixed(1);
         });
         ergastModel.getCurrentYearDriverQualify(driver.get.code, function(result) {
           driver.currentQualifyResult = result;
-          var grid = result.reduce(function (previousValue, race) {
+          var grid = result.reduce(function(previousValue, race) {
             return previousValue + parseInt(race.QualifyingResults[0].position);
           }, 0);
           driver.avgGrid = result.length !== 0 ? (grid / result.length).toFixed(1) : '-';

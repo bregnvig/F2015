@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('f2015.authentication')
-  .directive('loginCard', ['$mdDialog', 'authenticationService', function ($mdDialog, authenticationService) {
-   return {
+  .directive('loginCard', ['$mdDialog', 'authenticationService', function($mdDialog, authenticationService) {
+    return {
       restrict: 'E',
       templateUrl: 'app/authentication/login-card.tmpl.html',
       controller: 'LoginCardCtrl as loginCard',
@@ -12,11 +12,11 @@ angular.module('f2015.authentication')
         } else {
           element.removeClass('ng-hide');
         }
-        $scope.$on('login-successful', function () {
+        $scope.$on('login-successful', function() {
           console.log('Login succeeded');
           element.addClass('ng-hide');
         });
-        $scope.$on('login-failed', function () {
+        $scope.$on('login-failed', function() {
           if ($scope.loginCard.userName) {
             $mdDialog.show(
               $mdDialog.alert()

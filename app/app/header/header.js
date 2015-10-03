@@ -1,17 +1,17 @@
 'use strict';
 
 angular.module('f2015.header', [])
-  .controller('HeaderCtrl', ['$scope', '$http', '$mdSidenav', 'ENV', 'authenticationService' ,function($scope, $http, $mdSidenav, ENV, authentication) {
+  .controller('HeaderCtrl', ['$scope', '$http', '$mdSidenav', 'ENV', 'authenticationService', function($scope, $http, $mdSidenav, ENV, authentication) {
     var header = this;
     header.credentials = authentication.credentials;
     $scope.$mdSidenav = $mdSidenav;
-    $scope.$watch('$mdSidenav(\'drawer\').isLockedOpen()', function (newValue) {
+    $scope.$watch('$mdSidenav(\'drawer\').isLockedOpen()', function(newValue) {
       header.menuButtonHidden = newValue;
     });
     header.toggleMenu = function() {
       $mdSidenav('drawer').toggle();
     };
-    $http.get(ENV.apiEndpoint+'/ws/season-name').then(function(response) {
+    $http.get(ENV.apiEndpoint + '/ws/season-name').then(function(response) {
       header.seasonName = response.data;
     });
   }])
@@ -24,7 +24,7 @@ angular.module('f2015.header', [])
     };
     $scope.$mdSidenav = $mdSidenav;
     $scope.revision = ENV.revision;
-    $scope.$watch('$mdSidenav(\'drawer\').isLockedOpen()', function (newValue) {
+    $scope.$watch('$mdSidenav(\'drawer\').isLockedOpen()', function(newValue) {
       menu.closeButtonHidden = newValue;
     });
   }]);

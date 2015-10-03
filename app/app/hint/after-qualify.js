@@ -7,7 +7,7 @@ angular.module('f2015.hint.afterQualify', ['f2015.model.ergast', 'f2015.model.ra
       scope: {},
       templateUrl: 'app/hint/after-qualify-card.tmpl.html',
       link: function($scope, element) {
-        $scope.$on('current-race', function (event, race) {
+        $scope.$on('current-race', function(event, race) {
           intermediateResult(race).then(function(race) {
             $scope.bids = race.bids;
             element.removeClass('ng-hide');

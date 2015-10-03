@@ -15,17 +15,20 @@ angular.module('f2015.authentication', ['ngResource', 'config'])
       login: function(userName, password) {
         credentials.playername = undefined;
         delete localStorage.credentials;
-        return authenticationResource.get({userName: userName, password: password}, function(result) {
+        return authenticationResource.get({
+          userName: userName,
+          password: password
+        }, function(result) {
           loggedIn(result);
         }, function() {
           credentials.playername = undefined;
           $rootScope.$broadcast('login-failed');
         });
       },
-      save:function() {
+      save: function() {
         localStorage.credentials = angular.toJson(credentials);
       },
-      load:function() {
+      load: function() {
         if (this.loggedIn === false && localStorage.credentials) {
           loggedIn(angular.fromJson(localStorage.credentials));
         } else {

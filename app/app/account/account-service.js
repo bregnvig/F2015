@@ -7,7 +7,7 @@ angular.module('f2015.account', ['f2015.resource', 'config', 'ngMaterial'])
 
     var accountBackend;
 
-    accountBackend = secureResource(ENV.apiEndpoint+'/ws/player/account');
+    accountBackend = secureResource(ENV.apiEndpoint + '/ws/player/account');
     account = accountBackend.get();
 
     function updateAcccount() {
