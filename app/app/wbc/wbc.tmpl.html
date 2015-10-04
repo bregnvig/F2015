@@ -6,9 +6,9 @@
 </md-toolbar>
 <md-content class="below-sub-header">
   <md-list>
-    <md-list-item ng-repeat-start="entry in wbc.standing track by $index" ng-click="wbc.navigateTo('f2015.wbc.player', {player: entry.player.playername})">
-      <div >
-        <p><span ng-bind-html="entry.player.firstName"></span></p>
+    <md-list-item class="md-1-line" ng-repeat="entry in wbc.standing track by $index" ng-click="wbc.navigateTo('f2015.wbc.player', {player: entry.player.playername})">
+      <div class="md-list-item-text">
+        <p><span ng-bind-html="entry.player | playerName"></span><strong class="pull-right">{{entry.points}}</strong></p>
       </div>
     </md-list-item>
     <md-divider ng-repeat-end ng-if="!$last"></md-divider>
