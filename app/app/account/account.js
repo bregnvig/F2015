@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('f2015.account')
-  .controller('AccountCtrl', ['accountService', '$mdDialog', function(accountService, $mdDialog) {
-    var account = this;
-    account.account = accountService;
-    account.showTransferInfo = function() {
+  .controller('AccountCtrl', ['account', '$mdDialog', function(account, $mdDialog) {
+    var vm = this;
+    vm.account = account;
+    vm.showTransferInfo = function() {
       $mdDialog.show({
         templateUrl: 'app/account/transfer-info.tmpl.html',
         clickOutsideToClose: true,
@@ -16,19 +16,13 @@ angular.module('f2015.account')
       });
     };
   }])
-  .directive('accountWarningCard', ['accountService', function(accountService) {
+  .directive('accountWarningCard', ['account', function(account) {
     return {
       restrict: 'E',
+      replace: true,
       templateUrl: 'app/account/account-warning-card.tmpl.html',
-      link: function($scope, element) {
-        $scope.account = accountService.get;
-        $scope.$watch('account', function(newValue) {
-          if (newValue && newValue.balance && newValue.balance < 0) {
-            element.removeClass('ng-hide');
-          } else {
-            element.addClass('ng-hide');
-          }
-        }, true);
-      }
+      controller: ['$scope', function($scope) {
+        $scope.account = account;
+      }]
     };
   }]);

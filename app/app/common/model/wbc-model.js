@@ -1,11 +1,11 @@
 'use strict';
 
-angular.module('f2015.model.wbc', ['f2015.resource', 'config'])
-  .factory('wbcModel', ['$rootScope', 'ENV', 'secureResource', function($rootScope, ENV, secureResource) {
-    var wbcEntryResource = secureResource(ENV.apiEndpoint+'/ws/v2/wbc/players/:playerName', {
+angular.module('f2015.model.wbc', ['ngResource', 'config'])
+  .factory('wbcModel', ['$rootScope', '$resource', 'ENV', function($rootScope, $resource, ENV) {
+    var wbcEntryResource = $resource(ENV.apiEndpoint+'/ws/v2/wbc/players/:playerName', {
       playerName: '@playerName'
     });
-    var wbcResource = secureResource(ENV.apiEndpoint+'/ws/v2/wbc');
+    var wbcResource = $resource(ENV.apiEndpoint+'/ws/v2/wbc');
 
     var wbc;
     var players = {};

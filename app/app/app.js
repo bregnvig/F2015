@@ -13,6 +13,7 @@ angular
     'f2015.constants',
     'f2015.common-filter',
     'f2015.common-directive',
+    'f2015.model.player',
     'f2015.model.race',
     'f2015.model.driver',
     'f2015.model.wbc',

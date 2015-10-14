@@ -1,51 +1,74 @@
 'use strict';
 
 angular.module('f2015.authentication', ['ngResource', 'config'])
-  .factory('authenticationService', ['$window', '$rootScope', '$resource', 'ENV', function($window, $rootScope, $resource, ENV) {
+  .factory('authenticationService', ['$window', '$q', '$rootScope', '$resource', 'ENV', 'credentials', 'Player', function($window, $q, $rootScope, $resource, ENV, credentials, Player) {
 
-    var authenticationResource = $resource(ENV.apiEndpoint + '/ws/login/:userName/:password');
-    var credentials = {};
+    var authenticationResource = $resource(ENV.apiEndpoint + '/ws/login/:userName/:password', null, {
+      'login': {
+        method: 'GET',
+        noAuthorization: true
+      }
+    });
 
-    function loggedIn(value) {
-      angular.copy(value, credentials);
-      $rootScope.$broadcast('login-successful', credentials);
+    function setLoggedIn(value) {
+      credentials(new Player(value));
     }
 
     return {
       login: function(userName, password) {
-        credentials.playername = undefined;
         delete localStorage.credentials;
-        return authenticationResource.get({
+        return authenticationResource.login({
           userName: userName,
           password: password
         }, function(result) {
-          loggedIn(result);
-        }, function() {
-          credentials.playername = undefined;
-          $rootScope.$broadcast('login-failed');
+          setLoggedIn(result);
         });
       },
       save: function() {
-        localStorage.credentials = angular.toJson(credentials);
+        credentials().then(function(credentials) {
+          localStorage.credentials = angular.toJson(credentials);
+        });
       },
       load: function() {
-        if (this.loggedIn === false && localStorage.credentials) {
-          loggedIn(angular.fromJson(localStorage.credentials));
-        } else {
-          $rootScope.$broadcast('login-failed');
+        if (localStorage.credentials) {
+          setLoggedIn(angular.fromJson(localStorage.credentials));
         }
-        return credentials;
-      },
-      get loggedIn() {
-        return !!(credentials && credentials.playername);
-      },
-      get credentials() {
-        return credentials;
       }
     };
   }])
-  .run(['$timeout', 'authenticationService', function($timeout, authenticationService) {
-    $timeout(function() {
-      authenticationService.load();
-    }, 300);
+  .factory('credentials', ['$q', function($q) {
+    var credentials = $q.defer();
+
+    return function(value) {
+      if (value) {
+        credentials.resolve(value);
+      } else {
+        return credentials.promise;
+      }
+    };
+  }])
+  .config(['$httpProvider', function($httpProvider) {
+    $httpProvider.interceptors.push('apiSecurityInterceptor');
+  }])
+  .run(['authenticationService', function(authenticationService) {
+    authenticationService.load();
+  }])
+  .factory('apiSecurityInterceptor', ['$window', 'ENV', 'credentials', function($window, ENV, credentials) {
+
+    return {
+      'request': function(config) {
+        if (config.url.indexOf(ENV.apiEndpoint) === 0) {
+          if (config.noAuthorization) {
+            return config;
+          } else {
+            return credentials().then(function(credentials) {
+              config.headers.Authorization = 'Basic ' + $window.btoa(credentials.playername + ':' + credentials.token);
+              return config;
+            });
+          }
+        } else {
+          return config;
+        }
+      }
+    };
   }]);

@@ -1,58 +1,48 @@
 'use strict';
 
-angular.module('f2015.profile', ['ngMaterial', 'ngMessages', 'f2015.authentication', 'f2015.resource', 'f2015.loading'])
-  .controller('ProfileCtrl', ['$scope', '$mdToast', 'authenticationService', 'loadingState', 'profileResource', function($scope, $mdToast, authenticationService, loadingState, profileResource) {
-    var profile = this;
-    profile.running = loadingState.running;
-    profile.user = authenticationService.credentials;
-    $scope.$on('login-successful', function(event, credentials) {
-      profile.user = credentials;
+angular.module('f2015.profile', ['ngMaterial', 'ngMessages', 'f2015.authentication', 'f2015.loading'])
+  .controller('ProfileCtrl', ['$scope', '$mdToast', 'credentials', 'loadingState', 'authenticationService', function($scope, $mdToast, credentialsProvider, loadingState, authenticationService) {
+    var vm = this;
+    vm.running = loadingState.running;
+    credentialsProvider().then(function(credentials) {
+      vm.user = credentials;
     });
-    profile.update = function() {
-      profileResource.updateProfile().$promise.then(function() {
+    vm.update = function() {
+      vm.user.$save().then(function() {
+        authenticationService.save();
         $mdToast.show($mdToast.simple()
             .content('Profil opdateret!')
         );
       });
     };
   }])
-  .controller('PasswordCtrl', ['$scope', '$mdToast', 'authenticationService', 'profileResource', function($scope, $mdToast, authenticationService, profileResource) {
+  .controller('PasswordCtrl', ['$scope', '$mdToast', 'profileResource', function($scope, $mdToast, profileResource) {
     var password = this;
     password.update = function() {
-      profileResource.updatePassword($scope.password.first).$promise.then(function() {
+      profileResource.updatePassword($scope.password.first).then(function() {
         $mdToast.show($mdToast.simple()
             .content('Adgangskode opdateret!')
         );
       });
     };
   }])
-  .factory('profileResource', ['ENV', 'secureResource', 'authenticationService', function(ENV, secureResource, authenticationService) {
-    var profileResource = secureResource(ENV.apiEndpoint + '/ws/player/:playerName', null,
-      {
-        'update': {
-          'method': 'put'
-        }
-      });
-    var passwordResource = secureResource(ENV.apiEndpoint + '/ws/player/:playerName/password', null,
+  .factory('profileResource', ['$resource', 'ENV', 'credentials', function($resource, ENV, credentialsProvider) {
+    var passwordResource = $resource(ENV.apiEndpoint + '/ws/player/:playerName/password', null,
       {
         'update': {
           'method': 'put'
         }
       });
     return {
-      updateProfile: function() {
-        var result = profileResource.update({
-          playerName: authenticationService.credentials.playername
-        }, authenticationService.credentials);
-        return result;
-      },
       updatePassword: function(password) {
-        var result = passwordResource.update({
-          playerName: authenticationService.credentials.playername
-        }, {
-          password: password
+        return credentialsProvider().then(function(credentials) {
+          var result = passwordResource.update({
+            playerName: credentials.playername
+          }, {
+            password: password
+          });
+          return result;
         });
-        return result;
       }
     };
 

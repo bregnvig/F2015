@@ -84,7 +84,7 @@ angular.module('f2015.hint', ['f2015.model.ergast'])
     };
 
   }])
-  .directive('lastRace', ['authenticationService', function(authenticationService) {
+  .directive('lastRace', ['credentials', function(credentialsProvider) {
 
     return {
       restrict: 'E',
@@ -94,13 +94,16 @@ angular.module('f2015.hint', ['f2015.model.ergast'])
       templateUrl: 'app/hint/last-race-card.tmpl.html',
       controller: ['raceModel', function(raceModel) {
         var vm = this;
+        vm.currentRace = raceModel.current;
         vm.race = raceModel.get('previous');
         vm.race.$promise.then(function(race) {
-          race.bids.forEach(function(bid, index) {
-            if (bid.player.playername === authenticationService.credentials.playername) {
-              vm.yourPosition = index + 1;
-            }
-          });
+          credentialsProvider().then(function(credentials) {
+            race.bids.forEach(function(bid, index) {
+              if (bid.player.playername === credentials.playername) {
+                vm.yourPosition = index + 1;
+              }
+            });
+          })
         });
       }]
     };

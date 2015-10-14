@@ -1,12 +1,16 @@
 'use strict';
 
-angular.module('f2015.model.race', ['f2015.resource', 'f2015.authentication', 'config'])
-  .factory('raceModel', ['$rootScope', '$resource', 'secureResource', 'ENV', function($rootScope, $resource, secureResource, ENV) {
+angular.module('f2015.model.race', ['f2015.authentication', 'config'])
+  .factory('raceModel', ['$rootScope', '$resource', 'ENV', function($rootScope, $resource, ENV) {
 
-    var insecureRaceResource = $resource(ENV.apiEndpoint+'/ws/race');
-    var raceResource = secureResource(ENV.apiEndpoint+'/ws/race/:id');
-    var bidResource = secureResource(ENV.apiEndpoint+'/ws/bid');
-    var racesResource = secureResource(ENV.apiEndpoint+'/ws/races');
+    var insecureRaceResource = $resource(ENV.apiEndpoint+'/ws/race', null, {
+      'get': {
+        noAuthorization: true
+      }
+    });
+    var raceResource = $resource(ENV.apiEndpoint+'/ws/race/:id');
+    var bidResource = $resource(ENV.apiEndpoint+'/ws/bid');
+    var racesResource = $resource(ENV.apiEndpoint+'/ws/races');
     var currentRace;
     var currentBids;
     var all;

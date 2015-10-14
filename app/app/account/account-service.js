@@ -1,28 +1,34 @@
 'use strict';
 
-angular.module('f2015.account', ['f2015.resource', 'config', 'ngMaterial'])
-  .factory('accountService', ['$window', '$rootScope', 'secureResource', 'ENV', function($window, $rootScope, secureResource, ENV) {
+angular.module('f2015.account', ['ngResource', 'config', 'ngMaterial'])
+  .factory('account', ['$window', '$rootScope', '$resource', 'ENV', 'credentials', function($window, $rootScope, $resource, ENV, credentials) {
 
-    var account;
+    var account = {};
 
-    var accountBackend;
+    var accountBackend = $resource(ENV.apiEndpoint + '/ws/v2/player/:playerName/account', {
+      'playerName': '@playername'
+    });
 
-    accountBackend = secureResource(ENV.apiEndpoint + '/ws/player/account');
-    account = accountBackend.get();
-
-    function updateAcccount() {
-      accountBackend.get(function(result) {
+    function refreshAccount(params) {
+      accountBackend.get(params, function(result) {
         angular.copy(result, account);
       });
     }
 
-    $rootScope.$on('bid-submitted', updateAcccount);
-    $rootScope.$on('wbc-joined', updateAcccount);
+    credentials().then(function(player) {
+      var params = {
+        playerName: player.playername
+      };
+      refreshAccount(params);
+      $rootScope.$on('bid-submitted', function() {
+        refreshAccount(params);
+      });
+      $rootScope.$on('wbc-joined', function() {
+        refreshAccount(params);
+      });
+    });
 
-    return {
-      get get() {
-        return account;
-      }
-    };
+
+    return account;
   }]);
 

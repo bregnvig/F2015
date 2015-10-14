@@ -1,9 +1,9 @@
 'use strict';
 
-angular.module('f2015.model.driver', ['f2015.resource', 'config'])
-  .factory('driverModel', ['secureResource', 'ENV', function(secureResource, ENV) {
+angular.module('f2015.model.driver', ['ngResource', 'config'])
+  .factory('driverModel', ['$resource', 'ENV', function($resource, ENV) {
 
-    var driversResource = secureResource(ENV.apiEndpoint+'/ws/drivers');
+    var driversResource = $resource(ENV.apiEndpoint+'/ws/drivers');
     var resources;
     var drivers = {};
 

@@ -6,19 +6,19 @@
     <md-button class="md-primary" ui-sref="f2015.home" ng-click="menu.toggle()">
       <i class="fa fa-fw fa-home fa-lg"></i> Forside
     </md-button>
-    <md-button class="md-primary" ui-sref="f2015.races" ng-click="menu.toggle()" ng-disabled="!menu.credentials.playername">
+    <md-button class="md-primary" ui-sref="f2015.races" ng-click="menu.toggle()" ng-disabled="!menu.loggedIn">
       <i class="fa fa-fw fa-flag-checkered fa-lg"></i> Løb
     </md-button>
-    <md-button class="md-primary" ui-sref="f2015.wbc" ng-click="menu.toggle()" ng-disabled="!menu.credentials.playername">
+    <md-button class="md-primary" ui-sref="f2015.wbc" ng-click="menu.toggle()" ng-disabled="!menu.loggedIn">
       <i class="fa fa-fw fa-trophy fa-lg"></i> WBC
     </md-button>
-    <md-button class="md-primary" ui-sref="f2015.profile" ng-click="menu.toggle()" ng-disabled="!menu.credentials.playername">
+    <md-button class="md-primary" ui-sref="f2015.profile" ng-click="menu.toggle()" ng-disabled="!menu.loggedIn">
       <i class="fa fa-fw fa-user fa-lg"></i> Profil
     </md-button>
-    <md-button class="md-primary" ui-sref="f2015.password" ng-click="menu.toggle()" ng-disabled="!menu.credentials.playername">
+    <md-button class="md-primary" ui-sref="f2015.password" ng-click="menu.toggle()" ng-disabled="!menu.loggedIn">
       <i class="fa fa-fw fa-lock fa-lg"></i> Adgangskode
     </md-button>
-    <md-button class="md-primary" ui-sref="f2015.account" ng-click="menu.toggle()" ng-disabled="!menu.credentials.playername">
+    <md-button class="md-primary" ui-sref="f2015.account" ng-click="menu.toggle()" ng-disabled="!menu.loggedIn">
       <i class="fa fa-fw fa-lg fa-dollar"></i> Konto <span ng-if="menu.account.balance"> - {{menu.account.balance}} kr</span>
     </md-button>
     <md-button class="md-primary" ui-sref="f2015.drivers" ng-click="menu.toggle()" ng-disabled="!menu.credentials.playername">
@@ -32,6 +32,6 @@
     </md-button>
   </md-content>
   <md-content layout layout-align="center">
-    <p class="version"><i class="fa fa-github"></i> <a ng-href="https://github.com/bregnvig/F2015/commit/{{revision}}" target="_blank">{{revision | limitTo: 7}}</a></p>
+    <p class="version"><i class="fa fa-github"></i> <a ng-href="https://github.com/bregnvig/F2015/commit/{{menu.revision}}" target="_blank">{{menu.revision | limitTo: 7}}</a></p>
   </md-content>
 </md-sidenav>

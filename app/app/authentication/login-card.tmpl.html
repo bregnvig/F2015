@@ -1,28 +1,32 @@
-<md-card class="md-whiteframe-z1">
-  <md-toolbar>
-    <h2 class="md-toolbar-tools">
-      <span flex>Log ind for at være med</span>
-    </h2>
-  </md-toolbar>
-  <md-card-content>
-    <md-content>
-      <md-input-container>
-        <label for="input_user">Brugernavn</label>
-        <input ng-model="loginCard.userName" ng-focus="" class="ng-pristine ng-untouched ng-valid md-input" tabindex="0"
-               id="input_user" aria-invalid="false">
-      </md-input-container>
-      <md-input-container>
-        <label for="input_password">Adgangskode</label>
-        <input ng-model="loginCard.password" type="password" class="ng-pristine ng-untouched ng-invalid md-input"
-               tabindex="0" id="input_password" aria-invalid="false">
-      </md-input-container>
-      <md-checkbox class="md-primary" ng-model="loginCard.rememberMe" aria-label="Husk mig">Husk mig</md-checkbox>
-    </md-content>
-    <div layout="row" layout-align="end center">
-      <md-button class="md-accent md-raised" ng-click="loginCard.login()" aria-label="Log ind"
-                 ng-disabled="!loginCard.userName || !loginCard.password">
-        Log ind
-      </md-button>
-    </div>
-  </md-card-content>
-</md-card>
+<login-card-holder flex-sm="100" flex-md="100" flex="50" ng-show="!loginCardCtrl.loggedIn">
+  <md-card class="md-whiteframe-z1">
+    <md-toolbar>
+      <h2 class="md-toolbar-tools">
+        <span flex>Log ind for at være med</span>
+      </h2>
+    </md-toolbar>
+      <md-card-content>
+        <form name="loginCardCtrl.loginForm">
+          <md-content>
+            <md-input-container>
+              <label for="input_user">Brugernavn</label>
+              <input ng-model="loginCardCtrl.userName" autofocus required class="md-input" tabindex="0"
+                     id="input_user" aria-invalid="false">
+            </md-input-container>
+            <md-input-container>
+              <label for="input_password">Adgangskode</label>
+              <input ng-model="loginCardCtrl.password" required type="password" class="md-input"
+                     tabindex="0" id="input_password" aria-invalid="false">
+            </md-input-container>
+            <md-checkbox class="md-primary" ng-model="loginCardCtrl.rememberMe" aria-label="Husk mig">Husk mig</md-checkbox>
+          </md-content>
+          <div layout="row" layout-align="end center">
+            <md-button class="md-accent md-raised" ng-click="loginCardCtrl.login()" aria-label="Log ind"
+                       ng-disabled="loginCardCtrl.loginForm.$invalid">
+              Log ind
+            </md-button>
+          </div>
+        </form>
+      </md-card-content>
+  </md-card>
+</login-card-holder>

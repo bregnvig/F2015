@@ -1,17 +1,19 @@
-<md-card class="md-whiteframe-z1" class="ng-hide">
-  <md-toolbar class="md-warn">
-    <h2 class="md-toolbar-tools">
-      <span flex>Lav konto!</span>
-    </h2>
-  </md-toolbar>
-  <md-card-content>
-    <md-content>
-      <p>Du har snart ikke flere penge til at spille for. Du kan overføre via en af de to nedenstående muligheder</p>
-      <p>Konto: <strong>3117 4820548787</strong></p>
-      <p>Mobilepay: <strong>28712234</strong></p>
-      <p>
-        Når du har overført pengene, så kan du skrive til <a href="mailto:flemming@bregnvig.dk">Flemming</a> og sige det.
-      </p>
-    </md-content>
-  </md-card-content>
-</md-card>
+<account-warning-card-holder flex-sm="100" flex-md="100" flex="50" ng-class="{'ng-hide': account.balance < 0}">
+  <md-card class="md-whiteframe-z1">
+    <md-toolbar class="md-warn">
+      <h2 class="md-toolbar-tools">
+        <span flex>Lav konto!</span>
+      </h2>
+    </md-toolbar>
+    <md-card-content>
+      <md-content>
+        <p>Du har snart ikke flere penge til at spille for. Du kan overføre via en af de to nedenstående muligheder</p>
+        <p>Konto: <strong>3117 4820548787</strong></p>
+        <p>Mobilepay: <strong>28712234</strong></p>
+        <p>
+          Når du har overført pengene, så kan du skrive til <a href="mailto:flemming@bregnvig.dk">Flemming</a> og sige det.
+        </p>
+      </md-content>
+    </md-card-content>
+  </md-card>
+</account-warning-card-holder>
