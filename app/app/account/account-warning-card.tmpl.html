@@ -1,8 +1,8 @@
-<account-warning-card-holder flex-sm="100" flex-md="100" flex="50" ng-class="{'ng-hide': account.balance < 0}">
+<account-warning-card-holder flex-sm="100" flex-md="100" flex="50" ng-show="account.balance && account.balance < 0">
   <md-card class="md-whiteframe-z1">
     <md-toolbar class="md-warn">
       <h2 class="md-toolbar-tools">
-        <span flex>Lav konto!</span>
+        <span flex>Lav konto!X{{account.balance}}X</span>
       </h2>
     </md-toolbar>
     <md-card-content>

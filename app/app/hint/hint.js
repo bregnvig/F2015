@@ -103,7 +103,7 @@ angular.module('f2015.hint', ['f2015.model.ergast'])
                 vm.yourPosition = index + 1;
               }
             });
-          })
+          });
         });
       }]
     };

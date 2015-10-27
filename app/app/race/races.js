@@ -89,10 +89,12 @@ angular.module('f2015.race', ['ngMessages', 'f2015.model.race', 'f2015.model.erg
       });
     };
   }])
-  .controller('RaceCtrl', ['$state', '$mdDialog', 'selectedRace', 'raceModel', 'authenticationService', function($state, $mdDialog, selectedRace, raceModel, authenticationService) {
+  .controller('RaceCtrl', ['$state', '$mdDialog', 'selectedRace', 'raceModel', 'credentials', function($state, $mdDialog, selectedRace, raceModel, credentialsProvider) {
     var race = this;
     race.get = selectedRace;
-    race.credentials = authenticationService.credentials;
+    credentialsProvider().then(function(credentials) {
+      race.credentials = credentials;
+    });
     race.rollback = function() {
       var confirm = $mdDialog.confirm()
         .title('Rul resultatet tilbage?')
@@ -212,12 +214,13 @@ angular.module('f2015.race', ['ngMessages', 'f2015.model.race', 'f2015.model.erg
     ergastModel.getCurrentResults(selectedRace.circuitId).$promise.then(function(results) {
       var raceResult = raceResultCreator(selectedRace.selectedDriver.code, results);
       ergastModel.getCurrentQualify(selectedRace.circuitId).$promise.then(function(qualifyResult) {
-        var times = /(\d):(\d{2})\.(\d{3})/.exec(qualifyResult[0].Q3);
+        var result = qualifyResult[0].Q3 || qualifyResult[0].Q2 || qualifyResult[0].Q1;
+        var times = /(\d):(\d{2})\.(\d{3})/.exec(result);
         var millis = times[1] * 1000 * 60;
         millis += times[2] * 1000;
         millis += parseInt(times[3]);
         raceResult.polePositionTime = parseInt(millis);
-        raceResult.polePositionTimeInText = qualifyResult[0].Q3;
+        raceResult.polePositionTimeInText = result;
         bid.get = raceResult;
         bid.race = selectedRace;
         bid.get.driver = selectedRace.selectedDriver;

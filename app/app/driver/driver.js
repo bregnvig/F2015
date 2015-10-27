@@ -48,47 +48,49 @@ angular.module('f2015.driver', ['f2015.model.driver', 'f2015.model.ergast'])
       $state.go(state, params);
     };
   }])
-  .controller('DriverCtrl', ['$scope', '$stateParams', 'ergastModel', 'allDrivers', 'authenticationService', function($scope, $stateParams, ergastModel, allDrivers, authentication) {
-    var driver = this;
-    driver.credentials = authentication.credentials;
-    driver.previousYear = ergastModel.previousSeason;
-    driver.currentYear = ergastModel.currentSeason;
+  .controller('DriverCtrl', ['$scope', '$stateParams', 'ergastModel', 'allDrivers', 'credentials', function($scope, $stateParams, ergastModel, allDrivers, credentailsProvider) {
+    var vm = this;
+    credentailsProvider().then(function(credentials) {
+      vm.credentials = credentials;
+    });
+    vm.previousYear = ergastModel.previousSeason;
+    vm.currentYear = ergastModel.currentSeason;
     allDrivers.$promise.then(function() {
       var filtered = allDrivers.filter(function(temp) {
         return temp.id === parseInt($stateParams.id);
       });
-      console.log('Driver', driver.get);
+      console.log('Driver', vm.get);
       if (filtered && filtered.length) {
-        driver.get = filtered[0];
-        driver.qualifyResult = ergastModel.getLastYearDriverQualify(driver.get.code);
-        driver.raceResult = ergastModel.getLastYearDriverResults(driver.get.code);
-        ergastModel.getCurrentYearDriverStatus(driver.get.code, function(result) {
-          driver.retired = result.reduce(function(previousValue, status) {
+        vm.get = filtered[0];
+        vm.qualifyResult = ergastModel.getLastYearDriverQualify(vm.get.code);
+        vm.raceResult = ergastModel.getLastYearDriverResults(vm.get.code);
+        ergastModel.getCurrentYearDriverStatus(vm.get.code, function(result) {
+          vm.retired = result.reduce(function(previousValue, status) {
             return previousValue + (status.status === 'Finished' ? 0 : parseInt(status.count));
           }, 0).toFixed(1);
         });
-        ergastModel.getCurrentYearDriverQualify(driver.get.code, function(result) {
-          driver.currentQualifyResult = result;
+        ergastModel.getCurrentYearDriverQualify(vm.get.code, function(result) {
+          vm.currentQualifyResult = result;
           var grid = result.reduce(function(previousValue, race) {
             return previousValue + parseInt(race.QualifyingResults[0].position);
           }, 0);
-          driver.avgGrid = result.length !== 0 ? (grid / result.length).toFixed(1) : '-';
+          vm.avgGrid = result.length !== 0 ? (grid / result.length).toFixed(1) : '-';
         });
-        ergastModel.getCurrentYearDriverResults(driver.get.code, function(result) {
-          driver.currentRaceResult = result;
+        ergastModel.getCurrentYearDriverResults(vm.get.code, function(result) {
+          vm.currentRaceResult = result;
           var position = result.reduce(function(previousValue, race) {
             return previousValue + parseInt(race.Results[0].position);
           }, 0);
-          driver.avgPosition = result.length !== 0 ? (position / result.length).toFixed(1) : '-';
+          vm.avgPosition = result.length !== 0 ? (position / result.length).toFixed(1) : '-';
         });
       }
     });
     $scope.$watch(function() {
-      return driver.get ? driver.get.active : undefined;
+      return vm.get ? vm.get.active : undefined;
     }, function(newValue) {
       if (newValue !== undefined) {
-        driver.get.partOfSeason = true;
-        driver.get.$save();
+        vm.get.partOfSeason = true;
+        vm.get.$save();
       }
     });
   }]);
