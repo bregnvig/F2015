@@ -197,15 +197,17 @@ angular.module('f2015.race', ['ngMessages', 'f2015.model.race', 'f2015.model.erg
     return {
       restrict: 'E',
       templateUrl: 'app/race/join-race-card.tmpl.html',
-      link: function($scope, element) {
-        var diff = raceModel.current.closeDate.getTime() - Date.now();
-        $scope.closingSoon = diff < (1000 * 60 * 60 * 24 * 2);
-        $scope.race = raceModel.current;
-        $scope.$watch('race', function(newValue) {
-          if (newValue && newValue.name && newValue.participant === false) {
-            element.removeClass('ng-hide');
-          }
-        }, true);
+      controllerAs: 'joinRaceCardCtrl',
+      controller: function() {
+        var vm = this;
+        raceModel.current.$promise.then(function(race) {
+          vm.race = race;
+          var diff = race.closeDate.getTime() - Date.now();
+          vm.closingSoon = diff < (1000 * 60 * 60 * 24 * 2);
+          raceModel.get(race.id).$promise.then(function(race) {
+            vm.participant = race.participant;
+          });
+        });
       }
     };
   }])
