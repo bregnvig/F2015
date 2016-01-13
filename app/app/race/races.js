@@ -80,10 +80,10 @@ angular.module('f2015.race', ['ngMessages', 'f2015.model.race', 'f2015.model.erg
       });
   }])
   .controller('RacesCtrl', ['$state', 'raceModel', 'currentRace', function($state, raceModel, currentRace) {
-    var races = this;
-    races.currentRace = currentRace;
-    races.races = raceModel;
-    races.navigateTo = function(race) {
+    var vm = this;
+    vm.currentRace = currentRace;
+    vm.races = raceModel;
+    vm.navigateTo = function(race) {
       $state.go('f2015.race', {
         id: race.id
       });
@@ -198,6 +198,7 @@ angular.module('f2015.race', ['ngMessages', 'f2015.model.race', 'f2015.model.erg
       restrict: 'E',
       templateUrl: 'app/race/join-race-card.tmpl.html',
       controllerAs: 'joinRaceCardCtrl',
+      replace: true,
       controller: function() {
         var vm = this;
         raceModel.current.$promise.then(function(race) {
