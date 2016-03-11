@@ -23,9 +23,9 @@
   <body ng-app="f2015">
     <div layout="column" layout-fill style="position: relative">
       <ui-view name="header"></ui-view>
-      <div layout="row" id="body" layout-align-gt-sm="center" flex >
-        <ui-view id="menu" name="menu" ></ui-view>
-        <ui-view flex flex-lg="66" style="position: relative; overflow: auto" class="md-whiteframe-z1"></ui-view>
+      <div layout="row" id="body" layout-align-gt-sm="center">
+        <ui-view id="menu" name="menu" flex-gt-sm></ui-view>
+        <ui-view flex flex-gt-sm="75" style="position: relative; overflow: auto" class="md-whiteframe-z1"></ui-view>
         <loading></loading>
 
       </div>
@@ -40,8 +40,8 @@
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-aria/angular-aria.js"></script>
-    <script src="bower_components/angular-material/angular-material.js"></script>
     <script src="bower_components/angular-messages/angular-messages.js"></script>
+    <script src="bower_components/angular-material/angular-material.js"></script>
     <script src="bower_components/moment/moment.js"></script>
     <script src="bower_components/angular-moment/angular-moment.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>

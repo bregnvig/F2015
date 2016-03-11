@@ -2,21 +2,21 @@
   "name": "f2015",
   "version": "0.0.0",
   "dependencies": {
-    "angular": "~1.4.x",
-    "angular-animate": "~1.4.x",
-    "angular-aria": "~1.4.x",
-    "angular-material": "~1.0.0-rc2",
-    "angular-messages": "~1.4.x",
+    "angular": "~1.5.x",
+    "angular-animate": "~1.5.x",
+    "angular-aria": "~1.5.x",
+    "angular-material": "~1.1.0",
+    "angular-messages": "~1.5.x",
     "angular-moment": "~0.9.0",
-    "angular-resource": "~1.4.x",
-    "angular-sanitize": "~1.4.x",
+    "angular-resource": "~1.5.x",
+    "angular-sanitize": "~1.5.x",
     "angular-ui-router": "~0.2.x",
     "chartjs": "~1.0.1",
     "font-awesome": "~4.x.x"
   },
   "devDependencies": {
-    "angular-mocks": "1.4.x",
-    "angular-scenario": "1.4.x"
+    "angular-mocks": "1.5.x",
+    "angular-scenario": "1.5.x"
   },
   "appPath": "app"
 }

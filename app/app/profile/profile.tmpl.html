@@ -22,15 +22,17 @@
         </div>
       </md-input-container>
     </div>
-    <md-input-container>
-      <label>E-mail-adresse</label>
-      <input type="email" name="email" ng-model="profile.user.emailAddress">
-      <div ng-messages="profileForm.email.$error">
-        <div ng-message="email">Skal være en gyldig e-mail-adresse.</div>
-      </div>
-    </md-input-container>
     <div layout layout-sm="column">
-      <md-switch ng-model="profile.user.reminderWanted" aria-label="Modtag påmindelse">
+      <md-input-container flex>
+        <label>E-mail-adresse</label>
+        <input type="email" name="email" ng-model="profile.user.emailAddress">
+        <div ng-messages="profileForm.email.$error">
+          <div ng-message="email">Skal være en gyldig e-mail-adresse.</div>
+        </div>
+      </md-input-container>
+    </div>
+    <div layout layout-sm="column">
+      <md-switch ng-model="profile.user.reminderWanted" aria-label="Modtag påmindelse " class="right-margin">
         Modtag påmindelse
       </md-switch>
       <md-input-container flex>
