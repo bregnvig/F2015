@@ -12,7 +12,7 @@ angular.module('f2015.model.ergast', ['ngResource'])
     }
     function standingTransformResponse(data) {
       var mrData = angular.fromJson(data).MRData;
-      return mrData.StandingsTable.StandingsLists[0].DriverStandings;
+      return mrData.StandingsTable.StandingsLists.length ? mrData.StandingsTable.StandingsLists[0].DriverStandings : [];
     }
 
     var currentSeason = new Date().getFullYear();
