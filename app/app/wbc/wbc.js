@@ -169,7 +169,7 @@ angular.module('f2015.wbc', ['f2015.model.wbc'])
       });
     };
   }])
-  .directive('joinWbcCard', ['$mdDialog', '$mdToast', 'wbcModel', 'authenticationService', function($mdDialog, $mdToast, wbcModel, authenticationService) {
+  .directive('joinWbcCard', ['$mdDialog', '$mdToast', 'wbcModel', 'credentials', 'authenticationService', function($mdDialog, $mdToast, wbcModel, credentialsProvider, authenticationService) {
     return {
       restrict: 'E',
       templateUrl: 'app/wbc/join-wbc-card.tmpl.html',
@@ -177,25 +177,32 @@ angular.module('f2015.wbc', ['f2015.model.wbc'])
         $scope.wbc = wbcModel.wbc;
 
         $scope.$watch('wbc.latestJoinDate', function(newValue) {
-          if (newValue && newValue > new Date() && authenticationService.credentials.wbcParticipant === false) {
-            element.removeClass('ng-hide');
+          if (newValue && newValue > new Date()) {
+            credentialsProvider().then(function(credentails) {
+              if (!credentails.wbcParticipant) {
+                element.removeClass('ng-hide');
+              }
+            });
           }
         });
 
         $scope.joinWBC = function() {
           var confirm = $mdDialog.confirm()
             .title('Deltag i WBC?')
-            .content('Tilmeldingen koster 100 og tilmeldingen er bindende. Ønsker du at deltage?')
+            .textContent('Tilmeldingen koster 100 og tilmeldingen er bindende. Ønsker du at deltage?')
             .ariaLabel('Bekræft deltagelse')
             .ok('Ja tak!')
             .cancel('Så alligevel ikke');
           $mdDialog.show(confirm).then(function() {
-            wbcModel.join(authenticationService.credentials).$promise.then(function() {
-              authenticationService.credentials.wbcParticipant = true;
-              authenticationService.save();
-              $mdToast.show($mdToast.simple().content('Du er nu tilmeldt WBC!'));
-              element.addClass('ng-hide');
+            credentialsProvider().then(function(credentials) {
+              wbcModel.join(credentials).$promise.then(function() {
+                credentials.wbcParticipant = true;
+                authenticationService.save();
+                $mdToast.show($mdToast.simple().content('Du er nu tilmeldt WBC!'));
+                element.addClass('ng-hide');
+              });
             });
+
           });
         };
       }
