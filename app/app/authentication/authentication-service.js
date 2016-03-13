@@ -11,7 +11,15 @@ angular.module('f2015.authentication', ['ngResource', 'config'])
     });
 
     function setLoggedIn(value) {
-      credentials(new Player(value));
+      var player = new Player(value);
+      credentials(player);
+      return player;
+    }
+
+    function save() {
+      credentials().then(function(credentials) {
+        localStorage.credentials = angular.toJson(credentials);
+      });
     }
 
     return {
@@ -21,17 +29,18 @@ angular.module('f2015.authentication', ['ngResource', 'config'])
           userName: userName,
           password: password
         }, function(result) {
-          setLoggedIn(result);
+          setLoggedIn(result, false);
         });
       },
-      save: function() {
-        credentials().then(function(credentials) {
-          localStorage.credentials = angular.toJson(credentials);
-        });
-      },
+      save: save,
       load: function() {
         if (localStorage.credentials) {
-          setLoggedIn(angular.fromJson(localStorage.credentials));
+          var player = setLoggedIn(angular.fromJson(localStorage.credentials), true);
+          var token = player.token;
+          player.$refresh().then(function() {
+            player.token = token;
+            save();
+          });
         }
       }
     };

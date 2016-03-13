@@ -12,6 +12,9 @@ angular.module('f2015.model.player', ['ngResource'])
             'playerName': ''
           },
           method: 'POST'
+        },
+        'refresh': {
+          method: 'GET'
         }
       }
     );
