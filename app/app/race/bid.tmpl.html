@@ -1,17 +1,17 @@
 <md-toolbar class="md-hue-1">
   <h2 class="md-toolbar-tools">
-    <span ng-if="bid.get.firstCrash" ng-bind-html="bid.get.player | playerName" flex>
+    <span ng-if="$ctrl.bid.firstCrash" ng-bind-html="$ctrl.bid.player | playerName" flex>
     </span>
-    <strong ng-if="bid.get.firstCrash && bid.race.completed" class="pull-right" ng-bind="bid.get.points">
+    <strong ng-if="$ctrl.bid.firstCrash && $ctrl.race.completed" class="pull-right" ng-bind="$ctrl.bid.points">
     </strong>
-    <span ng-if="bid.get.firstCrashes">Resultat</span>
+    <span ng-if="$ctrl.bid.firstCrashes">Resultat</span>
   </h2>
 </md-toolbar>
 <md-content class="below-sub-header-stationary">
   <section>
     <md-subheader class="md-primary">Grid</md-subheader>
     <md-list layout="column">
-      <md-list-item class="md-1-line" ng-repeat="grid in bid.get.grid">
+      <md-list-item class="md-1-line" ng-repeat="grid in $ctrl.bid.grid">
           <div class="md-list-item-text">
             <p>{{grid.name}}<strong ng-if="grid.points" class="pull-right">{{grid.points}}</strong></p>
           </div>
@@ -23,7 +23,7 @@
     <md-list layout="column">
       <md-list-item class="md-1-line">
           <div class="md-list-item-text">
-            <p>{{bid.get.fastestLap.name}}<strong ng-if="bid.get.fastestLap.points" class="pull-right">{{bid.get.fastestLap.points}}</strong></p>
+            <p>{{$ctrl.bid.fastestLap.name}}<strong ng-if="$ctrl.bid.fastestLap.points" class="pull-right">{{$ctrl.bid.fastestLap.points}}</strong></p>
           </div>
       </md-list-item>
     </md-list>
@@ -31,7 +31,7 @@
   <section>
     <md-subheader class="md-primary">Podium</md-subheader>
     <md-list layout="column">
-      <md-list-item class="md-1-line" ng-repeat="podium in bid.get.podium">
+      <md-list-item class="md-1-line" ng-repeat="podium in $ctrl.bid.podium">
           <div class="md-list-item-text">
             <p>{{podium.name}}<strong ng-if="podium.points" class="pull-right">{{podium.points}}</strong></p>
           </div>
@@ -39,16 +39,16 @@
     </md-list>
   </section>
   <section>
-    <md-subheader class="md-primary">{{bid.race.selectedDriver.name}}</md-subheader>
+    <md-subheader class="md-primary">{{$ctrl.race.selectedDriver.name}}</md-subheader>
     <md-list layout="column">
       <md-list-item class="md-1-line">
         <div class="md-list-item-text">
-          <p>Starter som nummer {{bid.get.selectedDriver[0]}}<strong ng-if="bid.get.selectedDriverPoints[0]" class="pull-right">{{bid.get.selectedDriverPoints[0]}}</strong></p>
+          <p>Starter som nummer {{$ctrl.bid.selectedDriver[0]}}<strong ng-if="$ctrl.bid.selectedDriverPoints[0]" class="pull-right">{{$ctrl.bid.selectedDriverPoints[0]}}</strong></p>
         </div>
       </md-list-item>
       <md-list-item class="md-1-line">
         <div class="md-list-item-text">
-          <p>Slutter som nummer {{bid.get.selectedDriver[1]}}<strong ng-if="bid.get.selectedDriverPoints[1]" class="pull-right">{{bid.get.selectedDriverPoints[1]}}</strong></p>
+          <p>Slutter som nummer {{$ctrl.bid.selectedDriver[1]}}<strong ng-if="$ctrl.bid.selectedDriverPoints[1]" class="pull-right">{{$ctrl.bid.selectedDriverPoints[1]}}</strong></p>
         </div>
       </md-list-item>
     </md-list>
@@ -56,12 +56,12 @@
   <section>
     <md-subheader class="md-primary">Først udgået</md-subheader>
     <md-list layout="column">
-      <md-list-item class="md-1-line" ng-if="bid.get.firstCrash">
+      <md-list-item class="md-1-line" ng-if="$ctrl.bid.firstCrash">
           <div class="md-list-item-text">
-            <p>{{bid.get.firstCrash.name}}<strong ng-if="bid.get.firstCrash.points" class="pull-right">{{bid.get.firstCrash.points}}</strong></p>
+            <p>{{$ctrl.bid.firstCrash.name}}<strong ng-if="$ctrl.bid.firstCrash.points" class="pull-right">{{$ctrl.bid.firstCrash.points}}</strong></p>
           </div>
       </md-list-item>
-      <md-list-item class="md-1-line" ng-repeat="crash in bid.get.firstCrashes">
+      <md-list-item class="md-1-line" ng-repeat="crash in $ctrl.bid.firstCrashes">
           <div class="md-list-item-text">
             <p>{{crash.name}}</p>
           </div>
@@ -73,13 +73,13 @@
     <md-list layout="column">
       <md-list-item class="md-1-line">
         <div class="md-list-item-text">
-          <p>{{bid.get.polePositionTimeInText}}</p>
+          <p>{{$ctrl.bid.polePositionTimeInText}}</p>
         </div>
       </md-list-item>
     </md-list>
   </section>
 </md-content>
-<md-button class="md-fab md-fab-bottom-right f2015-fab-bottom-right" aria-label="Indsend resultat" ng-if="bid.submitResult" ng-click="bid.submitResult()">
+<md-button class="md-fab md-fab-bottom-right f2015-fab-bottom-right" aria-label="Indsend resultat" ng-if="$ctrl.submitResult" ng-click="$ctrl.submitResult()">
   <i class="fa fa-upload"></i>
 </md-button>
-<back ng-if="!bid.submitResult"></back>
+<back ng-if="!$ctrl.submitResult"></back>

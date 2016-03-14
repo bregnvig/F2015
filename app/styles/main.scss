@@ -139,6 +139,18 @@ loading {
   float: right !important;
 }
 
+.text-right {
+  text-align: right;
+}
+
+.text-left {
+  text-align: left;
+}
+
+._md-list-item-inner {
+  width: initial !important;
+}
+
 .number-card {
   font-size: 5.5em;
   text-align: center;

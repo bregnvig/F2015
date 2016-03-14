@@ -1,15 +1,15 @@
 <md-toolbar class="md-hue-1">
   <h2 class="md-toolbar-tools">
-    <span flex>{{oldRace.race.name}} {{oldRace.previousSeason}}</span>
+    <span flex>{{$ctrl.race.name}} {{$ctrl.previousSeason}}</span>
   </h2>
 </md-toolbar>
 <md-content class="below-sub-header-stationary" layout>
   <md-tabs md-selected="1" flex>
     <md-tab label="Kvalifikation" >
       <md-list>
-        <md-list-item class="md-2-line" ng-repeat="result in oldRace.qualifyResult track by $index">
+        <md-list-item class="md-2-line" ng-repeat="result in $ctrl.qualifyResult track by $index">
           <div class="md-list-item-text">
-            <h3><strong>{{::result.Driver | ergastDriverName}}</strong><span class="pull-right">{{::result.Q || (result | ergastQualifyTime) }}</span></h3>
+            <h3><strong>{{::result.Driver | ergastDriverName}}</strong><span class="pull-right">{{result.Q || (result | ergastQualifyTime) }}</span></h3>
             <p></p>
           </div>
           <md-divider ng-if="!$last"></md-divider>
@@ -18,7 +18,7 @@
     </md-tab>
     <md-tab label="Resultat">
       <md-list>
-        <md-list-item class="md-2-line" ng-repeat="result in oldRace.raceResult track by $index">
+        <md-list-item class="md-2-line" ng-repeat="result in $ctrl.raceResult track by $index">
           <div class="md-list-item-text" >
             <h3><strong>{{::result.Driver | ergastDriverName}}</strong><strong class="pull-right">{{::result.points}}</strong></h3>
             <p>{{::result.status}}</p>
@@ -29,7 +29,7 @@
     </md-tab>
     <md-tab label="Hurtigste omgang">
       <md-list>
-        <md-list-item class="md-2-line" ng-repeat="result in oldRace.fastestLaps | filter: oldRace.withFastestLap track by $index">
+        <md-list-item class="md-2-line" ng-repeat="result in $ctrl.fastestLaps | filter: $ctrl.withFastestLap track by $index">
           <div class="md-list-item-text" >
             <h3><strong>{{::result.Driver | ergastDriverName}}</strong><span class="pull-right">{{::result.FastestLap.Time.time}}</span></h3>
             <p> {{::result.FastestLap ? 'Omgang ' + result.FastestLap.lap : ''}}</p>

@@ -18,13 +18,12 @@ angular.module('f2015.model.race', ['f2015.authentication', 'config'])
 
     return {
       get current() {
-        if (currentRace) {
-          return currentRace;
+        if (!currentRace) {
+          currentRace = insecureRaceResource.get();
+          currentRace.$promise.then(function() {
+            $rootScope.$broadcast('current-race', currentRace);
+          });
         }
-        currentRace = insecureRaceResource.get();
-        currentRace.$promise.then(function() {
-          $rootScope.$broadcast('current-race', currentRace);
-        });
         return currentRace;
       },
       get currentBids() {

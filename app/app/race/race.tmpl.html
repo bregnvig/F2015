@@ -1,19 +1,19 @@
 <md-toolbar class="md-hue-1" md-scroll-shrink>
   <h2 class="md-toolbar-tools">
-    <span flex ng-bind="race.get.name"></span>
-    <md-button aria-label="Hent resultat" class="menu-button" ng-if="race.credentials.gameAdministrator && race.get.closed && !race.get.completed" ui-sref="f2015.race.create-result()"><i class="fa fa-fw fa-lg fa-cloud-download"></i></md-button>
-    <md-button aria-label="Rul resultatet tilbage" class="menu-button" ng-if="race.credentials.gameAdministrator && race.get.completed" ng-click="race.rollback()"><i class="fa fa-fw fa-lg fa-undo"></i></md-button>
+    <span flex ng-bind="$ctrl.get.name"></span>
+    <md-button aria-label="Hent resultat" class="menu-button" ng-if="$ctrl.credentials.gameAdministrator && $ctrl.get.closed && !$ctrl.get.completed" ui-sref="f2015.race.create-result()"><i class="fa fa-fw fa-lg fa-cloud-download"></i></md-button>
+    <md-button aria-label="Rul resultatet tilbage" class="menu-button" ng-if="$ctrl.credentials.gameAdministrator && $ctrl.get.completed" ng-click="$ctrl.rollback()"><i class="fa fa-fw fa-lg fa-undo"></i></md-button>
   </h2>
 </md-toolbar>
 <md-content class="below-sub-header">
   <md-list class="scroll-shrink-list">
-    <md-list-item class="md-1-line" ng-if="race.get.raceResult" ng-click="race.navigateTo('f2015.race.result')">
+    <md-list-item class="md-1-line" ng-if="$ctrl.get.raceResult" ng-click="$ctrl.navigateTo('f2015.race.result')">
         <div class="md-list-item-text">
           <p>Resultat</p>
         </div>
     </md-list-item>
     <md-divider></md-divider>
-    <md-list-item class="md-1-line" ng-repeat-start="bid in race.get.bids track by $index" ng-click="race.navigateTo('f2015.race.bid', {player: bid.player.playername})" ng-disabled="(race.get.completed === false && race.get.closed === false && race.get.participant === false)" aria-label="{{bid.player | playerName | noTrophy}}">
+    <md-list-item class="md-1-line" ng-repeat-start="bid in $ctrl.get.bids track by $index" ng-click="$ctrl.navigateTo('f2015.race.bid', {player: bid.player.playername})" ng-disabled="($ctrl.get.completed === false && $ctrl.get.closed === false && $ctrl.get.participant === false)" aria-label="{{bid.player | playerName | noTrophy}}">
         <div class="md-list-item-text">
             <p><span ng-bind-html="bid.player | playerName"></span><strong ng-if="bid.points" class="pull-right">{{bid.points}}</strong></p>
         </div>
@@ -21,6 +21,6 @@
     <md-divider ng-repeat-end ng-if="!$last"></md-divider>
   </md-list>
 </md-content>
-<md-button class="md-fab md-fab-bottom-right md-accent" aria-label="Jeg skal deltage" ng-if="race.get.opened  && race.currentRace.participant === false" ui-sref="f2015.race.enter-bid">
+<md-button class="md-fab md-fab-bottom-right md-accent" aria-label="Jeg skal deltage" ng-if="$ctrl.get.opened  && $ctrl.currentRace.participant === false" ui-sref="f2015.race.enter-bid">
   <i class="fa fa-plus"></i>
 </md-button>

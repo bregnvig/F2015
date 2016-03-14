@@ -1,15 +1,15 @@
-<join-race-div flex-gt-sm="50" flex="100" ng-if="joinRaceCardCtrl.participant === false">
-  <md-card ng-class="joinRaceCardCtrl.closingSoon ?  'md-whiteframe-z2' : 'md-whiteframe-z1'">
-    <md-toolbar ng-class="{'md-warn': joinRaceCardCtrl.closingSoon}">
+<join-race-div flex-gt-sm="50" flex="100" ng-if="$ctrl.participant === false">
+  <md-card ng-class="$ctrl.closingSoon ?  'md-whiteframe-z2' : 'md-whiteframe-z1'">
+    <md-toolbar ng-class="{'md-warn': $ctrl.closingSoon}">
       <h2 class="md-toolbar-tools">
-        <span flex ng-bind="'Deltag i ' + joinRaceCardCtrl.race.name"></span>
+        <span flex ng-bind="'Deltag i ' + $ctrl.race.name"></span>
       </h2>
     </md-toolbar>
     <md-card-content>
       <md-content>
-        <p>Du har endnu ikke spillet på {{joinRaceCardCtrl.race.name}}.</p>
+        <p>Du har endnu ikke spillet på {{$ctrl.race.name}}.</p>
 
-        <p>Men du kan heldigvis nå det endnu. Spillet lukker <span am-time-ago="race.closeDate"></span>.</p>
+        <p>Men du kan heldigvis nå det endnu. Spillet lukker <span am-time-ago="$ctrl.race.closeDate"></span>.</p>
       </md-content>
       <div layout="row" layout-align="end center">
         <md-button class="md-accent md-raised" aria-label="Deltag i løb" ui-sref="f2015.race.enter-bid">

@@ -26,9 +26,7 @@
     "typeof"
   ],
   "disallowKeywords": [
-    "with",
-    "const",
-    "let"
+    "with"
   ],
   "requireSpaceBeforeBlockStatements": true,
   "requireParenthesesAroundIIFE": true,

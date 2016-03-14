@@ -35,7 +35,7 @@ module.exports = function (grunt) {
       },
       js: {
         files: ['<%= yeoman.app %>/app/{,*/}*.js'],
-        tasks: ['newer:jshint:all'],
+        tasks: ['newer:jshint:all', 'babel'],
         options: {
           livereload: '<%= connect.options.livereload %>'
         }
@@ -60,6 +60,20 @@ module.exports = function (grunt) {
           '.tmp/styles/{,*/}*.css',
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
+      }
+    },
+    babel: {
+      options: {
+        sourceMap: true,
+        presets: ['es2015']
+      },
+      dist: {
+        files: [{
+          expand: true,
+          cwd: 'app/',
+          src: ['**/*.js'],
+          dest: 'app/compiled/'
+        }]
       }
     },
 
@@ -482,6 +496,7 @@ module.exports = function (grunt) {
       'clean:server',
       'revision',
       'ngconstant:development',
+      'babel',
       'wiredep',
       'concurrent:server',
       'autoprefixer',

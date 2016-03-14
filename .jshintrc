@@ -10,8 +10,6 @@
   "undef": true,
   "unused": true,
   "strict": true,
-  "futurehostile": true,
-  "varstmt": true,
   "globals": {
     "angular": false
   }
