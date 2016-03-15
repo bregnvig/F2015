@@ -1,8 +1,8 @@
 <div layout="row" layout-sm="column" layout-padding>
   <md-content layout="row" layout-wrap layout-fill>
     <develop-card flex-gt-sm="50" flex="100" class="ng-hide"></develop-card>
-    <login-card></login-card>
-    <account-warning-card flex="100"></account-warning-card>
+    <login-card flex="100" flex-gt-sm="50" class="ng-hide"></login-card>
+    <account-warning-card flex="100" class="ng-hide"></account-warning-card>
     <join-race-card></join-race-card>
     <last-race ng-if="loggedIn" ></last-race>
     <already-participated flex-gt-sm="50" flex="100" ng-if="loggedIn && currentRace.closed"></already-participated>

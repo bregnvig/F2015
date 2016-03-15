@@ -9,9 +9,9 @@ angular
       }
       scope.$watch($ctrl.isVisible, (newValue) => {
         if (newValue) {
-          element.removeClass("ng-hide");
+          element.removeClass('ng-hide');
         } else {
-          element.addClass("ng-hide");
+          element.addClass('ng-hide');
         }
       });
     };

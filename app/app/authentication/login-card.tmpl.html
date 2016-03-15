@@ -1,32 +1,36 @@
-<login-card-holder flex-gt-sm="50" flex="100"  ng-show="!loginCardCtrl.loggedIn">
+<login-card-holder>
   <md-card class="md-whiteframe-z1">
-    <md-toolbar>
+    <md-toolbar class="md-accent">
       <h2 class="md-toolbar-tools">
         <span flex>Log ind for at være med</span>
       </h2>
     </md-toolbar>
-      <md-card-content>
-        <form name="loginCardCtrl.loginForm">
-          <md-content>
-            <md-input-container>
+    <md-card-content>
+      <form name="$ctrl.loginForm">
+        <md-content>
+          <div layout-sm="row">
+            <md-input-container class="md-block" flex-sm>
               <label for="input_user">Brugernavn</label>
-              <input ng-model="loginCardCtrl.userName" autofocus required class="md-input" tabindex="0"
+              <input ng-model="$ctrl.userName" autofocus required class="md-input" tabindex="0"
                      id="input_user" aria-invalid="false">
             </md-input-container>
-            <md-input-container>
+            <md-input-container class="md-block" flex-sm>
               <label for="input_password">Adgangskode</label>
-              <input ng-model="loginCardCtrl.password" required type="password" class="md-input"
+              <input ng-model="$ctrl.password" required type="password" class="md-input"
                      tabindex="0" id="input_password" aria-invalid="false">
             </md-input-container>
-            <md-checkbox class="md-primary" ng-model="loginCardCtrl.rememberMe" aria-label="Husk mig">Husk mig</md-checkbox>
-          </md-content>
-          <div layout="row" layout-align="end center">
-            <md-button class="md-accent md-raised" ng-click="loginCardCtrl.login()" aria-label="Log ind"
-                       ng-disabled="loginCardCtrl.loginForm.$invalid">
-              Log ind
-            </md-button>
           </div>
-        </form>
-      </md-card-content>
+          <md-input-container class="md-block">
+            <md-checkbox class="md-primary" ng-model="$ctrl.rememberMe" aria-label="Husk mig">Husk mig</md-checkbox>
+          </md-input-container>
+        </md-content>
+        <div layout="row" layout-align="end center">
+          <md-button class="md-accent md-raised" ng-click="$ctrl.login()" aria-label="Log ind"
+                     ng-disabled="$ctrl.loginForm.$invalid">
+            Log ind
+          </md-button>
+        </div>
+      </form>
+    </md-card-content>
   </md-card>
 </login-card-holder>

@@ -118,9 +118,6 @@ angular.module('f2015.hint', ['f2015.model.ergast'])
         if (ENV.name === 'development') {
           // element.removeClass('ng-hide');
           $scope.testIt = function() {
-            raceModel.get(114).$promise.then(function(race) {
-              $rootScope.$broadcast('current-race', race);
-            });
           };
         }
       }

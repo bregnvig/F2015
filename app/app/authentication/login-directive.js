@@ -1,35 +1,35 @@
 'use strict';
 
 angular.module('f2015.authentication')
-  .directive('loginCard', ['$mdDialog', 'credentials', function($mdDialog, credentials) {
+  .directive('loginCard', ['$mdDialog', 'credentials', 'cardShowHide', function($mdDialog, credentialsProvider, cardShowHide) {
     return {
       restrict: 'E',
       templateUrl: 'app/authentication/login-card.tmpl.html',
       scope: {},
-      replace: true,
-      controllerAs: 'loginCardCtrl',
-      controller: ['$scope', 'authenticationService', function($scope, authenticationService) {
-        var vm = this;
-        vm.rememberMe = true;
-        vm.login = function() {
-          console.log('Login now', vm.userName);
-          authenticationService.login(vm.userName, vm.password).$promise.then(function() {
-            if (vm.rememberMe) {
+      controllerAs: '$ctrl',
+      controller: ['authenticationService', function(authenticationService) {
+        const $ctrl = this;
+
+        $ctrl.rememberMe = true;
+        $ctrl.login = () => {
+          console.log('Login now', $ctrl.userName);
+          authenticationService.login($ctrl.userName, $ctrl.password).$promise.then(() => {
+            if ($ctrl.rememberMe) {
               authenticationService.save();
             }
-          }, function() {
+          }, () => {
             $mdDialog.show(
               $mdDialog.alert()
                 .title('Kunne ikke logge ind')
-                .content('Enten er dit brugernavn eller din adgangskode forkert. Eller måske begge dele!')
+                .textContent('Enten er dit brugernavn eller din adgangskode forkert. Eller måske begge dele!')
                 .ariaLabel('Login fejl')
                 .ok('OK!')
             );
           });
         };
-        credentials().then(function() {
-          vm.loggedIn = true;
-        });
-      }]
+        credentialsProvider().then(() => $ctrl.loggedIn = true);
+        $ctrl.isVisible = () => !$ctrl.loggedIn;
+      }],
+      link: cardShowHide
     };
   }]);
