@@ -2,9 +2,9 @@
   <md-subheader>Spillere</md-subheader>
   <div style="overflow: auto; position: relative" flex>
     <md-list>
-      <md-list-item ng-repeat="player in players">
-        <p style="color:{{colors[$index]}}" ng-bind-html="player | playerName | noTrophy"></p>
-        <md-checkbox class="md-primary" ng-model="partOfGraph[player.playername]" aria-label="{{player | playerName}}"></md-checkbox>
+      <md-list-item ng-repeat="player in $ctrl.players">
+        <p style="color:{{$ctrl.colors[$index]}}" ng-bind-html="player | playerName | noTrophy"></p>
+        <md-checkbox class="md-primary" ng-click="$ctrl.storeGraphPeople()" ng-model="$ctrl.partOfGraph[player.playername]" aria-label="{{player | playerName}}"></md-checkbox>
       </md-list-item>
     </div>
   </div>

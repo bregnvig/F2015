@@ -90,17 +90,17 @@ angular.module('f2015.hint', ['f2015.model.ergast'])
       restrict: 'E',
       scope: {},
       replace: true,
-      controllerAs: 'lastRaceCtrl',
+      controllerAs: '$ctrl',
       templateUrl: 'app/hint/last-race-card.tmpl.html',
       controller: ['raceModel', function(raceModel) {
-        var vm = this;
-        vm.currentRace = raceModel.current;
-        vm.race = raceModel.get('previous');
-        vm.race.$promise.then(function(race) {
-          credentialsProvider().then(function(credentials) {
-            race.bids.forEach(function(bid, index) {
+        const $ctrl = this;
+        $ctrl.currentRace = raceModel.current;
+        $ctrl.race = raceModel.get('previous');
+        $ctrl.race.$promise.then((race) => {
+          credentialsProvider().then((credentials) => {
+            race.bids.forEach((bid, index) => {
               if (bid.player.playername === credentials.playername) {
-                vm.yourPosition = index + 1;
+                $ctrl.yourPosition = index + 1;
               }
             });
           });

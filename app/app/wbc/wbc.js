@@ -7,8 +7,7 @@ angular.module('f2015.wbc', ['f2015.model.wbc'])
         url: '/wbc',
         views: {
           '@': {
-            templateUrl: 'app/wbc/wbc.tmpl.html',
-            controller: 'WbcCtrl as wbc'
+            template: '<wbc></wbc>'
           }
         }
       })
@@ -16,8 +15,7 @@ angular.module('f2015.wbc', ['f2015.model.wbc'])
         url: '/player/:player',
         views: {
           '@': {
-            templateUrl: 'app/wbc/player.tmpl.html',
-            controller: 'WbcPlayerCtrl as wbcPlayer'
+            template: '<wbc-player></wbc-player>'
           }
         }
       })
@@ -25,73 +23,74 @@ angular.module('f2015.wbc', ['f2015.model.wbc'])
         url: '/graph',
         views: {
           '@': {
-            templateUrl: 'app/wbc/wbc-graph.tmpl.html',
-            controller: 'WbcGraphCtrl as wbcGraph'
+            template: '<wbc-graph></wbc-graph>'
           }
         }
       });
   }])
-  .controller('WbcCtrl', ['$state', 'wbcModel', function($state, wbcModel) {
-    var wbc = this;
-    wbc.standing = wbcModel.standing;
-    wbc.navigateTo = function(state, params) {
-      $state.go(state, params);
-    };
-  }])
-  .controller('WbcPlayerCtrl', ['$state', '$stateParams', 'wbcModel', function($state, $stateParams, wbcModel) {
-    var wbcPlayer = this;
-    wbcPlayer.entries = wbcModel.get($stateParams.player);
-    wbcPlayer.navigateTo = function(state, params) {
-      $state.go(state, params);
-    };
-  }])
-  .controller('GraphPeopleCtrl', ['$rootScope', '$scope', '$mdBottomSheet', 'wbcModel', 'colors', function($rootScope, $scope, $mdBottomSheet, wbcModel, colors) {
-    $scope.colors = colors;
-    var partOfGraph = localStorage.partOfGraph !== undefined ? JSON.parse(localStorage.partOfGraph) : undefined;
+  .component('wbc', {
+    templateUrl: 'app/wbc/wbc.tmpl.html',
+    controller: ['$state', 'wbcModel', function($state, wbcModel) {
+      const $ctrl = this;
+      $ctrl.standing = wbcModel.standing;
+      $ctrl.navigateTo = (state, params) => $state.go(state, params);
+    }]
+  })
+  .component('wbcPlayer', {
+    templateUrl: 'app/wbc/player.tmpl.html',
+    controller: ['$state', '$stateParams', 'wbcModel', function($state, $stateParams, wbcModel) {
+      var $ctrl = this;
+      $ctrl.entries = wbcModel.get($stateParams.player);
+      $ctrl.navigateTo = (state, params) => $state.go(state, params);
+    }]
+  })
+  .component('wbcGraphPeople', {
+    templateUrl: 'app/wbc/graph-people.tmpl.html',
+    controller: ['$rootScope', '$scope', 'wbcModel', 'colors', function($rootScope, $scope, wbcModel, colors) {
+      const $ctrl = this;
+      $ctrl.colors = colors;
+      var partOfGraph = localStorage.partOfGraph !== undefined ? JSON.parse(localStorage.partOfGraph) : undefined;
 
-    wbcModel.graph.$promise.then(function(history) {
-      if (!partOfGraph) {
-        partOfGraph = {};
-        history.forEach(function(element) {
-          element.positions.forEach(function(position) {
-            partOfGraph[position.player.playername] = true;
+      wbcModel.graph.$promise.then((history) => {
+        if (!partOfGraph) {
+          // Add all players to graph
+          partOfGraph = {};
+          history.forEach((element) => element.positions.forEach((position) => partOfGraph[position.player.playername] = true));
+          localStorage.partOfGraph = JSON.stringify(partOfGraph);
+        }
+        var people = [];
+        var playerNames = [];
+        history.forEach((element) => {
+          element.positions.forEach((position) => {
+            if (playerNames.indexOf(position.player.playername) === -1) {
+              people.push(position.player);
+              playerNames.push(position.player.playername);
+            }
           });
         });
-        localStorage.partOfGraph = JSON.stringify(partOfGraph);
-      }
-      var people = [];
-      var playerNames = [];
-      history.forEach(function(element) {
-        element.positions.forEach(function(position) {
-          if (playerNames.indexOf(position.player.playername) === -1) {
-            people.push(position.player);
-            playerNames.push(position.player.playername);
-          }
-        });
+        $ctrl.players = people;
       });
-      $scope.players = people;
-    });
-    $scope.partOfGraph = partOfGraph;
-    $scope.$watch('partOfGraph', function() {
-      console.log('Changed');
-      localStorage.partOfGraph = JSON.stringify(partOfGraph);
-      $rootScope.$broadcast('wbc-players-updated');
-    }, true);
-  }])
-  .directive('wbcGraph', ['$timeout', 'wbcModel', 'colors', function($timeout, wbcModel, colors) {
+      $ctrl.partOfGraph = partOfGraph;
+      $scope.$on('$destroy', () => {
+        localStorage.partOfGraph = JSON.stringify(partOfGraph);
+        $rootScope.$broadcast('wbc-players-updated');
+      });
+    }]
+  })
+  .directive('graph', ['$timeout', 'wbcModel', 'colors', function($timeout, wbcModel, colors) {
 
     function createGraph(history, element) {
-      var partOfGraph = localStorage.partOfGraph !== undefined ? JSON.parse(localStorage.partOfGraph) : {};
-      var playerColorIndex = 0;
-      var numberOfPlayers = 0;
-      var dataSets = {};
-      var lineChartData = {
+      const partOfGraph = localStorage.partOfGraph !== undefined ? JSON.parse(localStorage.partOfGraph) : {};
+      const dataSets = {};
+      const lineChartData = {
         labels: [],
         datasets: []
       };
-      history.forEach(function(element, index) {
+      let playerColorIndex = 0;
+      let numberOfPlayers = 0;
+      history.forEach((element, index) => {
         lineChartData.labels.push(element.race.name);
-        element.positions.forEach(function(position) {
+        element.positions.forEach((position) => {
           if (dataSets[position.player.playername] === undefined) {
             numberOfPlayers++;
             var color = colors[playerColorIndex++];
@@ -113,17 +112,17 @@ angular.module('f2015.wbc', ['f2015.model.wbc'])
       });
 
       lineChartData.datasets = [];
-      Object.getOwnPropertyNames(dataSets).forEach(function(playerName) {
+      Object.keys(dataSets).forEach(function(playerName) {
         if (partOfGraph[playerName] === true) {
           dataSets[playerName].data.unshift(numberOfPlayers);
           lineChartData.datasets.push(dataSets[playerName]);
         }
       });
       lineChartData.labels.unshift('');
-      var canvas = element.find('canvas')[0];
+      const canvas = element.find('canvas')[0];
       canvas.width = element.find('div')[0].clientWidth;
       canvas.height = element.find('div')[0].clientHeight - 64;
-      var lineChart = lineChart || new Chart(canvas.getContext('2d'));
+      const lineChart = lineChart || new Chart(canvas.getContext('2d'));
       lineChart.Line(lineChartData, {
         scaleOverride: true,
         scaleSteps: numberOfPlayers,
@@ -154,39 +153,39 @@ angular.module('f2015.wbc', ['f2015.model.wbc'])
 
     return {
       restrict: 'E',
+      scope: {},
       templateUrl: 'app/wbc/graph.tmpl.html',
       link: link
     };
   }])
-  .controller('WbcGraphCtrl', ['$scope', '$mdBottomSheet', function($scope, $mdBottomSheet) {
-    var wbcGraph = this;
-    wbcGraph.showPlayers = function($event) {
-      $mdBottomSheet.show({
-        templateUrl: 'app/wbc/graph-people.tmpl.html',
-        controller: 'GraphPeopleCtrl',
-        disableParentScroll: true,
-        targetEvent: $event
-      });
-    };
-  }])
-  .directive('joinWbcCard', ['$mdDialog', '$mdToast', 'wbcModel', 'credentials', 'authenticationService', function($mdDialog, $mdToast, wbcModel, credentialsProvider, authenticationService) {
-    return {
-      restrict: 'E',
-      templateUrl: 'app/wbc/join-wbc-card.tmpl.html',
-      link: function($scope, element) {
-        $scope.wbc = wbcModel.wbc;
-
-        $scope.$watch('wbc.latestJoinDate', function(newValue) {
-          if (newValue && newValue > new Date()) {
-            credentialsProvider().then(function(credentails) {
-              if (!credentails.wbcParticipant) {
-                element.removeClass('ng-hide');
-              }
-            });
-          }
+  .component('wbcGraph', {
+    templateUrl: 'app/wbc/wbc-graph.tmpl.html',
+    controller: ['$mdBottomSheet', function($mdBottomSheet) {
+      var $ctrl = this;
+      $ctrl.showPlayers = function($event) {
+        $mdBottomSheet.show({
+          template: '<wbc-graph-people></wbc-graph-people>',
+          disableParentScroll: true,
+          targetEvent: $event
         });
+      };
+    }]
+  })
+  .directive('joinWbcCard', ['cardShowHide', function(cardShowHide) {
+    return {
+      templateUrl: 'app/wbc/join-wbc-card.tmpl.html',
+      restrict: 'E',
+      scope: {},
+      controllerAs: '$ctrl',
+      controller: ['$mdDialog', '$mdToast', 'wbcModel', 'credentials', 'authenticationService', function($mdDialog, $mdToast, wbcModel, credentialsProvider, authenticationService) {
+        const $ctrl = this;
+        console.log('THIS', this);
+        credentialsProvider().then((credentials) => $ctrl.credentials = credentials);
 
-        $scope.joinWBC = function() {
+        $ctrl.wbc = wbcModel.wbc;
+        $ctrl.isVisible = () => ($ctrl.wbc && $ctrl.wbc.latestJoinDate && $ctrl.wbc.latestJoinDate > Date.now()) && ($ctrl.credentials && !$ctrl.credentials.wbcParticipant);
+        $ctrl.joinWBC = () => {
+          console.log('HHHHH');
           var confirm = $mdDialog.confirm()
             .title('Deltag i WBC?')
             .textContent('Tilmeldingen koster 100 og tilmeldingen er bindende. Ønsker du at deltage?')
@@ -199,12 +198,11 @@ angular.module('f2015.wbc', ['f2015.model.wbc'])
                 credentials.wbcParticipant = true;
                 authenticationService.save();
                 $mdToast.show($mdToast.simple().content('Du er nu tilmeldt WBC!'));
-                element.addClass('ng-hide');
               });
             });
-
           });
         };
-      }
+      }],
+      link: cardShowHide
     };
   }]);

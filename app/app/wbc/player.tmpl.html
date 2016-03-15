@@ -1,11 +1,11 @@
 <md-toolbar class="md-hue-1" md-scroll-shrink>
   <h2 class="md-toolbar-tools">
-    <span ng-bind-html="wbcPlayer.entries[0].player | playerName"></span>
+    <span ng-bind-html="$ctrl.entries[0].player | playerName"></span>
   </h2>
 </md-toolbar>
 <md-content class="below-sub-header">
   <md-list>
-    <md-list-item class="md-1-line" ng-repeat-start="entry in wbcPlayer.entries track by $index" ng-click="wbcPlayer.navigateTo('f2015.race', {id: entry.race.id})">
+    <md-list-item class="md-1-line" ng-repeat-start="entry in $ctrl.entries track by $index" ng-click="$ctrl.navigateTo('f2015.race', {id: entry.race.id})">
       <div class="md-list-item-text" >
         <p><span>{{::entry.race.name}}</span><strong class="pull-right">{{::entry.points}}</strong></p>
       </div>

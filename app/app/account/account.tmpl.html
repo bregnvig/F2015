@@ -1,12 +1,12 @@
 <md-toolbar class="md-hue-1" md-scroll-shrink>
   <h2 class="md-toolbar-tools">
     <span flex>Bevægelser</span>
-    <md-button aria-label="Information" class="menu-button" ng-click="account.showTransferInfo()"><i class="fa fa-fw fa-lg fa-info"></i></md-button>
+    <md-button aria-label="Information" class="menu-button" ng-click="$ctrl.showTransferInfo()"><i class="fa fa-fw fa-lg fa-info"></i></md-button>
   </h2>
 </md-toolbar>
 <md-content class="below-sub-header">
   <md-list>
-    <md-list-item class="md-2-line" ng-repeat-start="movement in account.account.entries track by $index">
+    <md-list-item class="md-2-line" ng-repeat-start="movement in $ctrl.account.entries track by $index">
       <div class="md-list-item-text" >
         <h3>{{::movement.message}}<strong class="pull-right" ng-class="movement.amount >= 0 ? 'amount-positive' : 'amount-negative'">{{::movement.amount}} kr</strong></h3>
         <p>{{::movement.date |  amCalendar}}</p>

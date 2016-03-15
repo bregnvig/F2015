@@ -1,12 +1,12 @@
 <md-toolbar class="md-hue-1" md-scroll-shrink="">
   <h2 class="md-toolbar-tools">
     <span flex>WBC</span>
-    <md-button aria-label="Graf" class="menu-button" ng-if="wbc.standing.length" ui-sref="f2015.wbc.graph"><i class="fa fa-fw fa-lg fa-line-chart"></i></md-button>
+    <md-button aria-label="Graf" class="menu-button" ng-if="$ctrl.standing.length" ui-sref="f2015.wbc.graph"><i class="fa fa-fw fa-lg fa-line-chart"></i></md-button>
   </h2>
 </md-toolbar>
 <md-content class="below-sub-header">
   <md-list>
-    <md-list-item class="md-1-line" ng-repeat="entry in wbc.standing track by $index" ng-click="wbc.navigateTo('f2015.wbc.player', {player: entry.player.playername})">
+    <md-list-item class="md-1-line" ng-repeat="entry in $ctrl.standing track by $index" ng-click="$ctrl.navigateTo('f2015.wbc.player', {player: entry.player.playername})">
       <div class="md-list-item-text">
         <p><span ng-bind-html="entry.player | playerName"></span><strong class="pull-right">{{entry.points}}</strong></p>
       </div>

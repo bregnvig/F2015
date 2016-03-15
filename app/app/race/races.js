@@ -109,7 +109,7 @@ angular.module('f2015.race', ['ngMessages', 'f2015.model.race', 'f2015.model.erg
         });
         $ctrl.withFastestLap = (driver) => driver.FastestLap ? true : false;
         $ctrl.qualifyTime = (result) => {
-          var max = result.Q3 ? 3 : (result.Q2 ? 2 : 1);
+          const max = result.Q3 ? 3 : (result.Q2 ? 2 : 1);
           if (!result.Q) {
             result.QPos = max;
           }
@@ -125,19 +125,14 @@ angular.module('f2015.race', ['ngMessages', 'f2015.model.race', 'f2015.model.erg
       const $ctrl = this;
       raceModel.get($stateParams.id).$promise.then((selectedRace) => {
         $ctrl.race = selectedRace;
-        for (var i = 0; i < selectedRace.bids.length; i++) {
-          if (selectedRace.bids[i].player.playername === $stateParams.player) {
-            $ctrl.bid = selectedRace.bids[i];
-            break;
-          }
-        }
+        $ctrl.bid = selectedRace.bids.find((bid) => bid.player.playername === $stateParams.player);
       });
     }]
   })
   .component('enterBid', {
     templateUrl: 'app/race/enter-bid.tmpl.html',
     controller: ['$scope', '$state', '$stateParams', 'raceModel', 'driverModel', function($scope, $state, $stateParams, raceModel, driverModel) {
-      var $ctrl = this;
+      const $ctrl = this;
       raceModel.current.$promise.then((race) => {
         $ctrl.race = race;
         $ctrl.bid = localStorage['bid' + race.id] ? angular.fromJson(localStorage['bid' + race.id]) : {};
@@ -150,7 +145,7 @@ angular.module('f2015.race', ['ngMessages', 'f2015.model.race', 'f2015.model.erg
         $ctrl.getDriver = driverModel.getDriver;
         $scope.$on('$stateChangeStart', () => localStorage['bid' + race.id] = angular.toJson($ctrl.bid));
       });
-      $ctrl.submitBid = function() {
+      $ctrl.submitBid = () => {
         const submit = {};
         submit.grid = driverModel.convert($ctrl.bid.grid);
         submit.fastestLap = driverModel.convert($ctrl.bid.fastestLap);
@@ -229,7 +224,7 @@ angular.module('f2015.race', ['ngMessages', 'f2015.model.race', 'f2015.model.erg
         polePositionTime: undefined
       };
       results.forEach((result) => {
-        var driverId = result.Driver.driverId;
+        const driverId = result.Driver.driverId;
         if (result.grid <= 7) {
           raceResult.grid[result.grid - 1] = driverModel.getDriver(driverId);
         }
@@ -263,20 +258,21 @@ angular.module('f2015.race', ['ngMessages', 'f2015.model.race', 'f2015.model.erg
           return;
         }
 
-        scope.$watch(attrs.unique, (values) => {
-          validate(values);
-        }, true);
-
         const validate = (values) => {
           // values
-          var val1 = ngModel.$viewValue;
-          var count = 0;
+          const val1 = ngModel.$viewValue;
+          let count = 0;
           if (val1) {
             count = values.reduce((count, driver) => count + (driver && val1 === driver ? 1 : 0), 0);
           }
           // set validity
           ngModel.$setValidity('unique', !val1 || count <= 1);
         };
+
+        scope.$watch(attrs.unique, (values) => {
+          validate(values);
+        }, true);
+
       }
     };
   });

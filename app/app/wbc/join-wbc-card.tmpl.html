@@ -1,18 +1,20 @@
-<md-card class="md-whiteframe-z1">
-  <md-toolbar>
-    <h2 class="md-toolbar-tools">
-      <span flex><i class="fa fa-trophy"></i> Deltag i WBC</span>
-    </h2>
-  </md-toolbar>
-  <md-card-content>
-    <md-content>
-      <p>Du er ikke deltager i WBC. Men det er ok. Du kan stadigvæk nå det. </p>
-      <p>Sidste chance for tilmelding er <span am-time-ago="wbc.latestJoinDate"></span>.</p>
-    </md-content>
-    <div layout="row" layout-align="end center">
-      <md-button class="md-raised" ng-click="joinWBC()" aria-label="Deltag i WBC">
-        Tilmeld mig!
-      </md-button>
-    </div>
-  </md-card-content>
-</md-card>
+<join-wbc-card-div>
+  <md-card class="md-whiteframe-z1">
+    <md-toolbar>
+      <h2 class="md-toolbar-tools">
+        <span flex><i class="fa fa-trophy"></i> Deltag i WBC</span>
+      </h2>
+    </md-toolbar>
+    <md-card-content>
+      <md-content>
+        <p>Du er ikke deltager i WBC. Men det er ok. Du kan stadigvæk nå det.</p>
+        <p>Sidste chance for tilmelding er <span am-time-ago="$ctrl.wbc.latestJoinDate"></span>.</p>
+      </md-content>
+      <div layout="row" layout-align="end center">
+        <md-button class="md-raised" ng-click="$ctrl.joinWBC()" aria-label="Deltag i WBC">
+          Tilmeld mig!
+        </md-button>
+      </div>
+    </md-card-content>
+  </md-card>
+</join-wbc-card-div>

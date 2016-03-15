@@ -13,6 +13,7 @@ angular
     'f2015.constants',
     'f2015.common-filter',
     'f2015.common-directive',
+    'f2015.common.cardHelper',
     'f2015.model.player',
     'f2015.model.race',
     'f2015.model.driver',
@@ -66,8 +67,7 @@ angular
         url: '/account',
         views: {
           '@': {
-            templateUrl: 'app/account/account.tmpl.html',
-            controller: 'AccountCtrl as account'
+            template: '<account></account>'
           }
         }
       })

@@ -1,28 +1,36 @@
 'use strict';
 
 angular.module('f2015.account')
-  .controller('AccountCtrl', ['account', '$mdDialog', function(account, $mdDialog) {
-    var vm = this;
-    vm.account = account;
-    vm.showTransferInfo = function() {
-      $mdDialog.show({
-        templateUrl: 'app/account/transfer-info.tmpl.html',
-        clickOutsideToClose: true,
-        controller: ['$scope', function($scope) {
-          $scope.closeTransferInfo = function() {
-            $mdDialog.hide();
-          };
-        }]
-      });
-    };
-  }])
-  .directive('accountWarningCard', ['account', function(account) {
+  .component('account', {
+    templateUrl: 'app/account/account.tmpl.html',
+    controller: ['account', '$mdDialog', function(account, $mdDialog) {
+      var $ctrl = this;
+      $ctrl.account = account;
+      $ctrl.showTransferInfo = function() {
+        $mdDialog.show({
+          templateUrl: 'app/account/transfer-info.tmpl.html',
+          clickOutsideToClose: true,
+          controllerAs: '$ctrl',
+          controller() {
+            const $ctrl = this;
+            $ctrl.closeTransferInfo = function() {
+              $mdDialog.hide();
+            };
+          }
+        });
+      };
+    }]
+  })
+  .directive('accountWarningCard', ['account', 'cardShowHide', function(account, cardShowHide) {
     return {
       restrict: 'E',
-      replace: true,
+      scope: {},
       templateUrl: 'app/account/account-warning-card.tmpl.html',
-      controller: ['$scope', function($scope) {
-        $scope.account = account;
-      }]
+      controllerAs: '$ctrl',
+      controller: [function() {
+        const $ctrl = this;
+        $ctrl.isVisible = () => account.balance && account.balance < 0;
+      }],
+      link: cardShowHide
     };
   }]);

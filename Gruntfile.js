@@ -18,6 +18,7 @@ module.exports = function (grunt) {
   // Configurable paths for the application
   var appConfig = {
     app: require('./bower.json').appPath || 'app',
+    compiled: 'compiled',
     dist: 'dist'
   };
 
@@ -72,7 +73,7 @@ module.exports = function (grunt) {
           expand: true,
           cwd: 'app/',
           src: ['**/*.js'],
-          dest: 'app/compiled/'
+          dest: 'compiled/'
         }]
       }
     },
@@ -95,6 +96,7 @@ module.exports = function (grunt) {
                 '/bower_components',
                 connect.static('./bower_components')
               ),
+              connect.static(appConfig.compiled),
               connect.static(appConfig.app)
             ];
           }
@@ -372,6 +374,7 @@ module.exports = function (grunt) {
           dest: '<%= yeoman.dist %>',
           src: [
             '*.{ico,png,txt}',
+            'manifest.json',
             '.htaccess',
             '*.html',
             'app/{,*/}*.html',

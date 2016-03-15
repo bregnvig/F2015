@@ -125,24 +125,32 @@ angular.module('f2015.model.ergast', ['ngResource'])
       getLastSeasonQualify: function(circuitId, callback) {
         if (qualifyResults.previousSeason[circuitId] === undefined) {
           qualifyResults.previousSeason[circuitId] = resultResource.qualify({'circuitId': circuitId}, callback);
+        } else if (callback) {
+          callback(qualifyResults.previousSeason[circuitId]);
         }
         return qualifyResults.previousSeason[circuitId];
       },
       getLastSeasonResults: function(circuitId, callback) {
         if (raceResults.previousSeason[circuitId] === undefined) {
           raceResults.previousSeason[circuitId] = resultResource.results({'circuitId': circuitId}, callback);
+        } else if (callback) {
+          callback(raceResults.previousSeason[circuitId]);
         }
         return raceResults.previousSeason[circuitId];
       },
       getCurrentResults: function(circuitId, callback) {
         if (raceResults.currentSeason[circuitId] === undefined) {
           raceResults.currentSeason[circuitId] = resultResource.results({'circuitId': circuitId, 'season': currentSeason}, callback);
+        } else if (callback) {
+          callback(raceResults.currentSeason[circuitId]);
         }
         return raceResults.currentSeason[circuitId];
       },
       getCurrentQualify: function(circuitId, callback) {
         if (qualifyResults.currentSeason[circuitId] === undefined) {
           qualifyResults.currentSeason[circuitId] = resultResource.qualify({'circuitId': circuitId, 'season': currentSeason}, callback);
+        } else if (callback) {
+          callback(qualifyResults.currentSeason[circuitId]);
         }
         return qualifyResults.currentSeason[circuitId];
       },
