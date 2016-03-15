@@ -1,7 +1,7 @@
 <md-toolbar class="md-hue-1">
   <h2 class="md-toolbar-tools">
-    <span flex>{{driver.get.name}}</span>
-    <md-switch ng-model="driver.get.active" aria-label="Aktiv?" ng-click="driver.activateDriver()" ng-if="driver.credentials.gameAdministrator">
+    <span flex>{{$ctrl.driver.name}}</span>
+    <md-switch ng-model="$ctrl.driver.active" aria-label="Aktiv?" ng-click="$ctrl.activateDriver()" ng-if="$ctrl.credentials.gameAdministrator">
       Aktiv
     </md-switch>
   </h2>
@@ -15,7 +15,7 @@
             <h3 class="md-toolbar-tools">Start gennemsnit</h3>
           </md-toolbar>
           <md-card-content>
-            <p class="number-card" ng-bind="driver.avgGrid"></p>
+            <p class="number-card" ng-bind="$ctrl.avgGrid"></p>
           </md-card-content>
         </md-card>
         <md-card flex class="md-whiteframe-z1">
@@ -23,7 +23,7 @@
             <h3 class="md-toolbar-tools">Slut gennemsnit</h3>
           </md-toolbar>
           <md-card-content>
-            <p class="number-card" ng-bind="driver.avgPosition"></p>
+            <p class="number-card" ng-bind="$ctrl.avgPosition"></p>
           </md-card-content>
         </md-card>
         <md-card flex class="md-whiteframe-z1">
@@ -31,16 +31,16 @@
             <h3 class="md-toolbar-tools">Udgået</h3>
           </md-toolbar>
           <md-card-content >
-            <p class="number-card" ng-bind="driver.retired"></p>
+            <p class="number-card" ng-bind="$ctrl.retired"></p>
           </md-card-content>
         </md-card>
       </div>
     </section>
     <section flex layout>
       <md-tabs md-selected="1" flex>
-        <md-tab label="Kvalifikation {{driver.previousYear}}">
+        <md-tab label="Kvalifikation {{$ctrl.previousYear}}">
           <md-list flex>
-            <md-list-item class="md-2-line" ng-repeat="result in driver.qualifyResult track by $index">
+            <md-list-item class="md-2-line" ng-repeat="result in $ctrl.qualifyResult track by $index">
               <div class="md-list-item-text" >
                 <h3>{{::result.raceName}}<strong class="pull-right">{{::result.QualifyingResults[0].position }}</strong></h3>
                 <p>{{::result.QualifyingResults[0] | ergastQualifyTime}}</p>
@@ -49,9 +49,9 @@
             </md-list-item>
           </md-list>
         </md-tab>
-        <md-tab label="Resultat {{driver.previousYear}}">
+        <md-tab label="Resultat {{$ctrl.previousYear}}">
           <md-list>
-            <md-list-item class="md-2-line" ng-repeat="result in driver.raceResult track by $index">
+            <md-list-item class="md-2-line" ng-repeat="result in $ctrl.raceResult track by $index">
               <div class="md-list-item-text" >
                 <h3>{{::result.raceName}}<strong class="pull-right">{{::result.Results[0].position }}</strong></h3>
                 <p>{{::result.Results[0].status}}</p>
@@ -60,9 +60,9 @@
             </md-list-item>
           </md-list>
         </md-tab>
-        <md-tab label="Kvalifikation {{driver.currentYear}}">
+        <md-tab label="Kvalifikation {{$ctrl.currentYear}}">
           <md-list flex>
-            <md-list-item class="md-2-line" ng-repeat="result in driver.currentQualifyResult track by $index">
+            <md-list-item class="md-2-line" ng-repeat="result in $ctrl.currentQualifyResult track by $index">
               <div class="md-list-item-text" >
                 <h3>{{::result.raceName}}<strong class="pull-right">{{::result.QualifyingResults[0].position }}</strong></h3>
                 <p>{{::result.QualifyingResults[0] | ergastQualifyTime}}</p>
@@ -71,9 +71,9 @@
             </md-list-item>
           </md-list>
         </md-tab>
-        <md-tab label="Resultat {{driver.currentYear}}">
+        <md-tab label="Resultat {{$ctrl.currentYear}}">
           <md-list>
-            <md-list-item class="md-2-line" ng-repeat="result in driver.currentRaceResult track by $index">
+            <md-list-item class="md-2-line" ng-repeat="result in $ctrl.currentRaceResult track by $index">
               <div class="md-list-item-text" >
                 <h3>{{::result.raceName}}<strong class="pull-right">{{::result.Results[0].position }}</strong></h3>
                 <p>{{::result.Results[0].status}}</p>
