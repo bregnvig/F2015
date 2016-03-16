@@ -16,12 +16,13 @@ angular.module('f2015.model.race', ['f2015.authentication', 'config'])
     let all;
     let fullRaces = {};
 
-    credentials().then(() => {
-      currentRace = raceResource.get();
-    });
+    credentials().then(() => currentRace = null);
 
     return {
       get current() {
+        if (!currentRace) {
+          currentRace = raceResource.get();
+        }
         return currentRace;
       },
       get currentBids() {
