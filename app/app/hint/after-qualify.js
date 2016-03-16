@@ -1,29 +1,27 @@
 'use strict';
 
 angular.module('f2015.hint.afterQualify', ['f2015.model.ergast', 'f2015.model.race'])
-  .directive('afterQualifyCard', ['raceModel', 'intermediateResult', function(raceModel, intermediateResult) {
+  .directive('afterQualifyCard', ['raceModel', 'intermediateResult', 'cardShowHide', function(raceModel, intermediateResult, cardShowHide) {
     return {
       restrict: 'E',
       scope: {},
       templateUrl: 'app/hint/after-qualify-card.tmpl.html',
-      controllerAs: 'afterQualifyCtrl',
+      controllerAs: '$ctrl',
       controller: [function() {
-        var vm = this;
-        raceModel.current.$promise.then(function(race) {
-          intermediateResult(race).then(function(race) {
-            vm.bids = race.bids;
-          });
+        const $ctrl = this;
+        raceModel.current.$promise.then((race) => {
+          intermediateResult(race).then((race) => $ctrl.bids = race.bids);
         });
-        vm.limit = 3;
-        vm.showToggle = function() {
-          vm.limit = vm.limit === 1000 ? 3 : 1000;
-        };
-      }]
+        $ctrl.limit = 3;
+        $ctrl.showToggle = () => $ctrl.limit = $ctrl.limit === 1000 ? 3 : 1000;
+        $ctrl.isVisible = () => $ctrl.bids;
+      }],
+      link: cardShowHide
     };
   }])
   .factory('intermediateResult', ['$q', 'raceModel', 'driverModel', 'ergastModel', function($q, raceModel, driverModel, ergastModel) {
 
-    var intermediateRaceResultPromise;
+    let intermediateRaceResultPromise;
 
     return function(race) {
 

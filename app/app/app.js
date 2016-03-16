@@ -7,6 +7,7 @@ angular
     'ngMaterial',
     'ngSanitize',
     'angularMoment',
+    'leaflet-directive',
     'config',
     'ui.router',
     'f2015.home',

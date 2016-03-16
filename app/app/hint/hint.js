@@ -109,7 +109,33 @@ angular.module('f2015.hint', ['f2015.model.ergast'])
       link: cardShowHide
     };
   }])
-  .directive('developCard', ['$rootScope', 'ENV', 'raceModel', function($rootScope, ENV, raceModel) {
+  .directive('mapCard', ['ergastModel', 'cardShowHide', function(ergastModel, cardShowHide) {
+    return {
+      templateUrl: 'app/hint/map-card.tmpl.html',
+      restrict: 'E',
+      scope: {},
+      controllerAs: '$ctrl',
+      controller() {
+        const $ctrl = this;
+        $ctrl.mapDefaults = {
+          zoomControl: false,
+          maxZoom: 15,
+          minZoom: 15
+        };
+
+        ergastModel.next((race) => {
+          $ctrl.center = {
+            'lat': Number(race.Circuit.Location.lat),
+            'lng': Number(race.Circuit.Location.long),
+            'zoom': 15
+          };
+        });
+        $ctrl.isVisible = () => $ctrl.center;
+      },
+      link: cardShowHide
+    };
+  }])
+  .directive('developCard', ['$rootScope', 'ENV', function($rootScope, ENV) {
     return {
       restrict: 'E',
       scope: {},
