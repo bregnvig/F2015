@@ -18,7 +18,8 @@ module.exports = function (grunt) {
   // Configurable paths for the application
   var appConfig = {
     app: require('./bower.json').appPath || 'app',
-    compiled: 'compiled',
+    compiled: 'app/app',
+    src: 'src',
     dist: 'dist'
   };
 
@@ -52,6 +53,10 @@ module.exports = function (grunt) {
       gruntfile: {
         files: ['Gruntfile.js']
       },
+      serve: {
+        files: ['<%= yeoman.src %>/{,*/}*.html'],
+        tasks: ['copy:serve']
+      },
       livereload: {
         options: {
           livereload: '<%= connect.options.livereload %>'
@@ -71,9 +76,9 @@ module.exports = function (grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: 'app/',
+          cwd: 'src/',
           src: ['**/*.js'],
-          dest: 'compiled/'
+          dest: '<%= yeoman.compiled %>'
         }]
       }
     },
@@ -96,7 +101,6 @@ module.exports = function (grunt) {
                 '/bower_components',
                 connect.static('./bower_components')
               ),
-              connect.static(appConfig.compiled),
               connect.static(appConfig.app)
             ];
           }
@@ -135,7 +139,9 @@ module.exports = function (grunt) {
       all: {
         src: [
           'Gruntfile.js',
-          '<%= yeoman.app %>/scripts/{,*/}*.js'
+          '<%= yeoman.src %>/**/*.js',
+          '!<%= yeoman.src %>/config.js',
+          '!<%= yeoman.src %>/da.js'
         ]
       },
       test: {
@@ -290,9 +296,8 @@ module.exports = function (grunt) {
     //     }
     //   }
     // },
-    // concat: {
-    //   dist: {}
-    // },
+    concat: {
+    },
 
     imagemin: {
       dist: {
@@ -412,6 +417,12 @@ module.exports = function (grunt) {
         cwd: '<%= yeoman.app %>/styles',
         dest: '.tmp/styles/',
         src: '{,*/}*.css'
+      },
+      serve: {
+        expand: true,
+        cwd: '<%= yeoman.src %>',
+        dest: '<%= yeoman.app %>/app',
+        src: '{,*/}*.html'
       }
     },
 
@@ -452,7 +463,7 @@ module.exports = function (grunt) {
       // Environment targets
       development: {
         options: {
-          dest: '<%= yeoman.app %>/app/config.js'
+          dest: '<%= yeoman.src %>/config.js'
         },
         constants: {
           ENV: {
@@ -463,7 +474,7 @@ module.exports = function (grunt) {
       },
       production: {
         options: {
-          dest: '<%= yeoman.app %>/app/config.js'
+          dest: '<%= yeoman.src %>/config.js'
         },
         constants: {
           ENV: {
@@ -475,14 +486,15 @@ module.exports = function (grunt) {
     },
     jscs: {
       options: {
-        'config': true
+        'config': true,
+        verbose: true
       },
       files: {
         src: [
-          'app/app/*.js',
-          'app/app/*/*.js',
-          '!app/app/config.js',
-          '!app/app/da.js'
+          'src/*.js',
+          'src/**/*.js',
+          '!src/config.js',
+          '!src/da.js'
         ]
       }
     },
@@ -500,6 +512,7 @@ module.exports = function (grunt) {
       'revision',
       'ngconstant:development',
       'babel',
+      'copy:serve',
       'wiredep',
       'concurrent:server',
       'autoprefixer',
@@ -531,6 +544,7 @@ module.exports = function (grunt) {
     'autoprefixer',
     'concat',
     'ngmin',
+    'copy:serve',
     'copy:dist',
     'cdnify',
     'cssmin',

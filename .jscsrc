@@ -44,7 +44,7 @@
   },
   "disallowSpacesInCallExpression": true,
   "requireBlocksOnNewline": true,
-  "requirePaddingNewLinesInObjects": true,
+  "requirePaddingNewLinesInObjects": false,
   "disallowEmptyBlocks": true,
   "disallowSpaceAfterObjectKeys": true,
   "requireSpaceBeforeObjectValues": true,

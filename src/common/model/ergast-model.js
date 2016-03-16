@@ -6,17 +6,19 @@ angular.module('f2015.model.ergast', ['ngResource'])
       const mrData = angular.fromJson(data).MRData;
       return mrData.RaceTable.Races.length ? mrData.RaceTable.Races[0].Results : null;
     }
+
     function driverTransformResponse(data) {
       const mrData = angular.fromJson(data).MRData;
       return mrData.RaceTable.Races.length ? mrData.RaceTable.Races : null;
     }
+
     function standingTransformResponse(data) {
       const mrData = angular.fromJson(data).MRData;
       return mrData.StandingsTable.StandingsLists.length ? mrData.StandingsTable.StandingsLists[0].DriverStandings : [];
     }
 
     const currentSeason = new Date().getFullYear();
-    const previousSeason = currentSeason-1;
+    const previousSeason = currentSeason - 1;
     const qualifyResults = {
       'currentSeason': {},
       'previousSeason': {}
@@ -32,7 +34,7 @@ angular.module('f2015.model.ergast', ['ngResource'])
       {
         'qualify': {
           method: 'get',
-          params: { 'type': 'qualifying'},
+          params: { 'type': 'qualifying' },
           isArray: true,
           cache: true,
           transformResponse: [function(data) {
@@ -42,7 +44,7 @@ angular.module('f2015.model.ergast', ['ngResource'])
         },
         'results': {
           method: 'get',
-          params: { 'type': 'results'},
+          params: { 'type': 'results' },
           isArray: true,
           cache: true,
           transformResponse: [resultTransformResponse].concat($http.defaults.transformResponse)
@@ -69,7 +71,7 @@ angular.module('f2015.model.ergast', ['ngResource'])
         },
         'standings': {
           method: 'get',
-          params: { 'raceId': 'driverStandings'},
+          params: { 'raceId': 'driverStandings' },
           isArray: true,
           cache: true,
           transformResponse: [standingTransformResponse].concat($http.defaults.transformResponse)
@@ -120,11 +122,11 @@ angular.module('f2015.model.ergast', ['ngResource'])
         return previousSeason;
       },
       next: function(callback) {
-        return raceResource.race({'raceId': 'next'}, callback);
+        return raceResource.race({ 'raceId': 'next' }, callback);
       },
       getLastSeasonQualify: function(circuitId, callback) {
         if (qualifyResults.previousSeason[circuitId] === undefined) {
-          qualifyResults.previousSeason[circuitId] = resultResource.qualify({'circuitId': circuitId}, callback);
+          qualifyResults.previousSeason[circuitId] = resultResource.qualify({ 'circuitId': circuitId }, callback);
         } else if (callback) {
           callback(qualifyResults.previousSeason[circuitId]);
         }
@@ -132,7 +134,7 @@ angular.module('f2015.model.ergast', ['ngResource'])
       },
       getLastSeasonResults: function(circuitId, callback) {
         if (raceResults.previousSeason[circuitId] === undefined) {
-          raceResults.previousSeason[circuitId] = resultResource.results({'circuitId': circuitId}, callback);
+          raceResults.previousSeason[circuitId] = resultResource.results({ 'circuitId': circuitId }, callback);
         } else if (callback) {
           callback(raceResults.previousSeason[circuitId]);
         }
@@ -140,7 +142,7 @@ angular.module('f2015.model.ergast', ['ngResource'])
       },
       getCurrentResults: function(circuitId, callback) {
         if (raceResults.currentSeason[circuitId] === undefined) {
-          raceResults.currentSeason[circuitId] = resultResource.results({'circuitId': circuitId, 'season': currentSeason}, callback);
+          raceResults.currentSeason[circuitId] = resultResource.results({ 'circuitId': circuitId, 'season': currentSeason }, callback);
         } else if (callback) {
           callback(raceResults.currentSeason[circuitId]);
         }
@@ -148,7 +150,7 @@ angular.module('f2015.model.ergast', ['ngResource'])
       },
       getCurrentQualify: function(circuitId, callback) {
         if (qualifyResults.currentSeason[circuitId] === undefined) {
-          qualifyResults.currentSeason[circuitId] = resultResource.qualify({'circuitId': circuitId, 'season': currentSeason}, callback);
+          qualifyResults.currentSeason[circuitId] = resultResource.qualify({ 'circuitId': circuitId, 'season': currentSeason }, callback);
         } else if (callback) {
           callback(qualifyResults.currentSeason[circuitId]);
         }
@@ -157,23 +159,23 @@ angular.module('f2015.model.ergast', ['ngResource'])
       getStandings: function(callback) {
         return raceResource.standings(callback);
       },
-      getLastYearDriverQualify:function(code, callback) {
-        return driverResource.qualify({'code': code}, callback);
+      getLastYearDriverQualify: function(code, callback) {
+        return driverResource.qualify({ 'code': code }, callback);
       },
-      getLastYearDriverResults:function(code, callback) {
-        return driverResource.results({'code': code}, callback);
+      getLastYearDriverResults: function(code, callback) {
+        return driverResource.results({ 'code': code }, callback);
       },
-      getLastYearDriverStatus:function(code, callback) {
-        return driverResource.status({'code': code}, callback);
+      getLastYearDriverStatus: function(code, callback) {
+        return driverResource.status({ 'code': code }, callback);
       },
-      getCurrentYearDriverQualify:function(code, callback) {
-        return driverResource.qualify({'code': code, 'season': currentSeason}, callback);
+      getCurrentYearDriverQualify: function(code, callback) {
+        return driverResource.qualify({ 'code': code, 'season': currentSeason }, callback);
       },
-      getCurrentYearDriverResults:function(code, callback) {
-        return driverResource.results({'code': code, 'season': currentSeason}, callback);
+      getCurrentYearDriverResults: function(code, callback) {
+        return driverResource.results({ 'code': code, 'season': currentSeason }, callback);
       },
-      getCurrentYearDriverStatus:function(code, callback) {
-        return driverResource.status({'code': code, 'season': currentSeason}, callback);
+      getCurrentYearDriverStatus: function(code, callback) {
+        return driverResource.status({ 'code': code, 'season': currentSeason }, callback);
       }
     };
 
