@@ -31,26 +31,25 @@ angular.module('f2015.hint', ['f2015.model.ergast'])
       return '';
     };
   }])
-  .directive('weatherForecastCard', ['$resource', 'raceModel', 'ergastModel', function($resource, raceModel, ergastModel) {
+  .directive('weatherForecastCard', ['$resource', 'raceModel', 'ergastModel', 'cardShowHide', function($resource, raceModel, ergastModel, cardShowHide) {
     var weatherApi = $resource('http://api.openweathermap.org/data/2.5/forecast/daily?cnt=16&mode=json&units=metric&lang=da&APPID=89ad11753c4d9dfd5d597ca8829cb331');
 
     return {
       restrict: 'E',
       scope: {},
-      replace: true,
       templateUrl: 'app/hint/weather-card.tmpl.html',
-      controllerAs: 'weatherCtrl',
-      controller: function() {
-        var vm = this;
+      controllerAs: '$ctrl',
+      controller() {
+        const $ctrl = this;
 
-        ergastModel.next(function(race) {
-          var parameters = {
+        ergastModel.next((race) => {
+          const parameters = {
             'lat': race.Circuit.Location.lat,
             'lon': race.Circuit.Location.long
           };
-          var forecasts = [];
-          weatherApi.get(parameters, function(weatherData) {
-            for (var i = 0; i < weatherData.list.length; i++) {
+          const forecasts = [];
+          weatherApi.get(parameters, (weatherData) => {
+            for (let i = 0; i < weatherData.list.length; i++) {
               if (forecasts.length === 3) {
                 forecasts.shift();
               }
@@ -59,40 +58,41 @@ angular.module('f2015.hint', ['f2015.model.ergast'])
                 break;
               }
             }
-            vm.race = raceModel.current;
-            vm.forecasts = forecasts;
+            $ctrl.race = raceModel.current;
+            $ctrl.forecasts = forecasts;
           });
         });
-
-      }
+        $ctrl.isVisible = () => $ctrl.forecasts && $ctrl.race;
+      },
+      link: cardShowHide
     };
 
   }])
-  .directive('alreadyParticipated', [function() {
+  .directive('alreadyParticipated', ['cardShowHide', function(cardShowHide) {
 
     return {
       restrict: 'E',
       scope: {},
-      controllerAs: 'alreadyParticipatedCtrl',
+      controllerAs: '$ctrl',
       templateUrl: 'app/hint/already-participated-card.tmpl.html',
       controller: ['raceModel', function(raceModel) {
-        var vm = this;
-        raceModel.current.$promise.then(function() {
-          vm.race = raceModel.get(raceModel.current.id);
+        var $ctrl = this;
+        raceModel.current.$promise.then(() => {
+          $ctrl.race = raceModel.get(raceModel.current.id);
         });
-      }]
+        $ctrl.isVisible = () => $ctrl.race && $ctrl.race.participant;
+      }],
+      link: cardShowHide
     };
 
   }])
-  .directive('lastRace', ['credentials', function(credentialsProvider) {
-
+  .directive('lastRace', ['cardShowHide', function(cardShowHide) {
     return {
+      templateUrl: 'app/hint/last-race-card.tmpl.html',
       restrict: 'E',
       scope: {},
-      replace: true,
       controllerAs: '$ctrl',
-      templateUrl: 'app/hint/last-race-card.tmpl.html',
-      controller: ['raceModel', function(raceModel) {
+      controller: ['credentials', 'raceModel', function(credentialsProvider, raceModel) {
         const $ctrl = this;
         $ctrl.currentRace = raceModel.current;
         $ctrl.race = raceModel.get('previous');
@@ -105,9 +105,10 @@ angular.module('f2015.hint', ['f2015.model.ergast'])
             });
           });
         });
-      }]
+        $ctrl.isVisible = () => $ctrl.race.name && !$ctrl.currentRace.closed;
+      }],
+      link: cardShowHide
     };
-
   }])
   .directive('developCard', ['$rootScope', 'ENV', 'raceModel', function($rootScope, ENV, raceModel) {
     return {

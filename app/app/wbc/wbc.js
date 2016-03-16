@@ -179,7 +179,6 @@ angular.module('f2015.wbc', ['f2015.model.wbc'])
       controllerAs: '$ctrl',
       controller: ['$mdDialog', '$mdToast', 'wbcModel', 'credentials', 'authenticationService', function($mdDialog, $mdToast, wbcModel, credentialsProvider, authenticationService) {
         const $ctrl = this;
-        console.log('THIS', this);
         credentialsProvider().then((credentials) => $ctrl.credentials = credentials);
 
         $ctrl.wbc = wbcModel.wbc;

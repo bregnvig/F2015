@@ -1,18 +1,16 @@
-<div flex="100" flex-gt-sm="50" ng-show="$ctrl.race.name && !$ctrl.currentRace.closed">
-  <md-card class="md-whiteframe-z1">
-    <md-toolbar>
-      <h2 class="md-toolbar-tools">
-        <span flex><i class="fa fa-trophy"></i> {{$ctrl.race.name}} {{$ctrl.race.closeDate | date:'yyyy'}}</span>
-      </h2>
-    </md-toolbar>
-    <md-card-content>
-      <md-content>
-        <p>Så blev {{$ctrl.race.name}} afgjort, og her er vinderne!</p>
-        <p><span ng-repeat="bid in $ctrl.race.bids | limitTo: 3">{{($last ? ' og ' : ($first ? '' : ', '))}} <strong>{{bid.player | playerName | noTrophy}}</strong> med {{bid.points}} point</span></p>
-        <p ng-if="$ctrl.yourPosition <= 3">
-          Op tillykke med din <i class="fa fa-2x fa-trophy" ng-class="'lastYearWBC-'+$ctrl.yourPosition"></i>
-        </p>
-      </md-content>
-    </md-card-content>
-  </md-card>
-</div>
+<md-card class="md-whiteframe-z1">
+  <md-toolbar>
+    <h2 class="md-toolbar-tools">
+      <span flex><i class="fa fa-trophy"></i> {{$ctrl.race.name}} {{$ctrl.race.closeDate | date:'yyyy'}}</span>
+    </h2>
+  </md-toolbar>
+  <md-card-content>
+    <md-content>
+      <p>Så blev {{$ctrl.race.name}} afgjort, og her er vinderne!</p>
+      <p><span ng-repeat="bid in $ctrl.race.bids | limitTo: 3">{{($last ? ' og ' : ($first ? '' : ', '))}} <strong>{{bid.player | playerName | noTrophy}}</strong> med {{bid.points}} point</span></p>
+      <p ng-if="$ctrl.yourPosition <= 3">
+        Op tillykke med din <i class="fa fa-2x fa-trophy" ng-class="'lastYearWBC-'+$ctrl.yourPosition"></i>
+      </p>
+    </md-content>
+  </md-card-content>
+</md-card>

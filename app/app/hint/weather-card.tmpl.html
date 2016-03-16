@@ -1,18 +1,16 @@
-<div flex-gt-sm="50" flex="100" ng-show="weatherCtrl.forecasts && weatherCtrl.race">
-  <md-card class="md-whiteframe-z1">
-    <md-toolbar>
-      <h2 class="md-toolbar-tools">
-        <span flex><i class="fa fa-cloud"></i> Vejrudsigt for {{weatherCtrl.race.name}}</span>
-      </h2>
-    </md-toolbar>
-    <md-card-content>
-      <md-content layout="row" layout-align="space-around center">
-        <div ng-repeat="forecast in weatherCtrl.forecasts" layout="column" layout-align="center center">
-          <strong>{{forecast.dt | amDateFormat:'dddd'}}</strong>
-          <img class="weather-data-img" src="http://openweathermap.org/img/w/{{forecast.weather[0].icon}}.png">
-          {{forecast.weather[0].description}} {{forecast.temp.day | number: 0}}&#x2103;
-        </div>
-      </md-content>
-    </md-card-content>
-  </md-card>
-</div>
+<md-card class="md-whiteframe-z1">
+  <md-toolbar>
+    <h2 class="md-toolbar-tools">
+      <span flex><i class="fa fa-cloud"></i> Vejrudsigt for {{$ctrl.race.name}}</span>
+    </h2>
+  </md-toolbar>
+  <md-card-content>
+    <md-content layout="row" layout-align="space-around center">
+      <div ng-repeat="forecast in $ctrl.forecasts" layout="column" layout-align="center center">
+        <strong>{{forecast.dt | amDateFormat:'dddd'}}</strong>
+        <img class="weather-data-img" ng-src="http://openweathermap.org/img/w/{{forecast.weather[0].icon}}.png">
+        {{forecast.weather[0].description}} {{forecast.temp.day | number: 0}}&#x2103;
+      </div>
+    </md-content>
+  </md-card-content>
+</md-card>

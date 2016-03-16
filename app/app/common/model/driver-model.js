@@ -3,11 +3,9 @@
 angular.module('f2015.model.driver', ['ngResource', 'config'])
   .factory('driverModel', ['$resource', 'ENV', function($resource, ENV) {
 
-    var driversResource = $resource(ENV.apiEndpoint+'/ws/drivers');
-    var resources;
-    var drivers = {};
-
-    resources = driversResource.query({all: true}, function(fetchedDrivers) {
+    const driversResource = $resource(ENV.apiEndpoint+'/ws/drivers');
+    const drivers = {};
+    const resources = driversResource.query({all: true}, (fetchedDrivers) => {
       fetchedDrivers.forEach(function(driver) {
         if (!drivers[driver.code]) {
           drivers[driver.code] = driver;
@@ -28,9 +26,7 @@ angular.module('f2015.model.driver', ['ngResource', 'config'])
         if (!driverIds) {
           return null;
         } else if (Array.isArray(driverIds)) {
-          return driverIds.map(function(driverId) {
-            return this.getDriver(driverId);
-          }, this);
+          return driverIds.map((driverId) => this.getDriver(driverId));
         } else {
           return this.getDriver(driverIds);
         }

@@ -35,7 +35,7 @@ angular.module('f2015.model.race', ['f2015.authentication', 'config'])
         }
       },
       submitBid: function(bid, callback) {
-        bidResource.save(null, bid, callback).$promise.then(function() {
+        bidResource.save(null, bid, callback).$promise.then(() => {
           $rootScope.$broadcast('bid-submitted');
           fullRaces = {};
           currentRace = undefined;
@@ -45,25 +45,25 @@ angular.module('f2015.model.race', ['f2015.authentication', 'config'])
         return raceResource.save({ 'id': race.id, 'intermediate': true }, result, callback);
       },
       submitResult: function(race, result, callback) {
-        var data = angular.copy(result);
-        delete data.polePositionTimeInText;
-        delete data.driver;
-        raceResource.save({ 'id': race.id }, data, callback).$promise.then(function() {
+        const data = angular.copy(result);
+        data.polePositionTimeInText = undefined;
+        data.driver = undefined;
+        raceResource.save({ 'id': race.id }, data, callback).$promise.then(() => {
           fullRaces = {};
           all = undefined;
         });
       },
       rollback: function(race, callback) {
-        raceResource.delete({ 'id': race.id }, undefined, callback).$promise.then(function() {
+        raceResource.delete({ 'id': race.id }, undefined, callback).$promise.then(() => {
           fullRaces = {};
           all = undefined;
         });
       },
       bid: function(id, playername) {
-        var race = this.get(id);
-        var result = {};
-        race.$promise.then(function() {
-          race.bids.forEach(function(bid) {
+        const race = this.get(id);
+        const result = {};
+        race.$promise.then(() => {
+          race.bids.forEach((bid) => {
             if (bid.player.playername === playername) {
               angular.copy(bid, result);
               result.driver = race.selectedDriver;
@@ -73,9 +73,9 @@ angular.module('f2015.model.race', ['f2015.authentication', 'config'])
         return result;
       },
       result: function(id) {
-        var race = this.get(id);
-        var result = {};
-        race.$promise.then(function() {
+        const race = this.get(id);
+        const result = {};
+        race.$promise.then(() => {
           if (race.raceResult) {
             angular.copy(race.raceResult, result);
             result.driver = race.selectedDriver;

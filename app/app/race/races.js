@@ -170,11 +170,11 @@ angular.module('f2015.race', ['ngMessages', 'f2015.model.race', 'f2015.model.erg
       });
     }]
   })
-  .directive('joinRaceCard', ['raceModel', function(raceModel) {
+  .directive('joinRaceCard', ['raceModel', 'cardShowHide', function(raceModel, cardShowHide) {
     return {
       restrict: 'E',
+      scope: {},
       templateUrl: 'app/race/join-race-card.tmpl.html',
-      replace: true,
       controllerAs: '$ctrl',
       controller() {
         const $ctrl = this;
@@ -184,7 +184,9 @@ angular.module('f2015.race', ['ngMessages', 'f2015.model.race', 'f2015.model.erg
           $ctrl.closingSoon = diff < (1000 * 60 * 60 * 24 * 2);
           raceModel.get(race.id).$promise.then((race) => $ctrl.participant = race.participant);
         });
-      }
+        $ctrl.isVisible = () => !$ctrl.participant;
+      },
+      link: cardShowHide
     };
   }])
   .component('createResult', {

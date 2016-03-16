@@ -2,17 +2,17 @@
 
 angular.module('f2015.model.wbc', ['ngResource', 'config'])
   .factory('wbcModel', ['$rootScope', '$resource', 'ENV', function($rootScope, $resource, ENV) {
-    var wbcEntryResource = $resource(ENV.apiEndpoint+'/ws/v2/wbc/players/:playerName', {
+    const wbcEntryResource = $resource(ENV.apiEndpoint+'/ws/v2/wbc/players/:playerName', {
       playerName: '@playerName'
     });
-    var wbcResource = $resource(ENV.apiEndpoint+'/ws/v2/wbc');
+    const wbcResource = $resource(ENV.apiEndpoint+'/ws/v2/wbc');
+    const players = {};
 
-    var wbc;
-    var players = {};
-    var graph;
+    let wbc;
+    let graph;
 
     return {
-      get: function(playername) {
+      get: (playername) => {
         if (players[playername]) {
           return players[playername];
         } else {
@@ -35,9 +35,7 @@ angular.module('f2015.model.wbc', ['ngResource', 'config'])
         return wbcResource.get();
       },
       join: function(player) {
-        return wbcEntryResource.save({'playerName': player.playername}, function() {
-          $rootScope.$broadcast('wbc-joined');
-        });
+        return wbcEntryResource.save({'playerName': player.playername}, () =>$rootScope.$broadcast('wbc-joined'));
       }
     };
 

@@ -3,29 +3,29 @@
 angular.module('f2015.model.ergast', ['ngResource'])
   .factory('ergastModel', ['$http', '$resource', function($http, $resource) {
     function resultTransformResponse(data) {
-      var mrData = angular.fromJson(data).MRData;
+      const mrData = angular.fromJson(data).MRData;
       return mrData.RaceTable.Races.length ? mrData.RaceTable.Races[0].Results : null;
     }
     function driverTransformResponse(data) {
-      var mrData = angular.fromJson(data).MRData;
+      const mrData = angular.fromJson(data).MRData;
       return mrData.RaceTable.Races.length ? mrData.RaceTable.Races : null;
     }
     function standingTransformResponse(data) {
-      var mrData = angular.fromJson(data).MRData;
+      const mrData = angular.fromJson(data).MRData;
       return mrData.StandingsTable.StandingsLists.length ? mrData.StandingsTable.StandingsLists[0].DriverStandings : [];
     }
 
-    var currentSeason = new Date().getFullYear();
-    var previousSeason = currentSeason-1;
-    var qualifyResults = {
+    const currentSeason = new Date().getFullYear();
+    const previousSeason = currentSeason-1;
+    const qualifyResults = {
       'currentSeason': {},
       'previousSeason': {}
     };
-    var raceResults = {
+    const raceResults = {
       'currentSeason': {},
       'previousSeason': {}
     };
-    var resultResource = $resource('http://ergast.com/api/f1/:season/circuits/:circuitId/:type.json',
+    const resultResource = $resource('http://ergast.com/api/f1/:season/circuits/:circuitId/:type.json',
       {
         season: previousSeason
       },
@@ -48,7 +48,7 @@ angular.module('f2015.model.ergast', ['ngResource'])
           transformResponse: [resultTransformResponse].concat($http.defaults.transformResponse)
         }
       });
-    var raceResource = $resource('http://ergast.com/api/f1/:season/:raceId.json',
+    const raceResource = $resource('http://ergast.com/api/f1/:season/:raceId.json',
       {
         season: currentSeason
       },
@@ -75,7 +75,7 @@ angular.module('f2015.model.ergast', ['ngResource'])
           transformResponse: [standingTransformResponse].concat($http.defaults.transformResponse)
         }
       });
-    var driverResource = $resource('http://ergast.com/api/f1/:season/drivers/:code/:type.json',
+    const driverResource = $resource('http://ergast.com/api/f1/:season/drivers/:code/:type.json',
       {
         season: previousSeason
       },
