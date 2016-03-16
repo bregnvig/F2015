@@ -1,25 +1,24 @@
 'use strict';
 
 angular.module('f2015.hint', ['f2015.model.ergast'])
-  .directive('lastYear', ['raceModel', 'ergastModel', function(raceModel, ergastModel) {
+  .directive('lastYear', ['raceModel', 'ergastModel', 'cardShowHide', function(raceModel, ergastModel, cardShowHide) {
     return {
       restrict: 'E',
       scope: {},
-      replace: true,
       templateUrl: 'app/hint/last-year-card.tmpl.html',
-      controllerAs: 'lastyearCtrl',
-      controller: function() {
-        var vm = this;
-        vm.race = raceModel.current;
-        vm.next = ergastModel.next(function(race) {
+      controllerAs: '$ctrl',
+      controller() {
+        var $ctrl = this;
+        $ctrl.race = raceModel.current;
+        $ctrl.next = ergastModel.next((race) => {
           if (race !== null) {
-            vm.qualify = ergastModel.getLastSeasonQualify(race.Circuit.circuitId);
-            vm.qualify.$promise.then(function() {
-              vm.results = ergastModel.getLastSeasonResults(race.Circuit.circuitId);
-            });
+            $ctrl.qualify = ergastModel.getLastSeasonQualify(race.Circuit.circuitId);
+            $ctrl.qualify.$promise.then(() => $ctrl.results = ergastModel.getLastSeasonResults(race.Circuit.circuitId));
           }
         });
-      }
+        $ctrl.isVisible = () => $ctrl.qualify && $ctrl.qualify[0];
+      },
+      link: cardShowHide
     };
 
   }])

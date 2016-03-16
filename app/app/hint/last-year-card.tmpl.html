@@ -1,20 +1,17 @@
-<div flex-gt-sm="50" flex="100" ng-show="lastyearCtrl.qualify[0]">
-  <md-card class="md-whiteframe-z1">
-    <md-toolbar>
-      <h2 class="md-toolbar-tools">
-        <span flex>{{lastyearCtrl.race.name}} {{lastyearCtrl.next.season-1}}</span>
-      </h2>
-    </md-toolbar>
-    <md-card-content>
-      <md-content>
-        <p>Sidste år var det {{lastyearCtrl.qualify[0].Driver | driverName}} der fik pole position i {{lastyearCtrl.race.name}}</p>
-        <p>{{lastyearCtrl.qualify[0].Driver | driverName}} kørte omgangen på {{lastyearCtrl.qualify[0].Q3}}</p>
-        <p><span ng-repeat="result in lastyearCtrl.results | limitTo: 3">{{($last ? ' og ' : ($first ? '' : ', ')) + (result.Driver | driverName)}}</span> endte på podiet</p>
-      </md-content>
-      <div layout="row" layout-align="end center">
-        <md-button aria-label="Se mere af sidste års resultat" ui-sref="f2015.old-race">Se mere
-        </md-button>
-      </div>
-    </md-card-content>
-  </md-card>
-</div>
+<md-card class="md-whiteframe-z1">
+  <md-toolbar>
+    <h2 class="md-toolbar-tools">
+      <span flex>{{$ctrl.race.name}} {{$ctrl.next.season-1}}</span>
+    </h2>
+  </md-toolbar>
+  <md-card-content>
+    <md-content>
+      <p>Sidste år var det {{$ctrl.qualify[0].Driver | driverName}} der fik pole position i {{$ctrl.race.name}}</p>
+      <p>{{$ctrl.qualify[0].Driver | driverName}} kørte omgangen på {{$ctrl.qualify[0].Q3}}</p>
+      <p><span ng-repeat="result in $ctrl.results | limitTo: 3">{{($last ? ' og ' : ($first ? '' : ', ')) + (result.Driver | driverName)}}</span> endte på podiet</p>
+    </md-content>
+    <div layout="row" layout-align="end center">
+      <md-button aria-label="Se mere af sidste års resultat" ui-sref="f2015.old-race">Se mere</md-button>
+    </div>
+  </md-card-content>
+</md-card>
