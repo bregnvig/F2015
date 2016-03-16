@@ -538,6 +538,7 @@ module.exports = function (grunt) {
     'clean:dist',
     'revision',
     'ngconstant:production',
+    'babel',
     'wiredep',
     'useminPrepare',
     'concurrent:dist',

@@ -79,7 +79,7 @@ angular.module('f2015.hint', ['f2015.model.ergast'])
         raceModel.current.$promise.then(() => {
           $ctrl.race = raceModel.get(raceModel.current.id);
         });
-        $ctrl.isVisible = () => $ctrl.race && $ctrl.race.participant;
+        $ctrl.isVisible = () => $ctrl.race && ($ctrl.race.participant || $ctrl.closed);
       }],
       link: cardShowHide
     };

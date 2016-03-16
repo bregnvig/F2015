@@ -184,7 +184,7 @@ angular.module('f2015.race', ['ngMessages', 'f2015.model.race', 'f2015.model.erg
           $ctrl.closingSoon = diff < (1000 * 60 * 60 * 24 * 2);
           raceModel.get(race.id).$promise.then((race) => $ctrl.participant = race.participant);
         });
-        $ctrl.isVisible = () => !$ctrl.participant;
+        $ctrl.isVisible = () => $ctrl.participant === false;
       },
       link: cardShowHide
     };
