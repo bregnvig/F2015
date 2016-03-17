@@ -127,6 +127,10 @@ loading {
   transform: translate(-50%, -50%);
 }
 
+map-card {
+  height: 280px;
+}
+
 login-card, account-warning-card, join-race-card, last-race, already-participated, after-qualify-card, last-year, join-wbc-card, map-card, weather-forecast-card {
   display: flex;
   md-card {

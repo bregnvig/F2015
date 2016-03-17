@@ -22,12 +22,11 @@
     <!-- endbuild -->
   </head>
   <body ng-app="f2015">
-    <div></div>
-    <div layout="column" layout-fill style="position: relative">
+    <div layout="column" layout-fill style="position: relative;">
       <ui-view name="header"></ui-view>
       <div layout="row" id="body" layout-align-gt-sm="center">
-        <ui-view id="menu" name="menu" flex-gt-sm="25" flex-gt-md="20"></ui-view>
-        <ui-view flex style="position: relative; overflow: auto" class="md-whiteframe-z1"></ui-view>
+        <ui-view id="menu" name="menu" flex-gt-sm="25" flex-gt-md="20" layout></ui-view>
+        <ui-view flex style="position: relative; overflow: auto" class="md-whiteframe-z1" layout></ui-view>
         <loading></loading>
 
       </div>

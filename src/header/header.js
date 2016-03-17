@@ -27,7 +27,9 @@ angular.module('f2015.header', [])
     });
     vm.account = account;
     vm.toggle = function() {
-      $mdSidenav('drawer').toggle();
+      if (!vm.closeButtonHidden) {
+        $mdSidenav('drawer').toggle();
+      }
     };
     Object.defineProperty(vm, 'loggedIn', {
       get: function() {
@@ -38,5 +40,8 @@ angular.module('f2015.header', [])
     vm.revision = ENV.revision;
     $scope.$watch('$mdSidenav(\'drawer\').isLockedOpen()', function(newValue) {
       vm.closeButtonHidden = newValue;
+      if (newValue) {
+        $mdSidenav('drawer').close();
+      }
     });
   }]);

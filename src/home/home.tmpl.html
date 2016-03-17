@@ -1,4 +1,4 @@
-<div layout="row" layout-sm="column" layout-padding>
+<div layout="row" layout-wrap layout-padding layout-fill>
   <md-content layout="row" layout-wrap layout-fill>
     <develop-card flex-gt-sm="50" flex="100" class="ng-hide"></develop-card>
     <login-card flex="100" flex-gt-sm="50" class="ng-hide"></login-card>
@@ -8,7 +8,7 @@
     <already-participated flex-gt-sm="50" flex="100" ng-if="loggedIn" class="ng-hide"></already-participated>
     <after-qualify-card flex-gt-sm="50" flex="100" class="ng-hide" ng-if="loggedIn"></after-qualify-card>
     <last-year flex-gt-sm="50" flex="100" ng-if="loggedIn" class="ng-hide"></last-year>
-    <map-card flex="100" class="ng-hide" style="height: 240px"></map-card>
+    <map-card flex="100" class="ng-hide"></map-card>
     <join-wbc-card flex-gt-sm="50" flex="100" class="ng-hide"></join-wbc-card>
     <weather-forecast-card flex-gt-sm="50" flex="100" class="ng-hide"></weather-forecast-card>
   </md-content>
