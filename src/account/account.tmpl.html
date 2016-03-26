@@ -1,12 +1,12 @@
 <md-toolbar class="md-hue-1" md-scroll-shrink>
   <h2 class="md-toolbar-tools">
-    <span flex>Bevægelser</span>
-    <md-button aria-label="Information" class="menu-button" ng-click="$ctrl.showTransferInfo()"><i class="fa fa-fw fa-lg fa-info"></i></md-button>
+    <span flex>Saldo <span ng-if="$ctrl.player | playerName" ng-bind-html="$ctrl.player | playerName"></span></span>
+    <span flex="none">{{$ctrl.account.balance}} kr</span>
   </h2>
 </md-toolbar>
 <md-content class="below-sub-header">
   <md-list>
-    <md-list-item class="md-2-line" ng-repeat-start="movement in $ctrl.account.entries track by $index">
+    <md-list-item class="md-2-line" ng-repeat-start="movement in $ctrl.account.entries">
       <div class="md-list-item-text" >
         <h3>{{::movement.message}}<strong class="pull-right" ng-class="movement.amount >= 0 ? 'amount-positive' : 'amount-negative'">{{::movement.amount}} kr</strong></h3>
         <p>{{::movement.date |  amCalendar}}</p>
@@ -15,3 +15,27 @@
     <md-divider ng-repeat-end ng-if="!$last"></md-divider>
   </md-list>
 </md-content>
+<md-button ng-if="$ctrl.ownAccount" class="md-fab md-fab-bottom-right md-accent" aria-label="Hvordan overfører jeg" ng-click="$ctrl.showTransferInfo()">
+  <md-icon md-font-icon="fa-info" class="fa fa-lg"></md-icon>
+</md-button>
+<md-fab-toolbar ng-if="!$ctrl.ownAccount"
+                md-direction="left" class="md-fab-bottom-right">
+  <md-fab-trigger>
+    <md-button aria-label="menu" class="md-fab md-accent">
+      <md-icon md-font-icon="fa-bars" class="fa fa-fw fa-lg" ></md-icon>
+    </md-button>
+  </md-fab-trigger>
+  <md-toolbar>
+    <md-fab-actions class="md-toolbar-tools" style="height: 68px; max-height: 68px;">
+      <md-button aria-label="Indsæt penge" ng-click="$ctrl.openDeposit()">
+        Indsæt
+      </md-button>
+      <md-button aria-label="Hæv penge" ng-click="$ctrl.openWithdraw()">
+        Hæv
+      </md-button>
+      <md-button aria-label="Overfør penge" ng-click="$ctrl.openTransfer()">
+        Overfør
+      </md-button>
+    </md-fab-actions>
+  </md-toolbar>
+</md-fab-toolbar>

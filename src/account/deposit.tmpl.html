@@ -1,0 +1,31 @@
+<md-dialog aria-label="Indsæt penge" class="account-dialog">
+  <form name="$ctrl.depositForm">
+    <md-toolbar class="md-hue-1">
+      <h2 class="md-toolbar-tools">Indsæt penge</h2>
+    </md-toolbar>
+    <md-dialog-content layout layout-padding layout-wrap>
+      <md-input-container flex="100" style="margin-top: 18px">
+        <label>Beløb</label>
+        <input type="number" min="0" max="500" name="message" ng-model="$ctrl.form.amount" required>
+        <div ng-messages="$ctrl.depositForm.message.$error">
+          <div ng-message="required">Beløb er påkrævet</div>
+        </div>
+      </md-input-container>
+      <md-input-container flex="100">
+        <label>Besked</label>
+        <input type="text" name="message" ng-model="$ctrl.form.message" maxlength="50" placeholder="Overført via MobilePay">
+        <div ng-messages="$ctrl.depositForm.message.$error">
+          <div ng-message="maxlength">Beskeden må maksimalt være 50 tegn.</div>
+        </div>
+      </md-input-container>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <md-button ng-disabled="$ctrl.depositForm.$invalid" ng-click="$ctrl.deposit()">
+        Indsæt
+      </md-button>
+      <md-button ng-click="$ctrl.close()" class="md-warn">
+        Annuller
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

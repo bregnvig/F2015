@@ -1,0 +1,14 @@
+<md-toolbar class="md-hue-1" md-scroll-shrink>
+  <h2 class="md-toolbar-tools">
+    <span flex>Konti</span>
+  </h2>
+</md-toolbar>
+<md-content class="below-sub-header">
+  <md-list>
+    <md-list-item class="md-1-line" ng-repeat="player in $ctrl.players track by $index" ui-sref="f2015.account({playerName: player.playername})">
+      <div class="md-list-item-text" >
+        <h3>{{::player | playerName | noTrophy}}</h3>
+      </div>
+    </md-list-item>
+  </md-list>
+</md-content>

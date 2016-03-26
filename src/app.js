@@ -19,6 +19,7 @@ angular
     'f2015.model.race',
     'f2015.model.driver',
     'f2015.model.wbc',
+    'f2015.model.account',
     'f2015.header',
     'f2015.account',
     'f2015.race',
@@ -61,14 +62,6 @@ angular
           '@': {
             templateUrl: 'app/home/home.tmpl.html',
             controller: 'HomeCtrl'
-          }
-        }
-      })
-      .state('f2015.account', {
-        url: '/account',
-        views: {
-          '@': {
-            template: '<account></account>'
           }
         }
       })

@@ -53,10 +53,6 @@ $margin-size: 6px;
   }
 }
 
-.md-button.md-fab.md-fab-bottom-right {
-  position: fixed;
-}
-
 md-content {
   &.below-sub-header {
     position:absolute;
@@ -166,6 +162,14 @@ login-card, account-warning-card, join-race-card, last-race, already-participate
   text-align: left;
 }
 
+.text-center {
+  text-align: center;
+}
+
+.top-margin {
+  margin-top: $margin-size;
+}
+
 ._md-list-item-inner {
   width: initial !important;
 }
@@ -176,6 +180,7 @@ login-card, account-warning-card, join-race-card, last-race, already-participate
   margin: 0;
   padding: 0;
 }
+
 
 join-wbc-card {
   display: flex;
@@ -199,6 +204,12 @@ already-participated {
     color: darkgray;
   }
 }
+
+.account-dialog {
+  width: 400px;
+}
+
+//md-fab-actions
 
 @import "list";
 @import "enter-bid";

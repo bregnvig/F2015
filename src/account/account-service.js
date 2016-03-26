@@ -1,22 +1,18 @@
 'use strict';
 
-angular.module('f2015.account', ['ngResource', 'config', 'ngMaterial'])
-  .factory('account', ['$window', '$rootScope', '$resource', 'ENV', 'credentials', function($window, $rootScope, $resource, ENV, credentials) {
+angular.module('f2015.account', ['f2015.model.account', 'config', 'ngMaterial'])
+  .factory('account', ['$rootScope', 'ENV', 'credentials', 'Account', function($rootScope, ENV, credentials, Account) {
 
     var account = {};
 
-    var accountBackend = $resource(ENV.apiEndpoint + '/ws/v2/player/:playerName/account', {
-      'playerName': '@playername'
-    });
-
     function refreshAccount(params) {
-      accountBackend.get(params, function(result) {
+      Account.get(params, function(result) {
         angular.copy(result, account);
       });
     }
 
     credentials().then(function(player) {
-      var params = {
+      const params = {
         playerName: player.playername
       };
       refreshAccount(params);
@@ -27,8 +23,6 @@ angular.module('f2015.account', ['ngResource', 'config', 'ngMaterial'])
         refreshAccount(params);
       });
     });
-
-
     return account;
   }]);
 
