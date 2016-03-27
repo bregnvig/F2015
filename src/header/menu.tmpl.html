@@ -34,8 +34,8 @@
           <i class="fa fa-fw fa-lg fa-dollar"></i> Konto <span ng-if="menu.account.balance"> - {{menu.account.balance}} kr</span>
         </md-button>
       </md-list-item>
-      <md-list-item>
-        <md-button class="md-primary menu-button" ui-sref="f2015.accounts" ng-click="menu.toggle()" ng-if="menu.credentials.bankAdministrator">
+      <md-list-item ng-if="menu.credentials.bankAdministrator">
+        <md-button class="md-primary menu-button" ui-sref="f2015.accounts" ng-click="menu.toggle()">
           <i class="fa fa-fw fa-lg fa-bank"></i> Konti</span>
         </md-button>
       </md-list-item>
