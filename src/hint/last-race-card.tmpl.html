@@ -11,6 +11,9 @@
       <p ng-if="$ctrl.yourPosition <= 3">
         Op tillykke med din <i class="fa fa-2x fa-trophy" ng-class="'lastYearWBC-'+$ctrl.yourPosition"></i>
       </p>
+      <p ng-if="$ctrl.yourPosition > 3">
+        Du blev selv nummer {{$ctrl.yourPosition}}.
+      </p>
     </md-content>
   </md-card-content>
 </md-card>
