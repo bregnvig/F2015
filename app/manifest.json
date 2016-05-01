@@ -1,6 +1,6 @@
 {
     "lang": "da",
-    "name": "F2015",
+    "name": "F2016",
     "display": "fullscreen",
     "icons": [
         {
@@ -16,7 +16,6 @@
             "type": "image/png"
         }
     ],
-    "orientation": "portrait",
     "start_url": "/index.html",
     "theme_color": "#208F14",
     "background_color": "white"

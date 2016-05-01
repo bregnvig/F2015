@@ -7,7 +7,7 @@
   <md-content class="below-sub-header-stationary">
     <section>
       <md-subheader class="md-primary">Grid</md-subheader>
-        <div layout layout-sm="column" layout-padding>
+        <div layout="column" layout-gt-sm="row" layout-padding>
           <md-input-container flex>
             <label flex>Vælg 1. kører</label>
             <md-select name="grid0" ng-model="$ctrl.bid.grid[0]" unique="$ctrl.bid.grid" required>
@@ -27,7 +27,7 @@
             </div>
           </md-input-container>
         </div>
-        <div layout layout-sm="column" layout-padding>
+        <div layout="column" layout-gt-sm="row" layout-padding>
           <md-input-container flex>
             <label flex>Vælg 3. kører</label>
             <md-select name="grid2" ng-model="$ctrl.bid.grid[2]" unique="$ctrl.bid.grid" required>
@@ -47,7 +47,7 @@
             </div>
           </md-input-container>
         </div>
-        <div layout layout-sm="column" layout-padding>
+        <div layout="column" layout-gt-sm="row" layout-padding>
           <md-input-container flex>
             <label flex>Vælg 5. kører</label>
             <md-select name="grid4" ng-model="$ctrl.bid.grid[4]" unique="$ctrl.bid.grid" required>
@@ -81,7 +81,7 @@
     </section>
     <section>
       <md-subheader class="md-primary">Podium</md-subheader>
-      <div layout layout-sm="column" layout-padding>
+      <div layout="column" layout-gt-sm="row" layout-padding>
         <md-input-container flex>
           <label flex>Vælg 1. pladsen</label>
           <md-select name="podium0" ng-model="$ctrl.bid.podium[0]" unique="$ctrl.bid.podium" required>
@@ -115,7 +115,7 @@
       <md-subheader class="md-primary" layout="column">
         <span flex ng-bind="$ctrl.race.selectedDriver.name"><i class="fa fa-spin fa-spinner"></i></span>
       </md-subheader>
-      <div layout layout-sm="column" layout-padding>
+      <div layout="column" layout-gt-sm="row" layout-padding>
         <md-input-container flex>
           <label flex>Vælg startsplacering</label>
           <md-select name="startPosition" ng-model="$ctrl.bid.selectedDriver[0]" required>

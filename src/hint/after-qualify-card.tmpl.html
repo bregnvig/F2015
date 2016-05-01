@@ -8,11 +8,11 @@
     <md-content>
       <p>Efter kvalifikationen er kørt ser det ca. sådan her ud:</p>
       <ul>
-        <li ng-repeat="bid in $ctrl.bids | limitTo: limit"><strong ng-bind-html="bid.player | playerName | noTrophy"></strong> - {{bid.points}} point</li>
+        <li ng-repeat="bid in $ctrl.bids | limitTo: $ctrl.limit"><strong ng-bind-html="bid.player | playerName | noTrophy"></strong> - {{bid.points}} point</li>
       </ul>
     </md-content>
     <div layout="row" layout-align="end center">
-      <md-button aria-label="Se mere af delresultatet" ng-click="$ctrl.showToggle()" ng-bind="limit === 3 ? 'Se mere' : 'Se mindre'">
+      <md-button aria-label="Se mere af delresultatet" ng-click="$ctrl.showToggle()" ng-bind="$ctrl.limit === 3 ? 'Se mere' : 'Se mindre'">
 
       </md-button>
     </div>
