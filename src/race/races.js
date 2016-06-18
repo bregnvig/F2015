@@ -196,9 +196,9 @@ angular.module('f2015.race', ['ngMessages', 'f2015.model.race', 'f2015.model.erg
       raceModel.get($stateParams.id).$promise.then((selectedRace) => {
         $ctrl.race = selectedRace;
         ergastModel.getCurrentResults(selectedRace.circuitId).$promise.then((results) => {
-          $ctrl.bid = raceResultCreator(selectedRace.selectedDriver.code, results);
-          $ctrl.bid.driver = selectedRace.selectedDriver;
           ergastModel.getCurrentQualify(selectedRace.circuitId).$promise.then((qualifyResult) => {
+            $ctrl.bid = raceResultCreator(selectedRace.selectedDriver.code, results, qualifyResult);
+            $ctrl.bid.driver = selectedRace.selectedDriver;
             const result = qualifyResult[0].Q3 || qualifyResult[0].Q2 || qualifyResult[0].Q1;
             const times = /(\d):(\d{2})\.(\d{3})/.exec(result);
             let millis = times[1] * 1000 * 60;
@@ -216,7 +216,7 @@ angular.module('f2015.race', ['ngMessages', 'f2015.model.race', 'f2015.model.erg
   })
   .factory('raceResultCreator', ['driverModel', function(driverModel) {
 
-    return function(selectedDriverCode, results) {
+    return function(selectedDriverCode, ergastRaceResult, ergastQualifyResult) {
       const raceResult = {
         grid: [],
         fastestLap: undefined,
@@ -225,11 +225,13 @@ angular.module('f2015.race', ['ngMessages', 'f2015.model.race', 'f2015.model.erg
         selectedDriver: [],
         polePositionTime: undefined
       };
-      results.forEach((result) => {
-        const driverId = result.Driver.driverId;
-        if (result.grid <= 7) {
-          raceResult.grid[result.grid - 1] = driverModel.getDriver(driverId);
+      ergastQualifyResult.forEach((result) => {
+        if (result.position <= 7) {
+          raceResult.grid[result.position - 1] = driverModel.getDriver(result.Driver.driverId);
         }
+      });
+      ergastRaceResult.forEach((result) => {
+        const driverId = result.Driver.driverId;
         if (result.FastestLap && result.FastestLap.rank === '1') {
           raceResult.fastestLap = driverModel.getDriver(driverId);
         }
