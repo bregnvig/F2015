@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('f2015.model.ergast', ['ngResource'])
-  .factory('ergastModel', ['$http', '$resource', function($http, $resource) {
+  .factory('ergastModel', ['$http', '$resource', 'ENV', function($http, $resource, ENV) {
     function resultTransformResponse(data) {
       const mrData = angular.fromJson(data).MRData;
       return mrData.RaceTable.Races.length ? mrData.RaceTable.Races[0].Results : null;
@@ -27,7 +27,7 @@ angular.module('f2015.model.ergast', ['ngResource'])
       'currentSeason': {},
       'previousSeason': {}
     };
-    const resultResource = $resource('http://ergast.com/api/f1/:season/circuits/:circuitId/:type.json',
+    const resultResource = $resource(`${ENV.ergastEndpoint}/api/f1/:season/circuits/:circuitId/:type.json`,
       {
         season: previousSeason
       },
@@ -50,7 +50,7 @@ angular.module('f2015.model.ergast', ['ngResource'])
           transformResponse: [resultTransformResponse].concat($http.defaults.transformResponse)
         }
       });
-    const raceResource = $resource('http://ergast.com/api/f1/:season/:raceId.json',
+    const raceResource = $resource(`${ENV.ergastEndpoint}/api/f1/:season/:raceId.json`,
       {
         season: currentSeason
       },
@@ -66,7 +66,7 @@ angular.module('f2015.model.ergast', ['ngResource'])
         'results': {
           method: 'get',
           cache: true,
-          url: 'http://ergast.com/api/f1/current/results.json',
+          url: `${ENV.ergastEndpoint}/api/f1/current/results.json`,
           transformResponse: [resultTransformResponse].concat($http.defaults.transformResponse)
         },
         'standings': {
@@ -77,7 +77,7 @@ angular.module('f2015.model.ergast', ['ngResource'])
           transformResponse: [standingTransformResponse].concat($http.defaults.transformResponse)
         }
       });
-    const driverResource = $resource('http://ergast.com/api/f1/:season/drivers/:code/:type.json',
+    const driverResource = $resource(`${ENV.ergastEndpoint}/api/f1/:season/drivers/:code/:type.json`,
       {
         season: previousSeason
       },

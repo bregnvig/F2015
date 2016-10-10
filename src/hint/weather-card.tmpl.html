@@ -8,7 +8,7 @@
     <md-content layout="row" layout-align="space-around center">
       <div ng-repeat="forecast in $ctrl.forecasts" layout="column" layout-align="center center">
         <strong>{{forecast.dt | amDateFormat:'dddd'}}</strong>
-        <img class="weather-data-img" ng-src="http://openweathermap.org/img/w/{{forecast.weather[0].icon}}.png">
+        <img class="weather-data-img" ng-src="{{$ctrl.openWeatherMapEndpoint}}/img/w/{{forecast.weather[0].icon}}.png">
         {{forecast.weather[0].description}} {{forecast.temp.day | number: 0}}&#x2103;
       </div>
     </md-content>

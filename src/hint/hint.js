@@ -30,8 +30,8 @@ angular.module('f2015.hint', ['f2015.model.ergast'])
       return '';
     };
   }])
-  .directive('weatherForecastCard', ['$resource', 'raceModel', 'ergastModel', 'cardShowHide', function($resource, raceModel, ergastModel, cardShowHide) {
-    var weatherApi = $resource('http://api.openweathermap.org/data/2.5/forecast/daily?cnt=16&mode=json&units=metric&lang=da&APPID=89ad11753c4d9dfd5d597ca8829cb331');
+  .directive('weatherForecastCard', ['$resource', 'raceModel', 'ergastModel', 'cardShowHide', 'ENV', function($resource, raceModel, ergastModel, cardShowHide, ENV) {
+    var weatherApi = $resource(`${ENV.openWeatherMapEndpoint}/data/2.5/forecast/daily?cnt=16&mode=json&units=metric&lang=da&APPID=89ad11753c4d9dfd5d597ca8829cb331`);
 
     return {
       restrict: 'E',
@@ -40,6 +40,8 @@ angular.module('f2015.hint', ['f2015.model.ergast'])
       controllerAs: '$ctrl',
       controller() {
         const $ctrl = this;
+
+        $ctrl.openWeatherMapEndpoint = ENV.openWeatherMapEndpoint;
 
         ergastModel.next((race) => {
           const parameters = {

@@ -468,7 +468,9 @@ module.exports = function (grunt) {
         constants: {
           ENV: {
             name: 'development',
-            apiEndpoint: 'http://localhost:8080/f2007'
+            apiEndpoint: 'http://localhost:8080/f2007',
+            ergastEndpoint: 'http://ergast.com',
+            openWeatherMapEndpoint: 'http://api.openweathermap.org',
           }
         }
       },
@@ -479,7 +481,9 @@ module.exports = function (grunt) {
         constants: {
           ENV: {
             name: 'production',
-            apiEndpoint: 'https://formel1.bregnvig.dk/'
+            apiEndpoint: 'https://formel1.bregnvig.dk/',
+            ergastEndpoint: 'https://ergast.bregnvig.dk',
+            openWeatherMapEndpoint: 'https://openweathermap.bregnvig.dk',
           }
         }
       }
