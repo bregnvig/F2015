@@ -479,7 +479,7 @@ module.exports = function (grunt) {
         constants: {
           ENV: {
             name: 'production',
-            apiEndpoint: 'http://formel1.bregnvig.dk/'
+            apiEndpoint: 'https://formel1.bregnvig.dk/'
           }
         }
       }
