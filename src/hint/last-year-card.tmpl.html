@@ -7,7 +7,7 @@
   <md-card-content>
     <md-content>
       <p>Sidste år var det {{$ctrl.qualify[0].Driver | driverName}} der fik pole position i {{$ctrl.race.name}}</p>
-      <p>{{$ctrl.qualify[0].Driver | driverName}} kørte omgangen på {{$ctrl.qualify[0].Q3}}</p>
+      <p>{{$ctrl.qualify[0].Driver | driverName}} kørte omgangen på {{$ctrl.qualify[0].Q3 || $ctrl.qualify[0].Q2 || $ctrl.qualify[0].Q1}}</p>
       <p><span ng-repeat="result in $ctrl.results | limitTo: 3">{{($last ? ' og ' : ($first ? '' : ', ')) + (result.Driver | driverName)}}</span> endte på podiet</p>
     </md-content>
     <div layout="row" layout-align="end center">

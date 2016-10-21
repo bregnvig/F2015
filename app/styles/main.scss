@@ -60,7 +60,7 @@ md-content {
     width: 100%;
   }
   &.below-sub-header-stationary {
-    position:absolute;
+    position:relative;
     height: calc(100% - 64px);
     width: 100%;
   }
