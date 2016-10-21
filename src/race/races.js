@@ -15,7 +15,7 @@ angular.module('f2015.race', ['ngMessages', 'f2015.model.race', 'f2015.model.erg
         url: '/race/last-year',
         views: {
           '@': {
-            template: '<old-race></old-race>',
+            template: '<old-race class="flex"></old-race>',
           }
         }
       })
