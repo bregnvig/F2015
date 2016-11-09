@@ -23,7 +23,7 @@ angular.module('f2015.wbc', ['f2015.model.wbc'])
         url: '/graph',
         views: {
           '@': {
-            template: '<wbc-graph></wbc-graph>'
+            template: '<wbc-graph style="height: calc(100vh - 64px)"></wbc-graph>'
           }
         }
       });
