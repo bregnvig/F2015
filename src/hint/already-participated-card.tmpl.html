@@ -8,7 +8,7 @@
     <md-content>
       <p>Lige nu har de følgende spillet:</p>
       <p>
-        <span ng-repeat="bid in $ctrl.race.bids">{{$first ? '' : ', '}}<a ui-sref="f2015.race.bid({id:$ctrl.race.id, player:bid.player.playername})">{{bid.player.firstName}}</a></span>
+        <span ng-repeat="bid in $ctrl.race.bids">{{$first ? '' : ', '}}<a ui-sref="f2015.race.bid({id:$ctrl.race.id, player:bid.player.playername})">{{bid.player | playerName | noTrophy}}</a></span>
       </p>
     </md-content>
     <div layout="row" layout-align="end center">

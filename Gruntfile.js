@@ -523,7 +523,6 @@ module.exports = function (grunt) {
     }
 
     grunt.task.run([
-      'jscs',
       'clean:server',
       'revision',
       'ngconstant:development',
