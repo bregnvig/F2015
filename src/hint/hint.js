@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('f2015.hint', ['f2015.model.ergast'])
-  .directive('lastYear', ['raceModel', 'ergastModel', 'cardShowHide', function(raceModel, ergastModel, cardShowHide) {
+  .directive('lastYear', ['raceModel', 'ergastModel', 'cardShowHide', function (raceModel, ergastModel, cardShowHide) {
     return {
       restrict: 'E',
       scope: {},
@@ -22,15 +22,15 @@ angular.module('f2015.hint', ['f2015.model.ergast'])
     };
 
   }])
-  .filter('driverName', [function() {
-    return function(driver) {
+  .filter('driverName', [function () {
+    return function (driver) {
       if (driver && driver.givenName) {
         return driver.familyName;
       }
       return '';
     };
   }])
-  .directive('weatherForecastCard', ['$resource', 'raceModel', 'ergastModel', 'cardShowHide', 'ENV', function($resource, raceModel, ergastModel, cardShowHide, ENV) {
+  .directive('weatherForecastCard', ['$resource', 'raceModel', 'ergastModel', 'cardShowHide', 'ENV', function ($resource, raceModel, ergastModel, cardShowHide, ENV) {
     var weatherApi = $resource(`${ENV.openWeatherMapEndpoint}/data/2.5/forecast/daily?cnt=16&mode=json&units=metric&lang=da&APPID=89ad11753c4d9dfd5d597ca8829cb331`);
 
     return {
@@ -69,14 +69,14 @@ angular.module('f2015.hint', ['f2015.model.ergast'])
     };
 
   }])
-  .directive('alreadyParticipated', ['cardShowHide', function(cardShowHide) {
+  .directive('alreadyParticipated', ['cardShowHide', function (cardShowHide) {
 
     return {
       restrict: 'E',
       scope: {},
       controllerAs: '$ctrl',
       templateUrl: 'app/hint/already-participated-card.tmpl.html',
-      controller: ['raceModel', function(raceModel) {
+      controller: ['raceModel', function (raceModel) {
         var $ctrl = this;
         raceModel.current.$promise.then(() => {
           $ctrl.race = raceModel.get(raceModel.current.id);
@@ -87,13 +87,13 @@ angular.module('f2015.hint', ['f2015.model.ergast'])
     };
 
   }])
-  .directive('lastRace', ['cardShowHide', function(cardShowHide) {
+  .directive('lastRace', ['cardShowHide', function (cardShowHide) {
     return {
       templateUrl: 'app/hint/last-race-card.tmpl.html',
       restrict: 'E',
       scope: {},
       controllerAs: '$ctrl',
-      controller: ['credentials', 'raceModel', function(credentialsProvider, raceModel) {
+      controller: ['credentials', 'raceModel', function (credentialsProvider, raceModel) {
         const $ctrl = this;
         $ctrl.currentRace = raceModel.current;
         $ctrl.race = raceModel.get('previous');
@@ -111,7 +111,7 @@ angular.module('f2015.hint', ['f2015.model.ergast'])
       link: cardShowHide
     };
   }])
-  .directive('mapCard', ['ergastModel', 'cardShowHide', function(ergastModel, cardShowHide) {
+  .directive('mapCard', ['ergastModel', 'cardShowHide', function (ergastModel, cardShowHide) {
     return {
       templateUrl: 'app/hint/map-card.tmpl.html',
       restrict: 'E',
@@ -137,17 +137,27 @@ angular.module('f2015.hint', ['f2015.model.ergast'])
       link: cardShowHide
     };
   }])
-  .directive('developCard', ['$rootScope', 'ENV', function($rootScope, ENV) {
+  .directive('developCard', ['$rootScope', 'ENV', function ($rootScope, ENV) {
     return {
       restrict: 'E',
       scope: {},
       templateUrl: 'app/hint/develop-card.tmpl.html',
-      link: function($scope) {
+      link: function ($scope) {
         if (ENV.name === 'development') {
           // element.removeClass('ng-hide');
-          $scope.testIt = function() {
+          $scope.testIt = function () {
           };
         }
+      }
+    };
+  }])
+  .directive('thankYouCard', [function () {
+    return {
+      restrict: 'E',
+      scope: {},
+      templateUrl: 'app/hint/thank-you-card.tmpl.html',
+      controllerAs: '$ctrl',
+      controller() {
       }
     };
   }]);
