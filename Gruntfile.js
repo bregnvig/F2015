@@ -502,7 +502,7 @@ module.exports = function (grunt) {
     },
     jscs: {
       options: {
-        'config': true,
+        'config': false,
         verbose: true
       },
       files: {
